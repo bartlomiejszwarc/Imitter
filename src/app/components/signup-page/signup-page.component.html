@@ -1,0 +1,67 @@
+<div
+  class="flex flex-col items-center justify-center bg-[url('assets/images/bglogin.svg')] bg-cover w-full h-screen space-y-10">
+  <span class="text-slate-100 text-6xl text-center">Sign up to Imitter</span>
+  <div
+    class="flex flex-col items-center bg-slate-100 py-16 px-20 rounded-lg lg:w-1/4 w-3/4">
+    <div class="flex flex-col space-y-4 md:w-56 w-full">
+      <div class="flex flex-col space-y-2">
+        <input
+          class="border-[1px] border-slate-400 w-full rounded-2xl p-2 pl-4 outline-none"
+          placeholder="Unique username"
+          [(ngModel)]="this.username" />
+        <input
+          class="border-[1px] border-slate-400 w-full rounded-2xl p-2 pl-4 outline-none"
+          placeholder="Display name"
+          [(ngModel)]="this.displayName" />
+
+        <input
+          class="border-[1px] border-slate-400 w-full rounded-2xl p-2 pl-4 outline-none"
+          placeholder="Password"
+          type="password"
+          [(ngModel)]="this.password" />
+        <button (click)="uploadImage.click()">
+          <input
+            type="file"
+            class="hidden"
+            #uploadImage
+            (change)="onImageUpload($event)" />
+          <div class="flex flex-col items-center justify-center space-x-2">
+            <span>Choose your profile picture</span
+            ><mat-icon class="text-sky-500">add_photo_alternate</mat-icon>
+          </div>
+        </button>
+        <div
+          *ngIf="this.profilePicture"
+          class="flex flex-col items-center justify-center">
+          <span class="font-light text-sm text-slate-700">Choosen image </span
+          ><img src="{{ this.profilePicture }}" class="profile-image" />
+        </div>
+
+        <p
+          class="w-48 md:w-64 text-center text-red-600 font-medium"
+          *ngIf="this.authService.registerMessage">
+          {{ this.authService.registerMessage }}
+        </p>
+      </div>
+
+      <button
+        class="rounded-2xl bg-black text-white py-[6px] font-medium"
+        (click)="
+          this.register(
+            this.username,
+            this.password,
+            this.displayName,
+            this.profilePicture
+          )
+        ">
+        Sign up
+      </button>
+    </div>
+    <div class="flex flex-row justify-center pt-4">
+      <span class="font-light text-center"
+        >Already have an account?
+        <button class="text-sky-700 font-medium">Sign in</button>
+      </span>
+    </div>
+  </div>
+</div>

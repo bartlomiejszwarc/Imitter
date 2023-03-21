@@ -1,0 +1,13 @@
+<div class="grid grid-cols-3 justify-center justify-items-center pt-8">
+  <div class="flex justify-self-end pt-16">
+    <app-dashboard-sidebar></app-dashboard-sidebar>
+  </div>
+  <div class="border-l-[1px] border-r-[1px] border-slate-200 w-11/12 h-screen">
+    <app-dashboard-create></app-dashboard-create>
+    <app-post [posts]="posts" [postLoaded]="postLoaded"></app-post>
+  </div>
+  <div class="flex flex-col justify-self-start pt-16 space-y-4">
+    <app-dashboard-search></app-dashboard-search>
+    <app-dashboard-trends></app-dashboard-trends>
+  </div>
+</div>

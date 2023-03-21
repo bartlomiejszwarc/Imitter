@@ -1,0 +1,18 @@
+1. Storing user's posts ids 
+
+2. Storing user's liked posts ids 
+
+3. Storing posts likes (users ids) DONE 
+
+4. formGroup - optional
+
+5. Password check
+
+6. Login check - only letters and numbers
+
+7. Change any to typed (User, Post)
+
+8. 
+
+
+

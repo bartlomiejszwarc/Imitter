@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "imitterbackend": {
+      "hosting": {
+        "imitter": [
+          "imitterbackend"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "imitterbackend"
+  }
+}

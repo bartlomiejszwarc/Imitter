@@ -1,0 +1,7 @@
+.profile-image {
+  max-width: 80%;
+  max-height: 80%;
+  clip-path: circle();
+  object-fit: cover;
+  margin-top: 0.75rem;
+}
