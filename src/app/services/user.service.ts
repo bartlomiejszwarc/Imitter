@@ -14,7 +14,7 @@ export class UserService {
       'http://localhost:3000/userdata/' + id
     );
   }
-  updateUserData(
+  async updateUserData(
     id: string,
     displayName: string,
     bio: string,

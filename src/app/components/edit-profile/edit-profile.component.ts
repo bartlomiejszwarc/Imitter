@@ -17,7 +17,7 @@ export class EditProfileComponent implements OnInit {
     private sharedService: SharedService
   ) {}
 
-  user: any;
+  user!: any;
   bio!: string;
   location!: string;
   displayName!: string;

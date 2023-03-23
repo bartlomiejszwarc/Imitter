@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
-import { PostService } from 'src/app/services/post.service';
 import { EditProfileComponent } from '../edit-profile/edit-profile.component';
 
 @Component({
@@ -14,21 +13,15 @@ import { EditProfileComponent } from '../edit-profile/edit-profile.component';
 export class ProfileUserDetailsComponent implements OnInit {
   constructor(
     private authService: AuthService,
-    private postService: PostService,
     public dialog: MatDialog,
     private sharedService: SharedService
-  ) {
-    this.userDataSubscription = this.sharedService
-      .getClickEvent()
-      .subscribe(() => {
-        this.getUserData();
-      });
-  }
+  ) {}
   user!: any;
   userDataSubscription!: Subscription;
 
   async ngOnInit(): Promise<void> {
     this.getUserData();
+    this.subscribeUserData();
   }
   openDialog(): void {
     const dialogRef = this.dialog.open(EditProfileComponent, {
@@ -41,5 +34,13 @@ export class ProfileUserDetailsComponent implements OnInit {
 
   async getUserData() {
     this.user = await this.authService.getUserData();
+  }
+
+  subscribeUserData() {
+    this.userDataSubscription = this.sharedService
+      .getClickEvent()
+      .subscribe(() => {
+        this.getUserData();
+      });
   }
 }
