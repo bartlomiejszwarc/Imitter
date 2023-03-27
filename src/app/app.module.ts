@@ -32,6 +32,7 @@ import { ProfileUserDetailsComponent } from './components/profile-user-details/p
 import { MatMenuModule } from '@angular/material/menu';
 import { PostLikesListComponent } from './components/post-likes-list/post-likes-list.component';
 import { UserLikesComponent } from './components/user-likes/user-likes.component';
+import { UserNotFoundComponent } from './components/user-not-found/user-not-found.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { UserLikesComponent } from './components/user-likes/user-likes.component
     ProfileUserDetailsComponent,
     PostLikesListComponent,
     UserLikesComponent,
+    UserNotFoundComponent,
   ],
   imports: [
     BrowserModule,

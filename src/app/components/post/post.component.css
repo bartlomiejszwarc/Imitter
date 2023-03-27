@@ -25,7 +25,6 @@
 }
 .mat-dialog-container {
   border-radius: 10px !important;
-  background-color: red;
 }
 mat-form-field {
   width: 100%;

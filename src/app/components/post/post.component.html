@@ -17,14 +17,14 @@
         </div>
         <div class="flex flex-col">
           <div class="flex flex-col break-words">
-            <span
-              *ngIf="liked"
-              class="text-slate-700 flex flex-row items-center"
+            <span *ngIf="liked" class="text-slate-700 flex flex-row items-center"
               ><mat-icon class="icon-heart-liked-list">favorite</mat-icon>
               {{ userLiked }} liked</span
             >
             <div>
-              <span class="font-medium text-lg">
+              <span
+                class="font-medium text-lg cursor-pointer"
+                [routerLink]="['/profile', post.author.username]">
                 {{ post?.author?.displayName }}</span
               >
               <span *ngIf="post.author" class="font-thin text-lg">
@@ -32,9 +32,7 @@
               >
 
               <div>
-                <span class="font-thin">
-                  {{ post?.date | date : 'h:mm a • MMM dd, yyyy' }}</span
-                >
+                <span class="font-thin"> {{ post?.date | date : 'h:mm a • MMM dd, yyyy' }}</span>
               </div>
             </div>
             <div class="pt-2">
@@ -47,7 +45,7 @@
             <div class="flex flex-row space-x-4 py-2">
               <button
                 class="flex flex-row items-center space-x-1"
-                (click)="onUpdateLikesCounter(post._id, post)">
+                (click)="onUpdateLikesCounter(post._id, post, currentProfile)">
                 <mat-icon
                   *ngIf="!checkUserLike(this.post.likedByIdArray)"
                   class="text-sky-600 hover:bg-sky-100 rounded-full"
@@ -60,16 +58,12 @@
                 >
               </button>
               <button (click)="openDialog(post)">
-                <span class="font-semibold pt-[3px] text-sky-600">{{
-                  post?.likesCounter
-                }}</span>
+                <span class="font-semibold pt-[3px] text-sky-600">{{ post?.likesCounter }}</span>
               </button>
               <button
                 class="flex flex-row items-center space-x-1"
-                (click)="onUpdateLikesCounter(post._id, post)">
-                <mat-icon class="text-sky-600 hover:bg-sky-100 rounded-full"
-                  >chat</mat-icon
-                >
+                (click)="onUpdateLikesCounter(post._id, post, currentProfile)">
+                <mat-icon class="text-sky-600 hover:bg-sky-100 rounded-full">chat</mat-icon>
                 <span class="font-semibold pt-[3px] text-sky-600">{{ 0 }}</span>
               </button>
             </div>
@@ -84,9 +78,7 @@
     </button>
     <mat-menu #menu="matMenu" xPosition="before">
       <div class="flex flex-col px-3 space-y-2">
-        <button
-          *ngIf="post?.author?._id === user?.userdata?._id"
-          (click)="onDeletePost(post._id)">
+        <button *ngIf="post?.author?._id === user?.userdata?._id" (click)="onDeletePost(post._id)">
           <span class="text-slate-800 text-base">Delete this Imitt</span>
         </button>
         <button (click)="onDeletePost(post._id)">
@@ -97,9 +89,7 @@
   </div>
 </div>
 
-<div
-  *ngIf="posts?.length === 0 && postLoaded"
-  class="flex flex-col items-center pt-4">
+<div *ngIf="posts?.length === 0 && postLoaded" class="flex flex-col items-center pt-4">
   <p class="text-slate-800 font-light text-2xl">Nothing to see here</p>
 </div>
 <div *ngIf="!postLoaded" class="flex flex-row justify-center pt-8 w-full">

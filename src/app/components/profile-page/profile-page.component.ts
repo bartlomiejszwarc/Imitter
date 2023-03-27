@@ -1,12 +1,12 @@
-import { EditProfileComponent } from './../edit-profile/edit-profile.component';
-import { AuthService } from './../../services/auth.service';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { PostService } from 'src/app/services/post.service';
-import {
-  MatDialog,
-  MAT_DIALOG_DATA,
-  MatDialogRef,
-} from '@angular/material/dialog';
+import {delay, of, Subscription} from 'rxjs';
+import {EditProfileComponent} from './../edit-profile/edit-profile.component';
+import {AuthService} from './../../services/auth.service';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {PostService} from 'src/app/services/post.service';
+import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {UserService} from 'src/app/services/user.service';
+import {ActivatedRoute} from '@angular/router';
+import {Post} from 'src/app/objects/Post';
 
 @Component({
   selector: 'app-profile-page',
@@ -18,30 +18,61 @@ export class ProfilePageComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private postService: PostService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private userService: UserService,
+    private activatedRoute: ActivatedRoute
   ) {}
   user!: any;
   usersPosts!: any;
+  usersPostsSubscription!: Subscription;
   usersLikedPosts!: any;
   postLoaded: boolean = false;
+  usernameFromUrl!: string;
+  userFound: boolean = true;
 
   async ngOnInit(): Promise<void> {
-    this.user = await this.authService.getUserData();
-    this.postService.getUsersPosts(this.user.userdata._id).subscribe(res => {
-      this.usersPosts = res;
-      this.postLoaded = true;
-    });
-    this.postService
-      .getUserLikedPosts(this.user.userdata._id)
-      .subscribe(res => {
-        this.usersLikedPosts = res;
-        console.log(res);
-        this.postLoaded = true;
-      });
+    await this.getParam();
+    this.getUsersPosts();
+    this.getUsersLikedPosts();
   }
 
-  getUsersPosts(): any {
-    this.postService.getUsersPosts(this.user.userdata.id);
+  async getParam() {
+    if (this.activatedRoute.snapshot.paramMap.get('username')) {
+      this.usernameFromUrl = this.activatedRoute.snapshot.paramMap.get('username') || '';
+      this.user = await this.userService.getDataByUsername(this.usernameFromUrl).catch((error) => {
+        if (error.status === 404) {
+          this.userFound = false;
+        }
+      });
+    } else {
+      this.user = await this.authService.getUserData();
+    }
+  }
+
+  getUsersPosts() {
+    if (this.user) {
+      this.postService.getUsersPosts(this.user?.userdata._id).subscribe((res) => {
+        this.usersPosts = res;
+        this.postLoaded = true;
+      });
+      this.postService.getUsersPostsUpdatedListener().subscribe((res: Post[]) => {
+        this.usersPosts = res;
+        this.postLoaded = true;
+      });
+    }
+  }
+
+  getUsersLikedPosts() {
+    if (this.user) {
+      this.postService.getUserLikedPosts(this.user.userdata._id).subscribe((res) => {
+        this.usersLikedPosts = res;
+        this.postLoaded = true;
+      });
+      this.postService.getUsersLikedPostsUpdatedListener().subscribe((res) => {
+        this.usersLikedPosts = res;
+        this.postLoaded = true;
+      });
+    }
   }
   openDialog(): void {
     const dialogRef = this.dialog.open(EditProfileComponent, {

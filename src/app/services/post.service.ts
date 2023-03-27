@@ -1,11 +1,11 @@
-import { PostComponent } from './../components/post/post.component';
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { concatMap, delay, map, Observable, Subject, tap } from 'rxjs';
-import { Post } from '../objects/Post';
-import { CreatePost } from '../objects/CreatePost';
-import { DatePipe } from '@angular/common';
-import { AuthService } from './auth.service';
+import {PostComponent} from './../components/post/post.component';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {concatMap, delay, map, Observable, Subject, tap} from 'rxjs';
+import {Post} from '../objects/Post';
+import {CreatePost} from '../objects/CreatePost';
+import {DatePipe} from '@angular/common';
+import {AuthService} from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,17 +14,27 @@ export class PostService {
   constructor(private http: HttpClient) {}
 
   private posts: Post[] = [];
+  private usersPosts: Post[] = [];
+  private usersLikedPosts: Post[] = [];
   private postsUpdated = new Subject<Post[]>();
+  private usersLikedPostsUpdated = new Subject<Post[]>();
+  private userPostsUpdated = new Subject<Post[]>();
   postsApi = 'http://localhost:3000/api/posts';
 
+  getUsersPostsUpdatedListener() {
+    return this.userPostsUpdated.asObservable();
+  }
   getPostsUpdatedListener() {
     return this.postsUpdated.asObservable();
   }
+  getUsersLikedPostsUpdatedListener() {
+    return this.usersLikedPostsUpdated.asObservable();
+  }
 
   getPosts() {
-    return this.http.get<{ message: string; posts: any[] }>(this.postsApi).pipe(
-      map(postData => {
-        return postData.posts.map(post => {
+    return this.http.get<{message: string; posts: any[]}>(this.postsApi).pipe(
+      map((postData) => {
+        return postData.posts.map((post) => {
           return {
             _id: post._id,
             text: post.text,
@@ -40,9 +50,25 @@ export class PostService {
   }
 
   getUsersPosts(id: string) {
-    return this.http.get(
-      'http://localhost:3000/users'.concat('/').concat(id).concat('/posts')
-    );
+    return this.http
+      .get<{message: string; posts: any[]}>(
+        'http://localhost:3000/users'.concat('/').concat(id).concat('/posts')
+      )
+      .pipe(
+        map((postData) => {
+          return postData.posts.map((post) => {
+            return {
+              _id: post._id,
+              text: post.text,
+              date: post.date,
+              imageUrl: post.imageUrl,
+              likesCounter: post.likesCounter,
+              author: post.author,
+              likedByIdArray: post.likedByIdArray,
+            };
+          });
+        })
+      );
   }
 
   addPost(content: string, postAuthor: any, image?: HTMLInputElement) {
@@ -60,12 +86,9 @@ export class PostService {
       author: author,
     };
 
-    const postsUpdated = this.http.post<{ posts: Post[]; message: string }>(
-      this.postsApi,
-      post
-    );
-    postsUpdated.subscribe(res => {
-      this.getPosts().subscribe(res => {
+    const postsUpdated = this.http.post<{posts: Post[]; message: string}>(this.postsApi, post);
+    postsUpdated.subscribe((res) => {
+      this.getPosts().subscribe((res) => {
         this.posts = res;
         this.postsUpdated.next([...this.posts]);
       });
@@ -77,25 +100,42 @@ export class PostService {
   }
 
   getUserLikedPosts(id: string) {
-    return this.http.get(
-      'http://localhost:3000/users/'.concat(id).concat('/likes')
-    );
+    return this.http
+      .get<{message: string; posts: any[]}>(
+        'http://localhost:3000/users/'.concat(id).concat('/likes')
+      )
+      .pipe(
+        map((postData) => {
+          return postData.posts.map((post) => {
+            return {
+              _id: post._id,
+              text: post.text,
+              date: post.date,
+              imageUrl: post.imageUrl,
+              likesCounter: post.likesCounter,
+              author: post.author,
+              likedByIdArray: post.likedByIdArray,
+            };
+          });
+        })
+      );
   }
 
   deletePost(id: string, userId: string) {
-    const postsUpdated = this.http.delete(
-      this.postsApi.concat('/').concat(id),
-      { body: { userId } }
-    );
-    postsUpdated.subscribe(res => {
-      this.getPosts().subscribe(res => {
+    const postsUpdated = this.http.delete(this.postsApi.concat('/').concat(id), {body: {userId}});
+    postsUpdated.subscribe((res) => {
+      this.getPosts().subscribe((res) => {
         this.posts = res;
         this.postsUpdated.next([...this.posts]);
+      });
+      this.getUsersPosts(userId).subscribe((res) => {
+        this.usersPosts = res;
+        this.userPostsUpdated.next([...this.usersPosts]);
       });
     });
   }
 
-  updateLikesCount(id: string, post: Post, userId: string) {
+  updateLikesCount(id: string, post: Post, userId: string, profileId: string) {
     const updatedPost = {
       text: post.text,
       date: post.date,
@@ -108,11 +148,29 @@ export class PostService {
       .put(this.postsApi.concat('/').concat(id), updatedPost)
       .pipe(
         tap(() =>
-          this.getPosts().subscribe(res => {
+          this.getPosts().subscribe((res) => {
             this.posts = res;
             this.postsUpdated.next([...this.posts]);
           })
         )
+      )
+      .pipe(
+        tap(() => {
+          this.getUsersPosts(profileId).subscribe((res) => {
+            this.usersPosts = res;
+            this.userPostsUpdated.next([...this.usersPosts]);
+          });
+        })
+      )
+      .pipe(
+        tap(() => {
+          if (profileId) {
+            this.getUserLikedPosts(profileId).subscribe((res) => {
+              this.usersLikedPosts = res;
+              this.usersLikedPostsUpdated.next([...this.usersLikedPosts]);
+            });
+          }
+        })
       )
       .subscribe();
   }

@@ -2,27 +2,30 @@
   <div class="flex justify-self-end pt-16">
     <app-dashboard-sidebar></app-dashboard-sidebar>
   </div>
-  <div class="border-l-[1px] border-r-[1px] border-slate-200 w-11/12 h-screen">
-    <app-profile-user-details></app-profile-user-details>
+  <div
+    class="border-l-[1px] border-r-[1px] border-slate-200 w-11/12 h-screen"
+    *ngIf="this.user?.userdata?.username">
+    <app-profile-user-details [username]="this.user?.userdata.username"></app-profile-user-details>
     <div class="">
-      <mat-tab-group
-        mat-align-tabs="center"
-        mat-stretch-tabs="true dynamicHeight">
+      <mat-tab-group mat-align-tabs="center" mat-stretch-tabs="true dynamicHeight">
         <mat-tab label="Imitts">
-          <app-post
-            [posts]="usersPosts?.posts"
-            [postLoaded]="postLoaded"></app-post>
+          <app-post [posts]="usersPosts" [postLoaded]="postLoaded"></app-post>
         </mat-tab>
         <mat-tab label="Likes">
           <app-post
-            [posts]="usersLikedPosts?.posts"
+            [posts]="usersLikedPosts"
             [postLoaded]="postLoaded"
             [liked]="true"
-            [userLiked]="user.userdata.displayName"></app-post>
+            [userLiked]="user?.userdata?.displayName"
+            [currentProfile]="user?.userdata?._id"></app-post>
         </mat-tab>
       </mat-tab-group>
     </div>
   </div>
+  <div *ngIf="!userFound" class="flex flex-col items-center justify-center px-16 pt-16">
+    <app-user-not-found [username]="this.usernameFromUrl"></app-user-not-found>
+  </div>
+
   <div class="flex flex-col justify-self-start pt-16 space-y-4">
     <app-dashboard-search></app-dashboard-search>
     <app-dashboard-trends></app-dashboard-trends>

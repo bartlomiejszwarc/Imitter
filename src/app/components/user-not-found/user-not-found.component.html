@@ -1,0 +1,18 @@
+<div class="flex flex-col items-center">
+  <div class="flex flex-col items-left justify-center space-y-2">
+    <div class="flex flex-col justify-start items-start">
+      <span class="text-sky-700 text-2xl">@{{ this.username }}</span>
+    </div>
+    <span class="text-3xl font-semibold text-left text-slate-900">This account doesn't exist</span>
+    <span class="text-xl text-left text-slate-600 font-light">Try searching for another.</span>
+  </div>
+  <img
+    class="scale-75"
+    src="../../../assets/images/undraw_user_not_found.svg
+  " />
+  <button
+    class="rounded-full w-1/2 font-thin bg-sky-600 text-slate-50 px-4 py-1 text-xl"
+    routerLink="/dashboard">
+    Go to your feed
+  </button>
+</div>

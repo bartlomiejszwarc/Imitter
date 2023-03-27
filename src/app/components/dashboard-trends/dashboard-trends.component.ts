@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Trend } from 'src/app/objects/Trend';
+import {Component, OnInit} from '@angular/core';
+import {Trend} from 'src/app/objects/Trend';
 
 @Component({
   selector: 'app-dashboard-trends',
@@ -13,12 +13,12 @@ export class DashboardTrendsComponent implements OnInit {
     {
       category: 'University',
       text: 'Payass',
-      counter: 2137,
+      counter: 143347,
     },
     {
       category: 'University',
       text: 'Beetroot',
-      counter: 143347,
+      counter: 2136,
     },
     {
       category: 'Sport',

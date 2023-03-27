@@ -1,8 +1,8 @@
-import { UserService } from './../../services/user.service';
-import { AuthService } from './../../services/auth.service';
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
-import { SharedService } from 'src/app/services/shared.service';
+import {UserService} from './../../services/user.service';
+import {AuthService} from './../../services/auth.service';
+import {Component, OnInit} from '@angular/core';
+import {MatDialogRef} from '@angular/material/dialog';
+import {SharedService} from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -27,14 +27,17 @@ export class EditProfileComponent implements OnInit {
     this.displayName = this.user.userdata.displayName;
     this.location = this.user.userdata.location;
   }
-  updateUserData() {
-    this.userService.updateUserData(
-      this.user.userdata._id,
-      this.displayName,
-      this.bio,
-      this.location
-    );
-    this.sharedService.sendClickEvent();
+  async updateUserData() {
+    (
+      await this.userService.updateUserData(
+        this.user.userdata._id,
+        this.displayName,
+        this.bio,
+        this.location
+      )
+    ).subscribe(() => {
+      this.sharedService.sendClickEvent();
+    });
   }
 
   closeDialog() {
