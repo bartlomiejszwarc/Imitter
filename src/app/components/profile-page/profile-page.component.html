@@ -7,7 +7,10 @@
     *ngIf="this.user?.userdata?.username">
     <app-profile-user-details [username]="this.user?.userdata.username"></app-profile-user-details>
     <div class="">
-      <mat-tab-group mat-align-tabs="center" mat-stretch-tabs="true dynamicHeight">
+      <mat-tab-group
+        mat-align-tabs="center"
+        mat-stretch-tabs="true dynamicHeight"
+        fitInkBarToContent>
         <mat-tab label="Imitts">
           <app-post [posts]="usersPosts" [postLoaded]="postLoaded"></app-post>
         </mat-tab>
