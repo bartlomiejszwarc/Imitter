@@ -144,7 +144,6 @@ export class PostService {
       author: post.author,
       userId: userId,
     };
-    console.log(profileId);
     this.http
       .put(this.postsApi.concat('/').concat(id), updatedPost)
       .pipe(
@@ -157,16 +156,17 @@ export class PostService {
       )
       .pipe(
         tap(() => {
-          this.getUsersPosts(profileId).subscribe((res) => {
-            this.usersPosts = res;
-            this.userPostsUpdated.next([...this.usersPosts]);
-          });
+          if (profileId) {
+            this.getUsersPosts(profileId).subscribe((res) => {
+              this.usersPosts = res;
+              this.userPostsUpdated.next([...this.usersPosts]);
+            });
+          }
         })
       )
       .pipe(
         tap(() => {
           if (profileId) {
-            console.log(profileId);
             this.getUserLikedPosts(profileId).subscribe((res) => {
               this.usersLikedPosts = res;
               this.usersLikedPostsUpdated.next([...this.usersLikedPosts]);
