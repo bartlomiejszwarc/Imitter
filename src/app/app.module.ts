@@ -7,9 +7,7 @@ import {LoginWindowComponent} from './components/login-window/login-window.compo
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {SignupPageComponent} from './components/signup-page/signup-page.component';
 import {ListComponent} from './components/list/list.component';
-import {AngularFireModule} from '@angular/fire/compat/';
 import {DashboardPageComponent} from './components/dashboard-page/dashboard-page.component';
-import {AngularFireAuthModule} from '@angular/fire/compat/auth';
 import {DashboardSidebarComponent} from './components/dashboard-sidebar/dashboard-sidebar.component';
 import {DashboardCreateComponent} from './components/dashboard-create/dashboard-create.component';
 import {PostComponent} from './components/post/post.component';
@@ -31,6 +29,7 @@ import {UserNotFoundComponent} from './components/user-not-found/user-not-found.
 import {FormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {DashboardRightPanelComponent} from './components/dashboard-right-panel/dashboard-right-panel.component';
 
 @NgModule({
   declarations: [
@@ -51,13 +50,12 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     PostLikesListComponent,
     UserLikesComponent,
     UserNotFoundComponent,
+    DashboardRightPanelComponent,
   ],
   imports: [
     AppRoutingModule,
     MatFormFieldModule,
     FormsModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule,
     MatIconModule,
     HttpClientModule,
     MatDialogModule,

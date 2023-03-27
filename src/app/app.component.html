@@ -1,1 +1,16 @@
-<router-outlet></router-outlet>
+<div class="flex flex-row items-start justify-center">
+  <div class="w-40 pt-12" *ngIf="router.url !== '/login' && router.url !== '/signup'">
+    <app-dashboard-sidebar></app-dashboard-sidebar>
+  </div>
+  <div class="w-full h-auto" *ngIf="router.url === '/login' || router.url === '/signup'">
+    <router-outlet></router-outlet>
+  </div>
+  <div
+    class="mx-8 w-4/12 border-x-[1px] h-auto pt-12"
+    *ngIf="router.url !== '/login' && router.url !== '/signup'">
+    <router-outlet></router-outlet>
+  </div>
+  <div class="w-64 pt-12" *ngIf="router.url !== '/login' && router.url !== '/signup'">
+    <app-dashboard-right-panel></app-dashboard-right-panel>
+  </div>
+</div>
