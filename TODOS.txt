@@ -1,0 +1,8 @@
+ - Add "Follow" button to profile of each user
+ - Add "Follow" button to to list of users that liked posts
+ - Store list of users that user follows
+ - Add to profile "Following" ( fetching ids of users that follows this user - User.find where is user id  )
+ - Add to profile "Followers" (fetchind ids of users that user follows)
+ - Add to profile page "You might like" (to follow) instead of "Trends for you" (where will be users followed by each user that has most followers)
+ - Add followers you know (so mutual following people)
+ - Users Likes - cant go to profile page - fix

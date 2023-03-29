@@ -1,10 +1,10 @@
-import {SharedService} from './../../services/shared.service';
-import {Component, Input, OnInit, OnChanges} from '@angular/core';
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {delay, Subscription} from 'rxjs';
-import {AuthService} from 'src/app/services/auth.service';
-import {EditProfileComponent} from '../edit-profile/edit-profile.component';
-import {UserService} from 'src/app/services/user.service';
+import { SharedService } from './../../services/shared.service';
+import { Component, Input, OnInit, OnChanges } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { delay, Subscription } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
+import { EditProfileComponent } from '../edit-profile/edit-profile.component';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-profile-user-details',
@@ -23,9 +23,12 @@ export class ProfileUserDetailsComponent implements OnInit {
   currentUser!: any;
   userDataSubscription!: Subscription;
   canEdit: boolean = false;
+  isOwner: boolean = false;
 
   ngAfterContentInit() {
-    this.getCurrentUserData().then(() => this.checkIfCanEdit());
+    this.getCurrentUserData()
+      .then(() => this.checkIfCanEdit())
+      .then(() => this.checkIfUserIsOwner());
   }
   async ngOnInit(): Promise<void> {
     this.getUserData();
@@ -42,13 +45,24 @@ export class ProfileUserDetailsComponent implements OnInit {
   }
 
   subscribeUserData() {
-    this.userDataSubscription = this.sharedService.getClickEvent().subscribe(() => {
-      this.getUserData();
-    });
+    this.userDataSubscription = this.sharedService
+      .getClickEvent()
+      .subscribe(() => {
+        this.getUserData();
+      });
   }
   checkIfCanEdit(): void {
-    if (this.user?.userdata?.username === this.currentUser?.userdata?.username) {
+    if (
+      this.user?.userdata?.username === this.currentUser?.userdata?.username
+    ) {
       this.canEdit = true;
+    }
+  }
+  checkIfUserIsOwner(): void {
+    if (
+      this.user?.userdata?.username !== this.currentUser?.userdata?.username
+    ) {
+      this.isOwner = true;
     }
   }
 

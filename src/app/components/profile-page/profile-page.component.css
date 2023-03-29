@@ -32,4 +32,9 @@
   color: #0f172a;
   font-weight: 500;
   font-size: 1rem;
+  transition: 0.25s;
+}
+.mat-tab-label:hover {
+  background-color: #cbd5e1;
+  transition: 0.25s;
 }

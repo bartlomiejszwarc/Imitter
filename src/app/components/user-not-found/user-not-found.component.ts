@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-user-not-found',
@@ -8,6 +8,6 @@ import {Component, Input, OnInit} from '@angular/core';
 export class UserNotFoundComponent implements OnInit {
   constructor() {}
 
-  @Input() username!: string;
+  @Input() username!: Promise<any>;
   ngOnInit(): void {}
 }
