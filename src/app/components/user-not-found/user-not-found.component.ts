@@ -8,6 +8,6 @@ import { Component, Input, OnInit } from '@angular/core';
 export class UserNotFoundComponent implements OnInit {
   constructor() {}
 
-  @Input() username!: Promise<any>;
+  @Input() username!: string;
   ngOnInit(): void {}
 }

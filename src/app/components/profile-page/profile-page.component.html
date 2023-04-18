@@ -1,19 +1,9 @@
 <div *ngIf="this.user?.userdata?.username">
-  <app-profile-user-details
-    [username]="this.user?.userdata.username"
-  ></app-profile-user-details>
+  <app-profile-user-details [username]="this.user?.userdata.username"></app-profile-user-details>
   <div class="">
-    <mat-tab-group
-      mat-align-tabs="center"
-      mat-stretch-tabs="true dynamicHeight"
-      fitInkBarToContent="true"
-    >
+    <mat-tab-group mat-align-tabs="center" mat-stretch-tabs="true dynamicHeight" fitInkBarToContent="true">
       <mat-tab label="Imitts">
-        <app-post
-          [posts]="usersPosts"
-          [postLoaded]="postLoaded"
-          [currentProfile]="user?.userdata?._id"
-        ></app-post>
+        <app-post [posts]="usersPosts" [postLoaded]="postLoaded" [currentProfile]="user?.userdata?._id"></app-post>
       </mat-tab>
       <mat-tab label="Likes">
         <app-post
@@ -21,15 +11,11 @@
           [postLoaded]="postLoaded"
           [liked]="true"
           [userLiked]="user?.userdata?.displayName"
-          [currentProfile]="user?.userdata?._id"
-        ></app-post>
+          [currentProfile]="user?.userdata?._id"></app-post>
       </mat-tab>
     </mat-tab-group>
   </div>
 </div>
-<div
-  *ngIf="!userFound"
-  class="flex flex-col items-center justify-center px-16 pt-16"
->
-  <app-user-not-found [username]="getParam()"></app-user-not-found>
+<div *ngIf="!userFound" class="flex flex-col items-center justify-center px-16 pt-16">
+  <app-user-not-found [username]="this.usernameFromUrl"></app-user-not-found>
 </div>

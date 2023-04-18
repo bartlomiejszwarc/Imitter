@@ -1,22 +1,34 @@
 import { SharedService } from './../../services/shared.service';
-import { Component, Input, OnInit, OnChanges } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { delay, Subscription } from 'rxjs';
+import {
+  BehaviorSubject,
+  delay,
+  firstValueFrom,
+  lastValueFrom,
+  Observable,
+  of,
+  shareReplay,
+  Subscription,
+  tap,
+} from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { EditProfileComponent } from '../edit-profile/edit-profile.component';
 import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/objects/User';
 
 @Component({
   selector: 'app-profile-user-details',
   templateUrl: './profile-user-details.component.html',
   styleUrls: ['./profile-user-details.component.css'],
 })
-export class ProfileUserDetailsComponent implements OnInit {
+export class ProfileUserDetailsComponent implements OnInit, OnDestroy {
   constructor(
     private authService: AuthService,
     public dialog: MatDialog,
     private sharedService: SharedService,
-    private userService: UserService
+    private userService: UserService,
+    private cdr: ChangeDetectorRef
   ) {}
   @Input() username!: any;
   user!: any;
@@ -24,47 +36,109 @@ export class ProfileUserDetailsComponent implements OnInit {
   userDataSubscription!: Subscription;
   canEdit: boolean = false;
   isOwner: boolean = false;
+  isFollowed!: boolean;
+  canShowButton: boolean = false;
+  userFollowersIdList: string[] = [];
+  isLoaded: boolean = false;
+  isFollowersEmpty: boolean = false;
+  userFollowersDetailsList: User[] = [];
+  followersCount!: number;
+  user$ = new BehaviorSubject<any>(null);
 
-  ngAfterContentInit() {
-    this.getCurrentUserData()
-      .then(() => this.checkIfCanEdit())
-      .then(() => this.checkIfUserIsOwner());
-  }
   async ngOnInit(): Promise<void> {
-    this.getUserData();
-    this.subscribeUserData();
+    await this.getUserData().then(() => {
+      this.subscribeUserData();
+      this.getCurrentUserData()
+        .then(() => this.checkIfCanEdit())
+        .then(async () => await this.checkIfUserIsOwner())
+        .then(() => this.checkIsFollowed(this?.user?.userdata)) // blad
+        .then(() => (this.canShowButton = true))
+        .then(() => this.getFollowersId())
+        .then(() => this.getFollowersDetails(this.userFollowersIdList));
+    });
   }
-  async ngDoCheck() {}
-  async ngOnChanges(): Promise<void> {}
 
   async getUserData() {
-    this.user = await this.userService.getDataByUsername(this.username);
+    this.userService.getDataByUsername(this.username).subscribe((user) => {
+      this.user = user;
+    });
   }
   async getCurrentUserData() {
     this.currentUser = await this.authService.getUserData();
   }
 
   subscribeUserData() {
-    this.userDataSubscription = this.sharedService
-      .getClickEvent()
-      .subscribe(() => {
-        this.getUserData();
-      });
+    this.userDataSubscription = this.sharedService.getClickEvent().subscribe(() => {
+      this.getUserData();
+    });
+    this.sharedService.getUserData().subscribe((user) => {
+      this.user = user;
+    });
   }
   checkIfCanEdit(): void {
-    if (
-      this.user?.userdata?.username === this.currentUser?.userdata?.username
-    ) {
+    if (this.user?.userdata?.username === this.currentUser?.userdata?.username) {
       this.canEdit = true;
     }
   }
-  checkIfUserIsOwner(): void {
-    if (
-      this.user?.userdata?.username !== this.currentUser?.userdata?.username
-    ) {
+  async checkIfUserIsOwner() {
+    if (this.user?.userdata?.username === this.currentUser?.userdata?.username) {
       this.isOwner = true;
     }
   }
+  async onFollowUser(userToFollowId: string) {
+    this.userService.followUser(userToFollowId, this.currentUser.userdata._id).subscribe((res: any) => {
+      if (res.followed) {
+        this.isFollowed = true;
+      } else {
+        this.isFollowed = false;
+      }
+      this.getUserData();
+    });
+  }
+  async checkIsFollowed(user: User) {
+    this.isFollowed = user?.followers?.includes(this.currentUser?.userdata?._id);
+  }
+
+  getFollowersId() {
+    const followersList = this.user.userdata.followers;
+    followersList.forEach((followerId: string) => {
+      this.userFollowersIdList.push(followerId);
+    });
+    if (this.userFollowersIdList.length === 0) {
+      this.isFollowersEmpty = true;
+    }
+    this.isLoaded = true;
+    return this.userFollowersIdList;
+  }
+
+  getFollowersDetails(followersList: Array<string>) {
+    followersList.forEach((followerId: string) => {
+      this.userService.getUserData(followerId).subscribe((user) => {
+        this.userFollowersDetailsList.push(user.userdata);
+      });
+    });
+  }
+
+  //Getting IDs of users that liked post
+  // getUsersIdList() {
+  //   const usersList = this.postDetails.post.likedByIdArray;
+  //   usersList.forEach((user: string) => {
+  //     this.postUsersIdList?.push(user);
+  //   });
+  //   if (this.postUsersIdList?.length === 0) {
+  //     this.isFollowersEmpty= true;
+  //   }
+  //   this.isLoaded = true;
+
+  //   return this.postUsersIdList;
+  // }
+  // getUsersDetails(usersList: Array<string>) {
+  //   usersList.forEach((userId: string) => {
+  //     this.userService.getUserData(userId).subscribe(res => {
+  //       this.postUsersDetailsList?.push(res.userdata);
+  //     });
+  //   });
+  // }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(EditProfileComponent, {
@@ -73,5 +147,10 @@ export class ProfileUserDetailsComponent implements OnInit {
   }
   closeDialog(): void {
     this.dialog.closeAll();
+  }
+  ngOnDestroy(): void {
+    this.user = null;
+    this.username = null;
+    this.userDataSubscription.unsubscribe();
   }
 }

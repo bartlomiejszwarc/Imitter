@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { firstValueFrom, map, Subject, switchMap } from 'rxjs';
+import { firstValueFrom, lastValueFrom, map, of, Subject, switchMap } from 'rxjs';
 import * as moment from 'moment';
 import { User } from '../objects/User';
 
@@ -19,18 +19,14 @@ export class AuthService {
   invokeGetUserData = new EventEmitter();
 
   async getUserData() {
-    return await firstValueFrom(this.getUserById());
+    return firstValueFrom(this.getUserById());
   }
 
   getUserById() {
-    return this.http
-      .get<{ userData: string }>(
-        'http://localhost:3000/me/' + localStorage.getItem('token')
-      )
-      .pipe(
-        switchMap(res => this.getUser(res.userData.replace(/"/g, ''))),
-        map(res => (this.user = res))
-      );
+    return this.http.get<{ userData: string }>('http://localhost:3000/me/' + localStorage.getItem('token')).pipe(
+      switchMap((res) => this.getUser(res.userData.replace(/"/g, ''))),
+      map((res) => (this.user = res))
+    );
   }
 
   getUser(id: string) {
@@ -41,12 +37,7 @@ export class AuthService {
     localStorage.removeItem('expires_at');
   }
 
-  register(
-    username: string,
-    password: string,
-    displayName: string,
-    profilePicture?: HTMLInputElement
-  ) {
+  register(username: string, password: string, displayName: string, profilePicture?: HTMLInputElement) {
     const user = {
       username: username,
       password: password,
@@ -58,7 +49,7 @@ export class AuthService {
       next: () => {
         this.router.navigate(['/login']);
       },
-      error: err => {
+      error: (err) => {
         this.registerMessage = err.error.error;
       },
     });
@@ -93,7 +84,7 @@ export class AuthService {
         user: string;
         message: string;
       }>(this.loginApi, loginBody)
-      .subscribe(response => {
+      .subscribe((response) => {
         this.setSession(response);
         this.getUserById();
         this.router.navigate(['/dashboard']);

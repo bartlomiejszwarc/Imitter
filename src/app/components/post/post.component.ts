@@ -14,11 +14,7 @@ import { User } from 'src/app/objects/User';
   encapsulation: ViewEncapsulation.None,
 })
 export class PostComponent implements OnInit {
-  constructor(
-    public postService: PostService,
-    public authService: AuthService,
-    public dialog: MatDialog
-  ) {}
+  constructor(public postService: PostService, public authService: AuthService, public dialog: MatDialog) {}
 
   @Input() posts: Post[] = [];
   @Input() postLoaded!: boolean;
@@ -32,17 +28,12 @@ export class PostComponent implements OnInit {
     this.user = await this.authService.getUserData();
   }
 
-  onDeletePost(id: string) {
-    this.postService.deletePost(id, this.user.userdata._id);
+  onDeletePost(id: string, currentProfile: string) {
+    this.postService.deletePost(id, this.user.userdata._id, currentProfile);
   }
 
   onUpdateLikesCounter(id: string, post: Post, currentProfile: string) {
-    this.postService.updateLikesCount(
-      id,
-      post,
-      this.user.userdata._id,
-      currentProfile
-    );
+    this.postService.updateLikesCount(id, post, this.user.userdata._id, currentProfile);
   }
 
   checkUserLike(post: Post['likedByIdArray']): boolean {

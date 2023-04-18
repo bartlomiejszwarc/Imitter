@@ -30,6 +30,8 @@ import {FormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {DashboardRightPanelComponent} from './components/dashboard-right-panel/dashboard-right-panel.component';
+import { FollowListComponent } from './components/follow-list/follow-list.component';
+import { ProfileDetailsCardComponent } from './components/profile-details-card/profile-details-card.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +53,8 @@ import {DashboardRightPanelComponent} from './components/dashboard-right-panel/d
     UserLikesComponent,
     UserNotFoundComponent,
     DashboardRightPanelComponent,
+    FollowListComponent,
+    ProfileDetailsCardComponent,
   ],
   imports: [
     AppRoutingModule,

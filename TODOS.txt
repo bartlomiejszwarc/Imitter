@@ -5,4 +5,4 @@
  - Add to profile "Followers" (fetchind ids of users that user follows)
  - Add to profile page "You might like" (to follow) instead of "Trends for you" (where will be users followed by each user that has most followers)
  - Add followers you know (so mutual following people)
- - Users Likes - cant go to profile page - fix
+- Checking for token (if its off then logout)

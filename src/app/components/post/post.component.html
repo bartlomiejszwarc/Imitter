@@ -18,18 +18,13 @@
         <div class="flex flex-col">
           <div class="flex flex-col break-words">
             <span *ngIf="liked" class="text-slate-700 flex flex-row items-center"
-              ><mat-icon class="icon-heart-liked-list">favorite</mat-icon>
-              {{ userLiked }} liked</span
+              ><mat-icon class="icon-heart-liked-list">favorite</mat-icon> {{ userLiked }} liked</span
             >
             <div>
-              <span
-                class="font-medium text-lg cursor-pointer"
-                [routerLink]="['/profile', post.author.username]">
+              <span class="font-medium text-lg cursor-pointer" [routerLink]="['/profile', post.author.username]">
                 {{ post?.author?.displayName }}</span
               >
-              <span *ngIf="post.author" class="font-thin text-lg">
-                @{{ post?.author?.username }}</span
-              >
+              <span *ngIf="post.author" class="font-thin text-lg"> @{{ post?.author?.username }}</span>
 
               <div>
                 <span class="font-thin"> {{ post?.date | date : 'h:mm a • MMM dd, yyyy' }}</span>
@@ -78,10 +73,10 @@
     </button>
     <mat-menu #menu="matMenu" xPosition="before">
       <div class="flex flex-col px-3 space-y-2">
-        <button *ngIf="post?.author?._id === user?.userdata?._id" (click)="onDeletePost(post._id)">
+        <button *ngIf="post?.author?._id === user?.userdata?._id" (click)="onDeletePost(post._id, currentProfile)">
           <span class="text-slate-800 text-base">Delete this Imitt</span>
         </button>
-        <button (click)="onDeletePost(post._id)">
+        <button (click)="onDeletePost(post._id, currentProfile)">
           <span class="text-slate-800 text-base">Report this Imitt</span>
         </button>
       </div>

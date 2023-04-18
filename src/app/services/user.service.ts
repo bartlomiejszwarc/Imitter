@@ -11,31 +11,31 @@ export class UserService {
 
   userUpdateApi = 'http://localhost:3000/api/users';
   getUserData(id: string) {
-    return this.http.get<{ userdata: User }>(
-      'http://localhost:3000/userdata/' + id
-    );
+    return this.http.get<{ userdata: User }>('http://localhost:3000/userdata/' + id);
   }
-  async updateUserData(
-    id: string,
-    displayName: string,
-    bio: string,
-    location: string
-  ) {
+  updateUserData(id: string, displayName: string, bio: string, location: string) {
     const updatedUserData = {
       id: id,
       displayName: displayName,
       bio: bio,
       location: location,
     };
-    return this.http.put(
-      this.userUpdateApi.concat('/').concat(id),
-      updatedUserData
-    );
+    return this.http.put(this.userUpdateApi.concat('/').concat(id), updatedUserData);
   }
 
   getDataByUsername(username: string) {
-    return firstValueFrom(
-      this.http.get('http://localhost:3000/profile/' + username)
-    );
+    return this.http.get<User>('http://localhost:3000/profile/' + username);
+  }
+
+  followUser(id: string, followedByUserId: string) {
+    const body = {
+      followedByUserId: followedByUserId,
+    };
+
+    return this.http.put<User>('http://localhost:3000/api/users/' + id + '/follow', body);
+  }
+
+  getFollowers(id: string) {
+    return this.http.get('/userdata/' + id);
   }
 }

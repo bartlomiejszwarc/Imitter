@@ -1,0 +1,50 @@
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,600,0,0" />
+<div class="h-screen">
+  <div class="flex flex-row items-center space-x-4 pl-4">
+    <span
+      [routerLink]="['/profile', this.user?.userdata?.username]"
+      class="material-symbols-outlined hover:bg-slate-200 rounded-full p-1 cursor-pointer">
+      arrow_back
+    </span>
+    <div class="flex flex-col">
+      <span class="font-medium text-2xl text-slate-900">{{ this.user?.userdata?.displayName }}</span>
+      <span class="font-thin text-lg text-slate-600">@{{ this.user?.userdata?.username }}</span>
+    </div>
+  </div>
+  <mat-tab-group
+    mat-align-tabs="center"
+    mat-stretch-tabs="true dynamicHeight"
+    fitInkBarToContent="true"
+    (selectedTabChange)="updateFollowsData()">
+    <mat-tab label="Followers">
+      <div class="flex flex-row justify-center">
+        <span *ngIf="followersEmpty" class="pt-2 slate-700 font-thin text-lg">
+          {{ this.user?.userdata?.username }} is not followed by anyone.
+        </span>
+      </div>
+      <div *ngFor="let followers of followersDetailsList" class="border-b-[1px] border-slate-100 py-2">
+        <app-profile-details-card
+          [profilePicture]="followers.profilePicture"
+          [username]="followers.username"
+          [displayName]="followers.displayName"
+          [bio]="followers.bio"
+          [user]="followers"></app-profile-details-card></div
+    ></mat-tab>
+    <mat-tab label="Following">
+      <div class="flex flex-row justify-center">
+        <span *ngIf="followingEmpty" class="pt-2 slate-700 font-thin text-lg">
+          {{ this.user?.userdata?.username }} is not following anyone.
+        </span>
+      </div>
+      <div *ngFor="let following of followingDetailsList" class="border-b-[1px] border-slate-100 py-2">
+        <app-profile-details-card
+          [profilePicture]="following.profilePicture"
+          [username]="following.username"
+          [displayName]="following.displayName"
+          [bio]="following.bio"
+          [user]="following"></app-profile-details-card></div
+    ></mat-tab>
+  </mat-tab-group>
+</div>

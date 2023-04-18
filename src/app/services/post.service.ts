@@ -1,11 +1,11 @@
-import {PostComponent} from './../components/post/post.component';
-import {HttpClient} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {concatMap, delay, map, Observable, Subject, tap} from 'rxjs';
-import {Post} from '../objects/Post';
-import {CreatePost} from '../objects/CreatePost';
-import {DatePipe} from '@angular/common';
-import {AuthService} from './auth.service';
+import { PostComponent } from './../components/post/post.component';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { concatMap, delay, map, Observable, Subject, tap } from 'rxjs';
+import { Post } from '../objects/Post';
+import { CreatePost } from '../objects/CreatePost';
+import { DatePipe } from '@angular/common';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -32,7 +32,7 @@ export class PostService {
   }
 
   getPosts() {
-    return this.http.get<{message: string; posts: any[]}>(this.postsApi).pipe(
+    return this.http.get<{ message: string; posts: any[] }>(this.postsApi).pipe(
       map((postData) => {
         return postData.posts.map((post) => {
           return {
@@ -51,9 +51,7 @@ export class PostService {
 
   getUsersPosts(id: string) {
     return this.http
-      .get<{message: string; posts: any[]}>(
-        'http://localhost:3000/users'.concat('/').concat(id).concat('/posts')
-      )
+      .get<{ message: string; posts: any[] }>('http://localhost:3000/users'.concat('/').concat(id).concat('/posts'))
       .pipe(
         map((postData) => {
           return postData.posts.map((post) => {
@@ -86,7 +84,7 @@ export class PostService {
       author: author,
     };
 
-    const postsUpdated = this.http.post<{posts: Post[]; message: string}>(this.postsApi, post);
+    const postsUpdated = this.http.post<{ posts: Post[]; message: string }>(this.postsApi, post);
     postsUpdated.subscribe((res) => {
       this.getPosts().subscribe((res) => {
         this.posts = res;
@@ -101,9 +99,7 @@ export class PostService {
 
   getUserLikedPosts(id: string) {
     return this.http
-      .get<{message: string; posts: any[]}>(
-        'http://localhost:3000/users/'.concat(id).concat('/likes')
-      )
+      .get<{ message: string; posts: any[] }>('http://localhost:3000/users/'.concat(id).concat('/likes'))
       .pipe(
         map((postData) => {
           return postData.posts.map((post) => {
@@ -121,8 +117,8 @@ export class PostService {
       );
   }
 
-  deletePost(id: string, userId: string) {
-    const postsUpdated = this.http.delete(this.postsApi.concat('/').concat(id), {body: {userId}});
+  deletePost(id: string, userId: string, profileId: string) {
+    const postsUpdated = this.http.delete(this.postsApi.concat('/').concat(id), { body: { userId } });
     postsUpdated.subscribe((res) => {
       this.getPosts().subscribe((res) => {
         this.posts = res;
@@ -131,6 +127,10 @@ export class PostService {
       this.getUsersPosts(userId).subscribe((res) => {
         this.usersPosts = res;
         this.userPostsUpdated.next([...this.usersPosts]);
+      });
+      this.getUserLikedPosts(profileId).subscribe((res) => {
+        this.usersLikedPosts = res;
+        this.usersLikedPostsUpdated.next([...this.usersLikedPosts]);
       });
     });
   }
