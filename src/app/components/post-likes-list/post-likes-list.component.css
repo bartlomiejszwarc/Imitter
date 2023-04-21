@@ -2,10 +2,6 @@ mat-icon {
   vertical-align: middle;
 }
 
-.userlikes-dialog {
-  width: 1000px !important;
-}
-
 .custom-spinner circle {
   stroke: #0ea5e9 !important;
 }

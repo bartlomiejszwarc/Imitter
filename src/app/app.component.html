@@ -1,16 +1,30 @@
-<div class="flex flex-row items-start justify-center">
-  <div class="w-40 pt-12" *ngIf="router.url !== '/login' && router.url !== '/signup'">
-    <app-dashboard-sidebar></app-dashboard-sidebar>
+<mat-sidenav-container class="bg-transparent h-screen">
+  <mat-sidenav #sidenav class="w-3/5">
+    <button mat-icon-button (click)="sidenav.close()" class="pt-4 pl-3"><mat-icon>clear</mat-icon></button>
+    <div class="pt-3">
+      <app-dashboard-sidebar (click)="sidenav.close()"></app-dashboard-sidebar>
+    </div>
+  </mat-sidenav>
+  <div class="md:hidden" *ngIf="router.url !== '/login' && router.url !== '/signup'">
+    <mat-toolbar class="bg-transparent fixed">
+      <button mat-icon-button (click)="sidenav.open()"><mat-icon>menu</mat-icon></button>
+    </mat-toolbar>
   </div>
-  <div class="w-full h-auto" *ngIf="router.url === '/login' || router.url === '/signup'">
-    <router-outlet></router-outlet>
+  <div class="flex flex-row items-start justify-center">
+    <div class="w-40 pt-12 hidden md:visible md:flex" *ngIf="router.url !== '/login' && router.url !== '/signup'">
+      <app-dashboard-sidebar></app-dashboard-sidebar>
+    </div>
+
+    <div class="w-full h-auto" *ngIf="router.url === '/login' || router.url === '/signup'">
+      <router-outlet></router-outlet>
+    </div>
+    <div
+      class="md:mx-8 w-full h-full md:w-4/12 border-x-[1px] pt-12"
+      *ngIf="router.url !== '/login' && router.url !== '/signup'">
+      <router-outlet></router-outlet>
+    </div>
+    <div class="w-64 pt-12 hidden md:visible md:flex" *ngIf="router.url !== '/login' && router.url !== '/signup'">
+      <app-dashboard-right-panel></app-dashboard-right-panel>
+    </div>
   </div>
-  <div
-    class="mx-8 w-4/12 border-x-[1px] h-auto pt-12"
-    *ngIf="router.url !== '/login' && router.url !== '/signup'">
-    <router-outlet></router-outlet>
-  </div>
-  <div class="w-64 pt-12" *ngIf="router.url !== '/login' && router.url !== '/signup'">
-    <app-dashboard-right-panel></app-dashboard-right-panel>
-  </div>
-</div>
+</mat-sidenav-container>

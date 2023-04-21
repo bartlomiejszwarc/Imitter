@@ -1,2 +1,7 @@
-<app-dashboard-create></app-dashboard-create>
+<div class="hidden md:visible md:block">
+  <app-dashboard-create></app-dashboard-create>
+</div>
 <app-post [posts]="posts" [postLoaded]="postLoaded"></app-post>
+<div class="fixed bottom-5 right-5">
+  <button class="w-12 rounded-full h-12 text-3xl bg-sky-600 text-slate-50">+</button>
+</div>
