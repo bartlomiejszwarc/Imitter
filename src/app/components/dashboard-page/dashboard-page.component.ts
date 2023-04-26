@@ -1,9 +1,11 @@
-import {User} from 'src/app/objects/User';
-import {AuthService} from 'src/app/services/auth.service';
-import {Component, OnInit} from '@angular/core';
-import {PostService} from 'src/app/services/post.service';
-import {Subscription} from 'rxjs';
-import {Post} from 'src/app/objects/Post';
+import { User } from 'src/app/objects/User';
+import { AuthService } from 'src/app/services/auth.service';
+import { Component, OnInit } from '@angular/core';
+import { PostService } from 'src/app/services/post.service';
+import { Subscription } from 'rxjs';
+import { Post } from 'src/app/objects/Post';
+import { DashboardCreateComponent } from '../dashboard-create/dashboard-create.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -11,7 +13,7 @@ import {Post} from 'src/app/objects/Post';
   styleUrls: ['./dashboard-page.component.css'],
 })
 export class DashboardPageComponent implements OnInit {
-  constructor(private auth: AuthService, private postService: PostService) {}
+  constructor(private auth: AuthService, private postService: PostService, public dialog: MatDialog) {}
 
   posts: Post[] = [];
   postsSubscription!: Subscription;
@@ -27,5 +29,14 @@ export class DashboardPageComponent implements OnInit {
       this.postLoaded = true;
     });
     this.user = this.auth.getUserData();
+  }
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DashboardCreateComponent, {
+      panelClass: 'userlikes-dialog',
+    });
+  }
+
+  closeDialog(): void {
+    this.dialog.closeAll();
   }
 }

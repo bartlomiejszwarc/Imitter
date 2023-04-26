@@ -35,6 +35,7 @@ import { ProfileDetailsCardComponent } from './components/profile-details-card/p
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { PostDetailsComponent } from './components/post-details/post-details.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { MatListModule } from '@angular/material/list';
     DashboardRightPanelComponent,
     FollowListComponent,
     ProfileDetailsCardComponent,
+    PostDetailsComponent,
   ],
   imports: [
     AppRoutingModule,

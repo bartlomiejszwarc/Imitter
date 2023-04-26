@@ -1,0 +1,37 @@
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,600,0,0" />
+<div class="px-3 flex flex-col space-y-4">
+    <div class="w-full flex flex-row items-center space-x-4">
+        <span
+            [routerLink]="['/profile', this.postAuthor?.username]"
+            class="material-symbols-outlined hover:bg-slate-200 rounded-full p-1 cursor-pointer">
+            arrow_back
+        </span>
+        <span class="text-xl text-slate-900 font-semibold"> Tweet </span>
+    </div>
+    <div class="flex flex-row items-center space-x-3">
+        <img src="{{ postAuthor?.profilePicture }}" class="profile-image-post" />
+        <div class="flex flex-col">
+            <span
+                class="font-medium text-lg cursor-pointer"
+                [routerLink]="['/profile', post?.post?.author?.username]"
+                >{{ postAuthor?.displayName }}</span
+            >
+            <span class="font-light text-slate-600">@{{ postAuthor?.username }}</span>
+        </div>
+    </div>
+    <div class="flex flex-col space-y-2 border-b-[1px]">
+        <span class="text-xl"> {{ post?.post?.text }}</span>
+        <div class="flex flex-col">
+            <span class="font-thin text-slate-600 pb-2 border-b-[1px]">{{
+                post?.post?.date | date : 'h:mm a • MMM dd, yyyy'
+            }}</span>
+            <div class="flex flex-row space-x-1 items-center py-2">
+                <span class="font-medium text-slate-900"> {{ post?.post?.likesCounter }}</span>
+                <span class="font-thin text-slate-600">Likes</span>
+            </div>
+        </div>
+    </div>
+    <span class="text-3xl"> *comments*</span>
+</div>
