@@ -46,7 +46,7 @@ export class ProfileUserDetailsComponent implements OnInit, OnDestroy {
     user$ = new BehaviorSubject<any>(null);
 
     async ngOnInit(): Promise<void> {
-        await this.getUserData().then(() => {
+        this.getUserData().then(() => {
             this.subscribeUserData();
             this.getCurrentUserData()
                 .then(() => this.checkIfCanEdit())
@@ -80,12 +80,12 @@ export class ProfileUserDetailsComponent implements OnInit, OnDestroy {
             this.canEdit = true;
         }
     }
-    async checkIfUserIsOwner() {
+    checkIfUserIsOwner() {
         if (this.user?.userdata?.username === this.currentUser?.userdata?.username) {
             this.isOwner = true;
         }
     }
-    async onFollowUser(userToFollowId: string) {
+    onFollowUser(userToFollowId: string) {
         this.userService.followUser(userToFollowId, this.currentUser.userdata._id).subscribe((res: any) => {
             if (res.followed) {
                 this.isFollowed = true;
@@ -95,7 +95,7 @@ export class ProfileUserDetailsComponent implements OnInit, OnDestroy {
             this.getUserData();
         });
     }
-    async checkIsFollowed(user: User) {
+    checkIsFollowed(user: User) {
         this.isFollowed = user?.followers?.includes(this.currentUser?.userdata?._id);
     }
 

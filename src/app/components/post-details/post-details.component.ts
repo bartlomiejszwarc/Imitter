@@ -39,7 +39,7 @@ export class PostDetailsComponent implements OnInit {
     }
 
     async ngOnInit(): Promise<void> {
-        await this.getPostIdFromUrl().then(() => this.getPostDetails(this.postId));
+        this.getPostIdFromUrl().then(() => this.getPostDetails(this.postId));
         await this.getCurrentUserData();
     }
     async getCurrentUserData() {
@@ -64,7 +64,7 @@ export class PostDetailsComponent implements OnInit {
     }
 
     //getting post's author details
-    async getPostAuthorDetails(authorId: string) {
+    getPostAuthorDetails(authorId: string) {
         this.userService.getUserData(authorId).subscribe((res: any) => {
             this.postAuthor = res.userdata;
         });

@@ -1,4 +1,4 @@
-<div class="border-b-[1px] border-t-[1px] border-slate-200 pb-6 md:py-8 md:px-16 w-full pt-4 md:pb-4">
+<div class="border-b-[1px] border-slate-200 pb-6 md:py-8 md:px-12 w-full pt-4 md:pb-4">
     <div class="flex flex-row items-center ml-3 pb-6">
         <img *ngIf="user" src="{{ user?.userdata?.profilePicture }}" class="profile-image" />
 
@@ -16,11 +16,8 @@
             [(ngModel)]="postText">
         </textarea>
 
-        <!-- <div class="flex flex-col items-end">
-            <span> {{ charCounter }}/200</span>
-        </div> -->
         <div *ngIf="postImage">
-            <span class="font-light text-sm text-slate-700">Choosen image </span
+            <span class="font-light text-sm text-slate-700">Chosen image </span
             ><img src="{{ postImage }}" class="uploaded-image" />
         </div>
         <div class="flex flex-row justify-between">

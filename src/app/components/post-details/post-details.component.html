@@ -49,10 +49,7 @@
             [(ngModel)]="commentText"></textarea>
     </div>
     <div class="w-full flex flex-row items-center justify-end border-b-[1px] py-2 px-4">
-        <button
-            *ngIf="commentText"
-            class="px-5 py-2 text-base bg-sky-500 text-white rounded-full font-medium"
-            (click)="onAddReply(post.post, commentText)">
+        <button *ngIf="commentText" class="px-5 py-2 text-base bg-sky-500 text-white rounded-full font-medium">
             Reply
         </button>
         <button

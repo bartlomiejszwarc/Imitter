@@ -12,6 +12,8 @@ export class AuthService {
     constructor(private router: Router, private http: HttpClient) {}
     signupApi = 'http://localhost:3000/signup';
     loginApi = 'http://localhost:3000/login';
+    meApi = 'http://localhost:3000/me/';
+    userdataApi = 'http://localhost:3000/userdata/';
     loginErrorMessage!: string;
     registerMessage!: string;
     user!: any;
@@ -22,14 +24,14 @@ export class AuthService {
     }
 
     getUserById() {
-        return this.http.get<{ userData: string }>('http://localhost:3000/me/' + localStorage.getItem('token')).pipe(
+        return this.http.get<{ userData: string }>(this.meApi + localStorage.getItem('token')).pipe(
             switchMap((res) => this.getUser(res.userData.replace(/"/g, ''))),
             map((res) => (this.user = res))
         );
     }
 
     getUser(id: string) {
-        return this.http.get('http://localhost:3000/userdata/' + id);
+        return this.http.get(this.userdataApi + id);
     }
     private clearAuthData() {
         localStorage.removeItem('token');

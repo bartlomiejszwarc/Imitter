@@ -95,7 +95,6 @@ export class PostService {
         });
     }
     addReply(post: any, reply: string, replyAuthor: any) {
-        //console.log('Post to reply', post, 'Reply: ', reply, 'reply author', replyAuthor);
         const postReply = {
             text: reply,
             date: new Date(),
@@ -103,11 +102,11 @@ export class PostService {
             likesCounter: 0,
             author: replyAuthor,
         };
-        return this.http.put('http://localhost:3000/api/posts/' + post._id + '/replies', postReply);
+        return this.http.put(this.postsApi + post._id + '/replies', postReply);
     }
 
     getPostDetails(id: string) {
-        return this.http.get('http://localhost:3000/api/posts/' + id);
+        return this.http.get(this.postsApi + id);
     }
 
     getUserLikedPosts(id: string) {
