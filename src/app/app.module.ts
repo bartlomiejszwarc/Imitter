@@ -26,7 +26,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { PostLikesListComponent } from './components/post-likes-list/post-likes-list.component';
 import { UserLikesComponent } from './components/user-likes/user-likes.component';
 import { UserNotFoundComponent } from './components/user-not-found/user-not-found.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DashboardRightPanelComponent } from './components/dashboard-right-panel/dashboard-right-panel.component';
@@ -36,48 +36,53 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { PostDetailsComponent } from './components/post-details/post-details.component';
+import { TextFieldModule } from '@angular/cdk/text-field';
+import { AutosizeModule } from 'ngx-autosize';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginPageComponent,
-    LoginWindowComponent,
-    SignupPageComponent,
-    ListComponent,
-    DashboardPageComponent,
-    DashboardSidebarComponent,
-    DashboardCreateComponent,
-    PostComponent,
-    DashboardSearchComponent,
-    DashboardTrendsComponent,
-    ProfilePageComponent,
-    EditProfileComponent,
-    ProfileUserDetailsComponent,
-    PostLikesListComponent,
-    UserLikesComponent,
-    UserNotFoundComponent,
-    DashboardRightPanelComponent,
-    FollowListComponent,
-    ProfileDetailsCardComponent,
-    PostDetailsComponent,
-  ],
-  imports: [
-    AppRoutingModule,
-    MatFormFieldModule,
-    FormsModule,
-    MatIconModule,
-    HttpClientModule,
-    MatDialogModule,
-    MatTabsModule,
-    MatProgressSpinnerModule,
-    MatMenuModule,
-    BrowserModule,
-    BrowserAnimationsModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatListModule,
-  ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
-  bootstrap: [AppComponent],
+    declarations: [
+        AppComponent,
+        LoginPageComponent,
+        LoginWindowComponent,
+        SignupPageComponent,
+        ListComponent,
+        DashboardPageComponent,
+        DashboardSidebarComponent,
+        DashboardCreateComponent,
+        PostComponent,
+        DashboardSearchComponent,
+        DashboardTrendsComponent,
+        ProfilePageComponent,
+        EditProfileComponent,
+        ProfileUserDetailsComponent,
+        PostLikesListComponent,
+        UserLikesComponent,
+        UserNotFoundComponent,
+        DashboardRightPanelComponent,
+        FollowListComponent,
+        ProfileDetailsCardComponent,
+        PostDetailsComponent,
+    ],
+    imports: [
+        AppRoutingModule,
+        MatFormFieldModule,
+        FormsModule,
+        MatIconModule,
+        HttpClientModule,
+        MatDialogModule,
+        MatTabsModule,
+        MatProgressSpinnerModule,
+        MatMenuModule,
+        BrowserModule,
+        BrowserAnimationsModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        MatListModule,
+        TextFieldModule,
+        AutosizeModule,
+        ReactiveFormsModule,
+    ],
+    providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
+    bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -4,3 +4,22 @@
     object-fit: cover;
     border-radius: 50%;
 }
+
+.mat-dialog-container {
+    width: 33vw !important;
+    margin: 0 auto;
+    padding: 0px !important;
+    max-height: 50vh !important;
+}
+.mat-dialog-container {
+    border-radius: 10px !important;
+}
+@media screen and (max-width: 600px) {
+    .userlikes-dialog,
+    .mat-dialog-container {
+        width: 90vw !important;
+    }
+    mat-form-field {
+        width: 100%;
+    }
+}

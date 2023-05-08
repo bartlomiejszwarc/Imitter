@@ -22,16 +22,44 @@
         </div>
     </div>
     <div class="flex flex-col space-y-2 border-b-[1px]">
-        <span class="text-xl"> {{ post?.post?.text }}</span>
+        <span class="text-2xl"> {{ post?.post?.text }}</span>
         <div class="flex flex-col">
             <span class="font-thin text-slate-600 pb-2 border-b-[1px]">{{
                 post?.post?.date | date : 'h:mm a • MMM dd, yyyy'
             }}</span>
-            <div class="flex flex-row space-x-1 items-center py-2">
-                <span class="font-medium text-slate-900"> {{ post?.post?.likesCounter }}</span>
-                <span class="font-thin text-slate-600">Likes</span>
+            <div
+                *ngIf="post?.post?.likesCounter > 0"
+                class="flex flex-row space-x-1 items-center py-3"
+                (click)="openDialog(post?.post)">
+                <span class="font-medium text-slate-900 cursor-pointer"> {{ post?.post?.likesCounter }}</span>
+                <span class="font-thin text-slate-600 cursor-pointer">Likes</span>
             </div>
         </div>
     </div>
-    <span class="text-3xl"> *comments*</span>
+    <div class="flex flex-row py-2">
+        <img src="{{ postAuthor?.profilePicture }}" class="profile-image-post" />
+        <textarea
+            class="w-full text-xl outline-none pl-4"
+            placeholder="Tweet your reply"
+            matInput
+            cdkTextareaAutosize
+            #autosize="cdkTextareaAutosize"
+            cdkAutosizeMinRows="1"
+            cdkAutosizeMaxRows="10"
+            [(ngModel)]="commentText"></textarea>
+    </div>
+    <div class="w-full flex flex-row items-center justify-end border-b-[1px] py-2 px-4">
+        <button
+            *ngIf="commentText"
+            class="px-5 py-2 text-base bg-sky-500 text-white rounded-full font-medium"
+            (click)="onAddReply(post.post, commentText)">
+            Reply
+        </button>
+        <button
+            *ngIf="!commentText"
+            class="px-5 py-2 text-base bg-slate-400 text-white rounded-full font-medium"
+            disabled>
+            Reply
+        </button>
+    </div>
 </div>

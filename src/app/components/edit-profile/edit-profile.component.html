@@ -1,34 +1,32 @@
 <div class="bg-slate-50 w-full rounded-md border-[1px] border-slate-400 py-3">
-  <div class="flex flex-row justify-between px-2 py-2">
-    <div class="flex flex-row items-center">
-      <button (click)="closeDialog()">
-        <mat-icon class="text-slate-900">clear</mat-icon>
-      </button>
-      <span class="text-xl font-semibold pl-8">Edit your profile</span>
+    <div class="flex flex-row justify-between px-2 py-2">
+        <div class="flex flex-row items-center">
+            <button (click)="closeDialog()">
+                <mat-icon class="text-slate-900">clear</mat-icon>
+            </button>
+            <span class="text-xl font-semibold pl-8">Edit your profile</span>
+        </div>
+        <div>
+            <button (click)="updateUserData()" class="rounded-2xl text-slate-50 font-semibold bg-slate-900 px-4 py-1">
+                Save
+            </button>
+        </div>
     </div>
-    <div>
-      <button
-        (click)="updateUserData()"
-        class="rounded-2xl text-slate-50 font-semibold bg-slate-900 px-4 py-1">
-        Save
-      </button>
+    <div class="flex flex-col items-center space-y-2 py-2">
+        <input
+            class="w-11/12 p-2 border-[1px] border-slate-400 outline-none rounded-md focus:placeholder-sky-600 focus:border-sky-600"
+            placeholder="Name"
+            value="{{ this.displayName }}"
+            [(ngModel)]="this.displayName" />
+        <input
+            class="w-11/12 p-2 border-[1px] border-slate-400 outline-none rounded-md focus:placeholder-sky-600 focus:border-sky-600"
+            placeholder="Bio"
+            value="{{ this.bio }}"
+            [(ngModel)]="this.bio" />
+        <input
+            class="w-11/12 p-2 border-[1px] border-slate-400 outline-none rounded-md focus:placeholder-sky-600 focus:border-sky-600"
+            placeholder="Location"
+            value="{{ this.location }}"
+            [(ngModel)]="this.location" />
     </div>
-  </div>
-  <div class="flex flex-col items-center space-y-2 py-2">
-    <input
-      class="w-11/12 p-2 border-[1px] border-slate-400 outline-none rounded-md focus:placeholder-sky-600 focus:border-sky-600"
-      placeholder="Name"
-      value="{{ this.displayName }}"
-      [(ngModel)]="this.displayName" />
-    <input
-      class="w-11/12 p-2 border-[1px] border-slate-400 outline-none rounded-md focus:placeholder-sky-600 focus:border-sky-600"
-      placeholder="Bio"
-      value="{{ this.bio }}"
-      [(ngModel)]="this.bio" />
-    <input
-      class="w-11/12 p-2 border-[1px] border-slate-400 outline-none rounded-md focus:placeholder-sky-600 focus:border-sky-600"
-      placeholder="Location"
-      value="{{ this.location }}"
-      [(ngModel)]="this.location" />
-  </div>
 </div>
