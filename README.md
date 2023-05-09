@@ -31,3 +31,5 @@ App is not finished yet. There are still couple of features that are meant to be
 ##### Back-end:
 - Express.js
 - Mongoose
+ 
+##### Checkout 'master' branch for code
