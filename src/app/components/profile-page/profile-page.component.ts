@@ -34,7 +34,7 @@ export class ProfilePageComponent implements OnInit {
     isProcessing: boolean = false;
 
     async ngOnInit(): Promise<void> {
-        this.getParam();
+        await this.getParam();
         this.getUsersPosts();
 
         this.getUsersLikedPosts();

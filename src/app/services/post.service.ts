@@ -106,7 +106,7 @@ export class PostService {
     }
 
     getPostDetails(id: string) {
-        return this.http.get(this.postsApi + id);
+        return this.http.get(this.postsApi.concat('/') + id);
     }
 
     getUserLikedPosts(id: string) {

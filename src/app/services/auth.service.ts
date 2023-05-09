@@ -1,7 +1,19 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { firstValueFrom, lastValueFrom, map, of, Subject, switchMap } from 'rxjs';
+import {
+    BehaviorSubject,
+    catchError,
+    firstValueFrom,
+    lastValueFrom,
+    map,
+    Observable,
+    of,
+    Subject,
+    switchMap,
+    tap,
+    throwError,
+} from 'rxjs';
 import * as moment from 'moment';
 import { User } from '../objects/User';
 
@@ -18,9 +30,13 @@ export class AuthService {
     registerMessage!: string;
     user!: any;
     userId!: string;
+    isAuth: boolean = false;
 
     async getUserData() {
-        return firstValueFrom(this.getUserById());
+        if (this.isAuth) {
+            return firstValueFrom(this.getUserById());
+        }
+        return undefined;
     }
 
     getUserById() {
@@ -38,6 +54,18 @@ export class AuthService {
         localStorage.removeItem('expires_at');
     }
 
+    isAuthenticated(): Observable<boolean> {
+        if (localStorage.getItem('token') === null) {
+            return of(false);
+        }
+        return this.http.get(this.meApi + localStorage.getItem('token')).pipe(
+            map((res: any) => {
+                this.isAuth = res.isAuth;
+                return this.isAuth;
+            })
+        );
+    }
+
     register(username: string, password: string, displayName: string, profilePicture?: HTMLInputElement) {
         const user = {
             username: username,
@@ -52,7 +80,6 @@ export class AuthService {
             },
             error: (err) => {
                 this.registerMessage = err.error.error;
-                console.log(this.registerMessage);
             },
         });
     }
@@ -94,7 +121,6 @@ export class AuthService {
                 },
                 error: (err) => {
                     this.loginErrorMessage = err.error.message;
-                    console.log(err.error);
                 },
             });
     }

@@ -9,7 +9,7 @@ import { User } from '../objects/User';
 export class UserService {
     constructor(private http: HttpClient) {}
 
-    userApi = 'http://localhost:3000/api/users';
+    userApi = 'http://localhost:3000/api/users/';
     userdataApi = 'http://localhost:3000/userdata/';
     profileApi = 'http://localhost:3000/profile/';
     getUserData(id: string) {
@@ -22,7 +22,7 @@ export class UserService {
             bio: bio,
             location: location,
         };
-        return this.http.put(this.userApi.concat('/').concat(id), updatedUserData);
+        return this.http.put(this.userApi.concat(id), updatedUserData);
     }
 
     getDataByUsername(username: string) {

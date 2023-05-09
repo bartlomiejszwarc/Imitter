@@ -79,9 +79,7 @@ export class PostDetailsComponent implements OnInit {
         }
     }
     onAddReply(post: any, reply: any) {
-        this.postService.addReply(post, reply, this.currentUser.userdata).subscribe((res: any) => {
-            console.log(res);
-        });
+        this.postService.addReply(post, reply, this.currentUser.userdata).subscribe((res: any) => {});
     }
 
     openDialog(post: Post): void {
