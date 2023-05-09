@@ -21,7 +21,7 @@ An application based on the well-known Twitter that allows you to do things like
 ![image](https://user-images.githubusercontent.com/86133933/236847989-9078e932-2a37-40f3-bf90-7d48d333a6c3.png)
 <br> Profile page contains information about username, display name, date that user had joined, number of followers and following. There is also list of user's posts and posts that are liked by this user.
 
-App is not finished yet. There are still couple of features that are meant to be added, such as adding replies, displaying notifications, searching users by username or display name, searching posts that contain typed word(s) and private messages.
+App is not finished yet. There are still couple of features that are meant to be added, fixed or improved, such as adding replies, displaying notifications, searching users by username or display name, searching posts that contain typed word(s) and private messages.
 
 #### Technologies used:
 ##### Front-end:
