@@ -20,7 +20,7 @@ export class DashboardPageComponent implements OnInit {
     user!: Promise<Object | undefined>;
     postLoaded: boolean = false;
     ngOnInit(): void {
-        this.postService.getPosts().subscribe((res) => {
+        this.postService.getPosts().subscribe((res: any) => {
             this.posts = res;
             this.postLoaded = true;
         });

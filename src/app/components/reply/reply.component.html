@@ -1,0 +1,17 @@
+<div class="flex flex-row w-full border-b-[1px] pb-4">
+    <div class="px-2"><img src="{{ replyAuthor?.profilePicture }}" class="w-14 rounded-full" /></div>
+    <div class="flex flex-col">
+        <div class="flex space-x-1">
+            <span class="font-medium text-lg text-slate-900">{{ replyAuthor?.displayName }}</span>
+            <span class="font-thin text-lg text-slate-600">@{{ replyAuthor?.username }}</span>
+            <span class="font-thin text-lg text-slate-600">{{ reply?.date | date : '• h:mm a  MMM dd, yyyy' }}</span>
+        </div>
+        <div>
+            <span class="text-slate-900 text-lg">{{ reply?.text }}</span>
+        </div>
+        <div class="flex flex-row">
+            <mat-icon class="text-sky-600 hover:bg-sky-100 rounded-full mr-1">favorite_outline</mat-icon>
+            <span class="font-semibold pt-[3px] text-sky-600"> {{ reply?.likesCounter }}</span>
+        </div>
+    </div>
+</div>

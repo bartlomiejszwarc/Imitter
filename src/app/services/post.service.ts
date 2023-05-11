@@ -88,7 +88,7 @@ export class PostService {
 
         const postsUpdated = this.http.post<{ posts: Post[]; message: string }>(this.postsApi, post);
         postsUpdated.subscribe((res) => {
-            this.getPosts().subscribe((res) => {
+            this.getPosts().subscribe((res: any) => {
                 this.posts = res;
                 this.postsUpdated.next([...this.posts]);
             });
@@ -102,7 +102,8 @@ export class PostService {
             likesCounter: 0,
             author: replyAuthor,
         };
-        return this.http.put(this.postsApi + post._id + '/replies', postReply);
+        console.log(post._id);
+        return this.http.put(this.postsApi + '/' + post._id + '/replies', postReply);
     }
 
     getPostDetails(id: string) {
@@ -132,15 +133,15 @@ export class PostService {
     deletePost(id: string, userId: string, profileId: string) {
         const postsUpdated = this.http.delete(this.postsApi.concat('/').concat(id), { body: { userId } });
         postsUpdated.subscribe((res) => {
-            this.getPosts().subscribe((res) => {
+            this.getPosts().subscribe((res: any) => {
                 this.posts = res;
                 this.postsUpdated.next([...this.posts]);
             });
-            this.getUsersPosts(userId).subscribe((res) => {
+            this.getUsersPosts(userId).subscribe((res: any) => {
                 this.usersPosts = res;
                 this.userPostsUpdated.next([...this.usersPosts]);
             });
-            this.getUserLikedPosts(profileId).subscribe((res) => {
+            this.getUserLikedPosts(profileId).subscribe((res: any) => {
                 this.usersLikedPosts = res;
                 this.usersLikedPostsUpdated.next([...this.usersLikedPosts]);
             });
@@ -160,7 +161,7 @@ export class PostService {
             .put(this.postsApi.concat('/').concat(id), updatedPost)
             .pipe(
                 tap(() =>
-                    this.getPosts().subscribe((res) => {
+                    this.getPosts().subscribe((res: any) => {
                         this.posts = res;
                         this.postsUpdated.next([...this.posts]);
                     })
@@ -169,7 +170,7 @@ export class PostService {
             .pipe(
                 tap(() => {
                     if (profileId) {
-                        this.getUsersPosts(profileId).subscribe((res) => {
+                        this.getUsersPosts(profileId).subscribe((res: any) => {
                             this.usersPosts = res;
                             this.userPostsUpdated.next([...this.usersPosts]);
                         });
@@ -179,7 +180,7 @@ export class PostService {
             .pipe(
                 tap(() => {
                     if (profileId) {
-                        this.getUserLikedPosts(profileId).subscribe((res) => {
+                        this.getUserLikedPosts(profileId).subscribe((res: any) => {
                             this.usersLikedPosts = res;
                             this.usersLikedPostsUpdated.next([...this.usersLikedPosts]);
                         });

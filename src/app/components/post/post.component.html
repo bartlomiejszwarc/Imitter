@@ -63,7 +63,7 @@
                                 class="flex flex-row items-center space-x-1"
                                 (click)="onUpdateLikesCounter(post._id, post, currentProfile)">
                                 <mat-icon class="text-sky-600 hover:bg-sky-100 rounded-full">chat</mat-icon>
-                                <span class="font-semibold pt-[3px] text-sky-600">{{ 0 }}</span>
+                                <span class="font-semibold pt-[3px] text-sky-600">{{ post?.replies }} </span>
                             </button>
                         </div>
                     </div>

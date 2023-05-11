@@ -38,6 +38,7 @@ import { MatListModule } from '@angular/material/list';
 import { PostDetailsComponent } from './components/post-details/post-details.component';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { AutosizeModule } from 'ngx-autosize';
+import { ReplyComponent } from './components/reply/reply.component';
 
 @NgModule({
     declarations: [
@@ -62,6 +63,7 @@ import { AutosizeModule } from 'ngx-autosize';
         FollowListComponent,
         ProfileDetailsCardComponent,
         PostDetailsComponent,
+        ReplyComponent,
     ],
     imports: [
         AppRoutingModule,

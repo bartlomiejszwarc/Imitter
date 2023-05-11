@@ -33,6 +33,7 @@ export class PostDetailsComponent implements OnInit {
     isPostFound!: boolean;
     commentText!: string;
     currentUser!: any;
+    repliesList!: any; // TODO
     triggerResize() {
         // Wait for changes to be applied, then trigger textarea resize.
         this._ngZone.onStable.pipe(take(1)).subscribe(() => this.autosize.resizeToFitContent(true));
@@ -59,6 +60,7 @@ export class PostDetailsComponent implements OnInit {
             },
             complete: () => {
                 this.getPostAuthorDetails(this.post.post.author?._id);
+                this.getReplies(this.post.post.replies);
             },
         });
     }
@@ -78,8 +80,21 @@ export class PostDetailsComponent implements OnInit {
             });
         }
     }
-    onAddReply(post: any, reply: any) {
-        this.postService.addReply(post, reply, this.currentUser.userdata).subscribe((res: any) => {});
+    onAddReply(post: any, currentUser: any, reply: any) {
+        this.postService.addReply(post, reply, this.currentUser.userdata).subscribe((res: any) => {
+            this.commentText = '';
+            this.getPostDetails(this.postId);
+        });
+    }
+
+    async getReplies(replies: Array<string>) {
+        this.repliesList = [];
+        replies.forEach((replyId) => {
+            this.postService.getPostDetails(replyId).subscribe((res: any) => {
+                this.repliesList?.push(res);
+            });
+        });
+        console.log(this.repliesList);
     }
 
     openDialog(post: Post): void {

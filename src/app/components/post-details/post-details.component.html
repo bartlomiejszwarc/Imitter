@@ -37,7 +37,7 @@
         </div>
     </div>
     <div class="flex flex-row py-2">
-        <img src="{{ postAuthor?.profilePicture }}" class="profile-image-post" />
+        <img src="{{ currentUser?.userdata?.profilePicture }}" class="profile-image-post" />
         <textarea
             class="w-full text-xl outline-none pl-4"
             placeholder="Tweet your reply"
@@ -49,7 +49,10 @@
             [(ngModel)]="commentText"></textarea>
     </div>
     <div class="w-full flex flex-row items-center justify-end border-b-[1px] py-2 px-4">
-        <button *ngIf="commentText" class="px-5 py-2 text-base bg-sky-500 text-white rounded-full font-medium">
+        <button
+            *ngIf="commentText"
+            (click)="onAddReply(post.post, currentUser, commentText)"
+            class="px-5 py-2 text-base bg-sky-500 text-white rounded-full font-medium">
             Reply
         </button>
         <button
@@ -58,5 +61,8 @@
             disabled>
             Reply
         </button>
+    </div>
+    <div *ngFor="let reply of repliesList">
+        <app-reply [reply]="reply.post" [replyAuthor]="reply.post.author"></app-reply>
     </div>
 </div>
