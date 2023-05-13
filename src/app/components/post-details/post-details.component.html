@@ -4,7 +4,7 @@
 <div class="px-3 flex flex-col space-y-4">
     <div class="w-full flex flex-row items-center space-x-4">
         <span
-            [routerLink]="['/profile', this.postAuthor?.username]"
+            [routerLink]="['/profile', post?.post?.author?.username, 'status', post?.post?.originalPost]"
             class="material-symbols-outlined hover:bg-slate-200 rounded-full p-1 cursor-pointer">
             arrow_back
         </span>
@@ -63,6 +63,6 @@
         </button>
     </div>
     <div *ngFor="let reply of repliesList">
-        <app-reply [reply]="reply.post" [replyAuthor]="reply.post.author"></app-reply>
+        <app-reply [reply]="reply.post" [replyAuthor]="reply?.post?.author"></app-reply>
     </div>
 </div>

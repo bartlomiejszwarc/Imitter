@@ -1,3 +1,4 @@
+import { SharedService } from './../../services/shared.service';
 import { AuthService } from './../../services/auth.service';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
@@ -22,7 +23,8 @@ export class PostDetailsComponent implements OnInit {
         public route: ActivatedRoute,
         private _ngZone: NgZone,
         public dialog: MatDialog,
-        private authService: AuthService
+        private authService: AuthService,
+        private sharedService: SharedService
     ) {
         const id: Observable<string> = route.params.pipe(map((p) => (this.postId = p['id'])));
     }
@@ -34,6 +36,8 @@ export class PostDetailsComponent implements OnInit {
     commentText!: string;
     currentUser!: any;
     repliesList!: any; // TODO
+    originalPostId!: string;
+
     triggerResize() {
         // Wait for changes to be applied, then trigger textarea resize.
         this._ngZone.onStable.pipe(take(1)).subscribe(() => this.autosize.resizeToFitContent(true));
@@ -52,6 +56,7 @@ export class PostDetailsComponent implements OnInit {
         this.postService.getPostDetails(postId).subscribe({
             next: (data) => {
                 this.post = data;
+                console.log(this.post);
             },
             error: (err) => {
                 if (err.status === 404) {
@@ -77,6 +82,7 @@ export class PostDetailsComponent implements OnInit {
         if (this.route.snapshot.paramMap.get('id')) {
             this.route.params.subscribe((params) => {
                 this.postId = params['id'];
+                this.getPostDetails(this.postId);
             });
         }
     }
@@ -94,7 +100,7 @@ export class PostDetailsComponent implements OnInit {
                 this.repliesList?.push(res);
             });
         });
-        console.log(this.repliesList);
+        this.sharedService.getClickEvent();
     }
 
     openDialog(post: Post): void {

@@ -17,9 +17,9 @@ export class DashboardPageComponent implements OnInit {
 
     posts: Post[] = [];
     postsSubscription!: Subscription;
-    user!: Promise<Object | undefined>;
+    user!: any;
     postLoaded: boolean = false;
-    ngOnInit(): void {
+    async ngOnInit(): Promise<void> {
         this.postService.getPosts().subscribe((res: any) => {
             this.posts = res;
             this.postLoaded = true;
@@ -28,7 +28,7 @@ export class DashboardPageComponent implements OnInit {
             this.posts = res;
             this.postLoaded = true;
         });
-        this.user = this.auth.getUserData();
+        this.user = await this.auth.getUserData();
     }
     openDialog(): void {
         const dialogRef = this.dialog.open(DashboardCreateComponent, {

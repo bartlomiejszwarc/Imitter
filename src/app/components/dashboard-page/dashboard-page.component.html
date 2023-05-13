@@ -1,14 +1,14 @@
 <link
-  rel="stylesheet"
-  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,600,0,0" />
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,600,0,0" />
 <div class="hidden md:visible md:block">
-  <app-dashboard-create></app-dashboard-create>
+    <app-dashboard-create></app-dashboard-create>
 </div>
-<app-post [posts]="posts" [postLoaded]="postLoaded"></app-post>
+<app-post [posts]="posts" [postLoaded]="postLoaded" [currentProfile]="user?.userdata?._id"></app-post>
 <div class="fixed bottom-5 right-5">
-  <button
-    class="w-12 rounded-full h-12 text-3xl bg-sky-600 text-slate-50 md:hidden flex items-center justify-center shadow-slate-400 shadow-lg"
-    (click)="openDialog()">
-    <span class="material-symbols-outlined"> add </span>
-  </button>
+    <button
+        class="w-12 rounded-full h-12 text-3xl bg-sky-600 text-slate-50 md:hidden flex items-center justify-center shadow-slate-400 shadow-lg"
+        (click)="openDialog()">
+        <span class="material-symbols-outlined"> add </span>
+    </button>
 </div>

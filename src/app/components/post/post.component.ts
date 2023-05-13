@@ -26,7 +26,6 @@ export class PostComponent implements OnInit {
 
     async ngOnInit(): Promise<void> {
         this.user = await this.authService.getUserData();
-        console.log(this.posts);
     }
 
     onDeletePost(id: string, currentProfile: string) {
@@ -34,7 +33,7 @@ export class PostComponent implements OnInit {
     }
 
     onUpdateLikesCounter(id: string, post: Post, currentProfile: string) {
-        this.postService.updateLikesCount(id, post, this.user.userdata._id, currentProfile);
+        this.postService.updateLikesCount(id, post, this.user.userdata._id, currentProfile).subscribe();
     }
 
     checkUserLike(post: Post['likedByIdArray']): boolean {

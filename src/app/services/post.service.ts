@@ -43,6 +43,7 @@ export class PostService {
                         likesCounter: post.likesCounter,
                         author: post.author,
                         likedByIdArray: post.likedByIdArray,
+                        replies: post.replies,
                     };
                 });
             })
@@ -65,6 +66,7 @@ export class PostService {
                             likesCounter: post.likesCounter,
                             author: post.author,
                             likedByIdArray: post.likedByIdArray,
+                            replies: post.replies,
                         };
                     });
                 })
@@ -102,7 +104,6 @@ export class PostService {
             likesCounter: 0,
             author: replyAuthor,
         };
-        console.log(post._id);
         return this.http.put(this.postsApi + '/' + post._id + '/replies', postReply);
     }
 
@@ -124,6 +125,7 @@ export class PostService {
                             likesCounter: post.likesCounter,
                             author: post.author,
                             likedByIdArray: post.likedByIdArray,
+                            replies: post.replies,
                         };
                     });
                 })
@@ -157,7 +159,7 @@ export class PostService {
             author: post.author,
             userId: userId,
         };
-        this.http
+        return this.http
             .put(this.postsApi.concat('/').concat(id), updatedPost)
             .pipe(
                 tap(() =>
@@ -186,7 +188,6 @@ export class PostService {
                         });
                     }
                 })
-            )
-            .subscribe();
+            );
     }
 }
