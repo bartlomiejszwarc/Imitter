@@ -60,10 +60,8 @@
                             </button>
                             <button
                                 class="flex flex-row space-x-1 items-start"
-                                (click)="onUpdateLikesCounter(post._id, post, currentProfile)">
-                                <mat-icon class="material-symbols-outlined text-sky-600 hover:bg-sky-100 rounded-full"
-                                    >comment</mat-icon
-                                >
+                                [routerLink]="['/profile', this.post?.author?.username, 'status', post._id]">
+                                <mat-icon class="material-symbols-outlined text-sky-600">chat_bubble</mat-icon>
                                 <span class="font-semibold pt-[3px] text-sky-600">{{ post?.replies?.length }} </span>
                             </button>
                         </div>

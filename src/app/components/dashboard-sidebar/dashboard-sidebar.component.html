@@ -2,35 +2,43 @@
     <button
         routerLink="/dashboard"
         routerLinkActive="active"
-        class="flex flex-row px-3 py-1 items-center space-x-2 outline-none rounded-full hover:bg-slate-200 text-xl font-medium">
-        <mat-icon class="text-slate-90">home</mat-icon>
+        class="md:flex flex-row px-3 py-1 items-center space-x-2 outline-none text-xl font-medium hidden md:visible">
+        <img src="./../../../assets/images/sq_logo.png" class="w-8" />
+    </button>
+    <button
+        routerLink="/dashboard"
+        routerLinkActive="active"
+        class="flex flex-row px-3 py-1 items-center space-x-2 outline-none rounded-full hover:bg-slate-200 text-2xl font-light">
+        <mat-icon class="material-symbols-outlined text-slate-90 scale-125">home</mat-icon>
         <span class="pt-[3px]">Home</span>
     </button>
 
     <button
-        class="flex flex-row px-3 py-1 items-center space-x-2 outline-none rounded-full hover:bg-slate-200 text-xl font-medium"
+        class="flex flex-row px-3 py-1 items-center space-x-2 outline-none rounded-full hover:bg-slate-200 text-2xl font-light"
         routerLinkActive="active">
-        <mat-icon class="text-slate-900">grid_3x3</mat-icon><span class="pt-[2px]">Explore</span>
+        <mat-icon class="text-slate-900 scale-125">grid_3x3</mat-icon><span class="pt-[2px]">Explore</span>
     </button>
 
     <button
-        class="flex flex-row px-3 py-1 items-center space-x-2 outline-none rounded-full hover:bg-slate-200 text-xl font-medium"
+        class="flex flex-row px-3 py-1 items-center space-x-2 outline-none rounded-full hover:bg-slate-200 text-2xl font-light"
         routerLinkActive="active">
-        <mat-icon class="text-slate-900">notifications</mat-icon><span class="pt-[2px]">Notifications</span>
+        <mat-icon class="material-symbols-outlined text-slate-900 scale-125">notifications</mat-icon
+        ><span class="pt-[2px]">Notifications</span>
     </button>
 
     <button
-        class="flex flex-row px-3 py-1 items-center space-x-2 outline-none rounded-full hover:bg-slate-200 text-xl font-medium"
+        class="flex flex-row px-3 py-1 items-center space-x-2 outline-none rounded-full hover:bg-slate-200 text-2xl font-light"
         routerLink="/profile"
         routerLinkActive="active">
-        <mat-icon class="text-slate-900">person</mat-icon><span class="pt-[3px]">Profile</span>
+        <mat-icon class="material-symbols-outlined text-slate-900 scale-125">person</mat-icon
+        ><span class="pt-[3px]">Profile</span>
     </button>
 
     <div class="text-center pt-6">
         <button
-            class="flex text-red-700 flex-row items-center px-3 space-x-2 py-1 outline-none rounded-full hover:bg-red-50 text-xl font-medium"
+            class="flex text-red-700 flex-row items-center px-3 space-x-2 py-1 outline-none rounded-full hover:bg-red-50 text-xl font-light"
             (click)="logout()">
-            <span class="material-symbols-outlined"> logout </span> <span>Logout</span>
+            <span class="material-symbols-outlined scale-125"> logout </span> <span>Logout</span>
         </button>
     </div>
 </div>

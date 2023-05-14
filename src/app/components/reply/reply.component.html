@@ -1,32 +1,38 @@
 <div class="flex flex-row w-full border-b-[1px] pb-4">
     <div class="px-2"><img src="{{ replyAuthor?.profilePicture }}" class="w-14 rounded-full" /></div>
-    <div class="flex flex-col">
-        <div class="flex">
+    <div class="flex flex-col space-y-1">
+        <div class="flex space-x-1 items-center">
             <span class="font-medium text-md lg:text-lg text-slate-900">{{ replyAuthor?.displayName }}</span>
-            <span class="font-thin text-md lg:text-lg text-slate-600">@{{ replyAuthor?.username }}</span>
-            <span class="font-thin text-md lg:text-lg text-slate-600">{{
-                reply?.date | date : '• h:mm a  MMM dd, yyyy'
-            }}</span>
+            <span class="font-thin text-md text-slate-600">@{{ replyAuthor?.username }}</span>
+            <span class="font-thin text-md text-slate-600">{{ reply?.date | date : '• h:mm a  MMM dd, yyyy' }}</span>
         </div>
-        <div class="bg-red-500" [routerLink]="['/profile', this.reply?.author?.username, 'status', reply?._id]">
+        <div class="cursor-pointer" [routerLink]="['/profile', this.reply?.author?.username, 'status', reply?._id]">
             <span class="text-slate-900 text-md lg:text-lg">{{ reply?.text }}</span>
         </div>
         <div class="flex flex-row space-x-2">
             <mat-icon
                 (click)="onUpdateLikesCounter(reply?._id, reply, user?.userdata?._id)"
                 *ngIf="isLiked"
-                class="text-sky-600 hover:bg-sky-100 rounded-full"
+                class="text-sky-600 hover:bg-sky-100 rounded-full cursor-pointer"
                 >favorite</mat-icon
             >
             <mat-icon
                 (click)="onUpdateLikesCounter(reply?._id, reply, user?.userdata?._id)"
                 *ngIf="!isLiked"
-                class="text-sky-600 hover:bg-sky-100 rounded-full"
+                class="text-sky-600 hover:bg-sky-100 rounded-full cursor-pointer"
                 >favorite_outline</mat-icon
             >
             <span class="font-semibold pt-[3px] text-sky-600"> {{ reply?.likesCounter }}</span>
-            <mat-icon class="text-sky-600 hover:bg-sky-100 rounded-full">comment</mat-icon>
-            <span class="font-semibold pt-[3px] text-sky-600"> {{ reply?.replies.length }}</span>
+            <mat-icon
+                class="material-symbols-outlined text-sky-600 cursor-pointer"
+                [routerLink]="['/profile', this.reply?.author?.username, 'status', reply?._id]"
+                >chat_bubble</mat-icon
+            >
+            <span
+                class="font-semibold pt-[3px] text-sky-600 cursor-pointer"
+                [routerLink]="['/profile', this.reply?.author?.username, 'status', reply?._id]">
+                {{ reply?.replies.length }}</span
+            >
         </div>
     </div>
 </div>
