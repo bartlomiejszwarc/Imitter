@@ -37,6 +37,7 @@ export class PostDetailsComponent implements OnInit {
     currentUser!: any;
     repliesList!: any; // TODO
     originalPostId!: string;
+    replyPathToGo!: string;
 
     triggerResize() {
         // Wait for changes to be applied, then trigger textarea resize.
@@ -44,7 +45,7 @@ export class PostDetailsComponent implements OnInit {
     }
 
     async ngOnInit(): Promise<void> {
-        this.getPostIdFromUrl().then(() => this.getPostDetails(this.postId));
+        this.getPostIdFromUrl();
         await this.getCurrentUserData();
     }
     async getCurrentUserData() {
@@ -56,7 +57,6 @@ export class PostDetailsComponent implements OnInit {
         this.postService.getPostDetails(postId).subscribe({
             next: (data) => {
                 this.post = data;
-                console.log(this.post);
             },
             error: (err) => {
                 if (err.status === 404) {
@@ -66,6 +66,7 @@ export class PostDetailsComponent implements OnInit {
             complete: () => {
                 this.getPostAuthorDetails(this.post.post.author?._id);
                 this.getReplies(this.post.post.replies);
+                this.goBack();
             },
         });
     }
@@ -100,7 +101,13 @@ export class PostDetailsComponent implements OnInit {
                 this.repliesList?.push(res);
             });
         });
-        this.sharedService.getClickEvent();
+    }
+    goBack(): boolean {
+        if (this.post?.post?.originalPost === this.postId) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     openDialog(post: Post): void {

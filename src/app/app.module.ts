@@ -39,6 +39,7 @@ import { PostDetailsComponent } from './components/post-details/post-details.com
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { AutosizeModule } from 'ngx-autosize';
 import { ReplyComponent } from './components/reply/reply.component';
+import { ExplorePageComponent } from './components/explore-page/explore-page.component';
 
 @NgModule({
     declarations: [
@@ -64,6 +65,7 @@ import { ReplyComponent } from './components/reply/reply.component';
         ProfileDetailsCardComponent,
         PostDetailsComponent,
         ReplyComponent,
+        ExplorePageComponent,
     ],
     imports: [
         AppRoutingModule,

@@ -9,6 +9,7 @@ import { ProfilePageComponent } from './components/profile-page/profile-page.com
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { FollowListComponent } from './components/follow-list/follow-list.component';
 import { PostDetailsComponent } from './components/post-details/post-details.component';
+import { ExplorePageComponent } from './components/explore-page/explore-page.component';
 
 const routes: Routes = [
     {
@@ -48,6 +49,11 @@ const routes: Routes = [
     {
         path: 'profile',
         component: ProfilePageComponent,
+        canActivate: [AuthGuard],
+    },
+    {
+        path: 'explore',
+        component: ExplorePageComponent,
         canActivate: [AuthGuard],
     },
     {
