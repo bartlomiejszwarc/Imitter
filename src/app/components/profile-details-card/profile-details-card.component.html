@@ -1,32 +1,62 @@
-<div class="flex flex-row hover:bg-slate-100 w-full py-2">
-  <div class="grid grid-flow-col justify-between w-full items-center">
-    <div class="grid grid-flow-col">
-      <div>
-        <img src="{{ profilePicture }}" class="profile-picture-likes" />
-      </div>
-      <div class="flex flex-row items-center justify-between w-full">
-        <div class="flex flex-col cursor-pointer" [routerLink]="['/profile', username]">
-          <span class="text-slate-900 text-base font-medium">{{ displayName }} </span>
-          <span class="text-slate-500 text-md font-normal">@{{ username }} </span>
-          <span class="text-slate-800 text-md font-thin">
-            {{ bio }}
-          </span>
+<!-- <div class="flex flex-row hover:bg-slate-100 w-full py-2">
+    <div class="grid grid-flow-col justify-between w-full items-center">
+        <div class="grid grid-flow-row">
+            <div>
+                <img src="{{ profilePicture }}" class="profile-picture-likes" />
+            </div>
+            <div class="flex flex-row items-center justify-between w-full">
+                <div class="flex flex-row space-x-2 justify-between">
+                    <div class="flex flex-col" [routerLink]="['/profile', username]">
+                        <span class="text-slate-900 text-base font-medium">{{ displayName }} </span>
+                        <span class="text-slate-500 text-md font-normal">@{{ username }} </span>
+                    </div>
+                    <div class="pr-2">
+                        <button
+                            *ngIf="!this.isOwner && !this.isFollowed && !this.isDataLoading"
+                            (click)="onFollowUser(this.user._id)"
+                            class="rounded-3xl bg-slate-900 text-slate-50 border-[1px] font-medium text-base px-4 h-8">
+                            Follow
+                        </button>
+                        <button
+                            *ngIf="!this.isOwner && isFollowed && !this.isDataLoading"
+                            (click)="onFollowUser(this.user._id)"
+                            class="rounded-3xl bg-slate-transparent text-slate-900 border-[1px] font-medium text-base px-4 h-8 hover:bg-red-200 hover:text-red-600">
+                            Unfollow
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <span class="text-slate-800 text-md font-thin">
+                {{ bio }}
+            </span>
         </div>
-      </div>
     </div>
-    <div class="pr-2">
-      <button
-        *ngIf="!this.isOwner && !this.isFollowed && !this.isDataLoading"
-        (click)="onFollowUser(this.user._id)"
-        class="rounded-3xl bg-slate-900 text-slate-50 border-[1px] font-medium text-base px-4 h-8">
-        Follow
-      </button>
-      <button
-        *ngIf="!this.isOwner && isFollowed && !this.isDataLoading"
-        (click)="onFollowUser(this.user._id)"
-        class="rounded-3xl bg-slate-transparent text-slate-900 border-[1px] font-medium text-base px-4 h-8 hover:bg-red-200 hover:text-red-600">
-        Unfollow
-      </button>
+</div> -->
+<div class="flex flex-row py-2">
+    <img src="{{ profilePicture }}" class="profile-picture-likes" />
+    <div class="flex flex-col w-full">
+        <div class="flex flex-row w-full justify-between" [routerLink]="['/profile', username]">
+            <div class="flex flex-col">
+                <span class="text-slate-900 text-base font-medium">{{ displayName }} </span>
+                <span class="text-slate-500 text-md font-normal">@{{ username }} </span>
+            </div>
+            <div class="pr-2">
+                <button
+                    *ngIf="!this.isOwner && !this.isFollowed && !this.isDataLoading"
+                    (click)="onFollowUser(this.user._id)"
+                    class="rounded-3xl bg-slate-900 text-slate-50 border-[1px] font-medium text-base px-4 h-8">
+                    Follow
+                </button>
+                <button
+                    *ngIf="!this.isOwner && isFollowed && !this.isDataLoading"
+                    (click)="onFollowUser(this.user._id)"
+                    class="rounded-3xl bg-slate-transparent text-slate-900 border-[1px] font-medium text-base px-4 h-8 hover:bg-red-200 hover:text-red-600">
+                    Unfollow
+                </button>
+            </div>
+        </div>
+        <span class="text-slate-800 text-md font-thin">
+            {{ bio }}
+        </span>
     </div>
-  </div>
 </div>

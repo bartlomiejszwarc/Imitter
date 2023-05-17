@@ -26,10 +26,10 @@
 .mat-dialog-container {
     border-radius: 10px !important;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 900px) {
     .userlikes-dialog,
     .mat-dialog-container {
-        width: 90vw !important;
+        width: 100vw !important;
     }
     mat-form-field {
         width: 100%;

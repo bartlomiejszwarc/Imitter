@@ -1,7 +1,7 @@
 <link
     rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,600,0,0" />
-<div class="px-3 flex flex-col space-y-4">
+<div *ngIf="isPostFound" class="px-3 flex flex-col space-y-4">
     <div class="w-full flex flex-row items-center space-x-4">
         <span
             *ngIf="!goBack()"
@@ -76,4 +76,10 @@
     <div *ngFor="let reply of repliesList">
         <app-reply [reply]="reply.post" [replyAuthor]="reply?.post?.author"></app-reply>
     </div>
+</div>
+<div *ngIf="!isPostFound && !isProcessing" class="flex flex-col items-center justify-center px-16 pt-16">
+    <app-post-not-found></app-post-not-found>
+</div>
+<div *ngIf="isProcessing" class="flex flex-col items-center justify-center px-16 pt-16">
+    <mat-spinner [diameter]="50" class="custom-spinner"></mat-spinner>
 </div>

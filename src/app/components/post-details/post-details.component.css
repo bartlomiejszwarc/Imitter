@@ -17,9 +17,12 @@
 @media screen and (max-width: 600px) {
     .userlikes-dialog,
     .mat-dialog-container {
-        width: 90vw !important;
+        width: 95vw !important;
     }
     mat-form-field {
         width: 100%;
     }
+}
+.custom-spinner circle {
+    stroke: #0ea5e9 !important;
 }

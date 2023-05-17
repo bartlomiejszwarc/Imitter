@@ -40,6 +40,7 @@ import { TextFieldModule } from '@angular/cdk/text-field';
 import { AutosizeModule } from 'ngx-autosize';
 import { ReplyComponent } from './components/reply/reply.component';
 import { ExplorePageComponent } from './components/explore-page/explore-page.component';
+import { PostNotFoundComponent } from './components/post-not-found/post-not-found.component';
 
 @NgModule({
     declarations: [
@@ -66,6 +67,7 @@ import { ExplorePageComponent } from './components/explore-page/explore-page.com
         PostDetailsComponent,
         ReplyComponent,
         ExplorePageComponent,
+        PostNotFoundComponent,
     ],
     imports: [
         AppRoutingModule,

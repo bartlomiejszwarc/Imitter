@@ -1,7 +1,7 @@
 import { SharedService } from './../../services/shared.service';
 import { AuthService } from './../../services/auth.service';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
-import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
+import { Component, NgZone, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, map, take } from 'rxjs';
 import { PostService } from 'src/app/services/post.service';
@@ -15,6 +15,7 @@ import { MatDialog } from '@angular/material/dialog';
     selector: 'app-post-details',
     templateUrl: './post-details.component.html',
     styleUrls: ['./post-details.component.css'],
+    encapsulation: ViewEncapsulation.None,
 })
 export class PostDetailsComponent implements OnInit {
     constructor(
@@ -38,6 +39,7 @@ export class PostDetailsComponent implements OnInit {
     repliesList!: any; // TODO
     originalPostId!: string;
     replyPathToGo!: string;
+    isProcessing!: boolean;
 
     triggerResize() {
         // Wait for changes to be applied, then trigger textarea resize.
@@ -54,9 +56,11 @@ export class PostDetailsComponent implements OnInit {
 
     //getting post's details
     getPostDetails(postId: string): void {
+        this.isProcessing = true;
         this.postService.getPostDetails(postId).subscribe({
             next: (data) => {
                 this.post = data;
+                this.isPostFound = true;
             },
             error: (err) => {
                 if (err.status === 404) {
@@ -67,6 +71,7 @@ export class PostDetailsComponent implements OnInit {
                 this.getPostAuthorDetails(this.post.post.author?._id);
                 this.getReplies(this.post.post.replies);
                 this.goBack();
+                this.isProcessing = false;
             },
         });
     }

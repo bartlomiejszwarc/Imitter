@@ -22,7 +22,7 @@
 @media screen and (max-width: 600px) {
     .edit-dialog,
     .mat-dialog-container {
-        width: 90vw !important;
+        width: 95vw !important;
     }
     mat-form-field {
         width: 100%;
