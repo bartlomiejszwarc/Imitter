@@ -23,6 +23,7 @@ export class PostComponent implements OnInit {
     @Input() currentProfile!: string;
     user: any;
     postsSubscription!: Subscription;
+    hasUserLiked!: boolean;
 
     async ngOnInit(): Promise<void> {
         this.user = await this.authService.getUserData();
@@ -33,11 +34,18 @@ export class PostComponent implements OnInit {
     }
 
     onUpdateLikesCounter(id: string, post: Post, currentProfile: string) {
-        this.postService.updateLikesCount(id, post, this.user.userdata._id, currentProfile).subscribe();
+        this.postService.updateLikesCount(id, post, this.user.userdata._id, currentProfile).subscribe({
+            next: (res: any) => {
+                this.postService.getPostDetails(post._id).subscribe();
+            },
+            error: (error) => {},
+            complete: () => {},
+        });
     }
 
     checkUserLike(post: Post['likedByIdArray']): boolean {
-        return post.includes(this.user?.userdata?._id);
+        console.log('checking users like');
+        return post?.includes(this.currentProfile);
     }
 
     openDialog(post: Post): void {

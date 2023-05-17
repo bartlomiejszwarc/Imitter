@@ -1,1 +1,69 @@
-<p>explore-page works!</p>
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+<mat-tab-group mat-align-tabs="center" mat-stretch-tabs="true dynamicHeight" fitInkBarToContent="true" class="h-screen">
+    <mat-tab label="People">
+        <div class="flex justify-center pt-2 items-center space-x-4">
+            <input
+                [(ngModel)]="peopleSearchInputString"
+                class="w-3/4 h-8 p-4 rounded-2xl border-[1px] outline-none focus:border-sky-700"
+                placeholder="Search people"
+                (keyup.enter)="searchForPeople()" />
+            <button>
+                <span
+                    (click)="searchForPeople()"
+                    class="material-symbols-outlined rounded-full bg-sky-600 text-white p-2">
+                    search
+                </span>
+            </button>
+        </div>
+        <div class="flex items-center justify-center pt-4">
+            <span *ngIf="!peopleSearchingProcessed" class="font-thin text-lg text-slate-900">
+                Type anything to search for people
+            </span>
+            <span
+                *ngIf="!peopleSearchFound && peopleSearchingProcessed && peopleSearchInputSubmitted !== ''"
+                class="font-thin text-lg text-slate-900">
+                No results for "{{ peopleSearchInputSubmitted }}"
+            </span>
+        </div>
+        <div *ngFor="let userFound of peopleFound" class="px-2 border-b-[1px] py-2">
+            <app-profile-details-card
+                [profilePicture]="userFound.profilePicture"
+                [username]="userFound.username"
+                [displayName]="userFound.displayName"
+                [bio]="userFound.bio"
+                [user]="userFound"></app-profile-details-card>
+        </div>
+    </mat-tab>
+    <!-- ------------- -->
+    <mat-tab label="Posts">
+        <div class="flex justify-center pt-2 items-center space-x-4">
+            <input
+                [(ngModel)]="postSearchInputString"
+                class="w-3/4 h-8 p-4 rounded-2xl border-[1px] outline-none focus:border-sky-700"
+                placeholder="Search posts" />
+            <button>
+                <span
+                    (click)="searchForPosts()"
+                    class="material-symbols-outlined rounded-full bg-sky-600 text-white p-2">
+                    search
+                </span>
+            </button>
+        </div>
+        <div class="flex items-center justify-center pt-4">
+            <span *ngIf="!postSearchingProcessed" class="font-thin text-lg text-slate-900">
+                Type anything to search for posts
+            </span>
+            <span
+                *ngIf="!postsSearchFound && postSearchingProcessed && postsSearchInputSubmitted !== ''"
+                class="font-thin text-lg text-slate-900">
+                No results for "{{ postsSearchInputSubmitted }}"
+            </span>
+        </div>
+        <div class="px-2 py-2">
+            <app-post [posts]="postsFound" [postLoaded]="true" [currentProfile]="user?.userdata?._id"></app-post>
+            <mat-spinner *ngIf="isLoading"></mat-spinner>
+        </div>
+    </mat-tab>
+</mat-tab-group>

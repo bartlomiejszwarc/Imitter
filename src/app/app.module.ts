@@ -41,6 +41,7 @@ import { AutosizeModule } from 'ngx-autosize';
 import { ReplyComponent } from './components/reply/reply.component';
 import { ExplorePageComponent } from './components/explore-page/explore-page.component';
 import { PostNotFoundComponent } from './components/post-not-found/post-not-found.component';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
     declarations: [
@@ -68,6 +69,7 @@ import { PostNotFoundComponent } from './components/post-not-found/post-not-foun
         ReplyComponent,
         ExplorePageComponent,
         PostNotFoundComponent,
+        SearchComponent,
     ],
     imports: [
         AppRoutingModule,

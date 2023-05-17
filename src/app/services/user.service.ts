@@ -12,6 +12,7 @@ export class UserService {
     userApi = 'http://localhost:3000/api/users/';
     userdataApi = 'http://localhost:3000/userdata/';
     profileApi = 'http://localhost:3000/profile/';
+    searchApi = 'http://localhost:3000/search/';
     getUserData(id: string) {
         return this.http.get<{ userdata: User }>(this.userdataApi + id);
     }
@@ -39,5 +40,9 @@ export class UserService {
 
     getFollowers(id: string) {
         return this.http.get('/userdata/' + id);
+    }
+
+    searchPeople(keyword: string) {
+        return this.http.get(this.searchApi + 'users/' + keyword);
     }
 }

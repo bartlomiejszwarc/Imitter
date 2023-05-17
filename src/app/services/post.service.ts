@@ -1,3 +1,4 @@
+import { SearchComponent } from './../components/search/search.component';
 import { PostComponent } from './../components/post/post.component';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -20,6 +21,7 @@ export class PostService {
     private usersLikedPostsUpdated = new Subject<Post[]>();
     private userPostsUpdated = new Subject<Post[]>();
     postsApi = 'http://localhost:3000/api/posts';
+    searchPostsApi = 'http://localhost:3000/search/posts/';
 
     getUsersPostsUpdatedListener() {
         return this.userPostsUpdated.asObservable();
@@ -30,6 +32,8 @@ export class PostService {
     getUsersLikedPostsUpdatedListener() {
         return this.usersLikedPostsUpdated.asObservable();
     }
+    getSearchedPostsUpdatedListener() {} //TODO
+    
 
     getPosts() {
         return this.http.get<{ message: string; posts: any[] }>(this.postsApi).pipe(
@@ -189,5 +193,8 @@ export class PostService {
                     }
                 })
             );
+    }
+    searchPostsByKeyword(keyword: string) {
+        return this.http.get(this.searchPostsApi + keyword);
     }
 }
