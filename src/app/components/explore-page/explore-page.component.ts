@@ -26,7 +26,8 @@ export class ExplorePageComponent implements OnInit {
     peopleSearchInputSubmitted: string = '';
     postsSearchInputSubmitted: string = '';
 
-    isLoading!: boolean;
+    isLoadingPosts!: boolean;
+    isLoadingUsers!: boolean;
     user!: any;
 
     async ngOnInit(): Promise<void> {
@@ -37,12 +38,10 @@ export class ExplorePageComponent implements OnInit {
         this.peopleFound = [];
 
         if (this.peopleSearchInputString) {
-            this.isLoading = true;
-            console.log('Searching for: ', this.peopleSearchInputString);
+            this.isLoadingUsers = true;
             this.userService.searchPeople(this.peopleSearchInputString).subscribe({
                 next: (res: any) => {
                     this.peopleFound = res.users;
-                    console.log('people were found: ', this.peopleFound);
                     this.peopleSearchingProcessed = true;
                     if (res.users.length > 0) {
                         this.peopleSearchFound = true;
@@ -52,11 +51,10 @@ export class ExplorePageComponent implements OnInit {
                     }
                 },
                 error: (err) => {
-                    console.log(err);
+                    //console.log(err);
                 },
                 complete: () => {
-                    console.log('complete');
-                    this.isLoading = false;
+                    this.isLoadingUsers = false;
                 },
             });
         }
@@ -65,8 +63,7 @@ export class ExplorePageComponent implements OnInit {
     searchForPosts(): void {
         this.postsFound = [];
         if (this.postSearchInputString) {
-            this.isLoading = true;
-            console.log('searching for: ', this.postSearchInputString);
+            this.isLoadingPosts = true;
             this.postService.searchPostsByKeyword(this.postSearchInputString).subscribe({
                 next: (res: any) => {
                     this.postsFound = res.posts;
@@ -79,11 +76,10 @@ export class ExplorePageComponent implements OnInit {
                     }
                 },
                 error: (err) => {
-                    console.log(err);
+                    //console.log(err);
                 },
                 complete: () => {
-                    console.log('complete');
-                    this.isLoading = false;
+                    this.isLoadingPosts = false;
                 },
             });
         }

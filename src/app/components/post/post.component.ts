@@ -36,7 +36,7 @@ export class PostComponent implements OnInit {
     onUpdateLikesCounter(id: string, post: Post, currentProfile: string) {
         this.postService.updateLikesCount(id, post, this.user.userdata._id, currentProfile).subscribe({
             next: (res: any) => {
-                this.postService.getPostDetails(post._id).subscribe();
+                //this.postService.getPostDetails(post._id).subscribe();
             },
             error: (error) => {},
             complete: () => {},
@@ -44,7 +44,6 @@ export class PostComponent implements OnInit {
     }
 
     checkUserLike(post: Post['likedByIdArray']): boolean {
-        console.log('checking users like');
         return post?.includes(this.currentProfile);
     }
 

@@ -32,3 +32,8 @@
     z-index: 1;
     color: #03045fc7;
 }
+
+.mat-progress-spinner circle,
+.mat-spinner circle {
+    stroke: #0ea5e9;
+}
