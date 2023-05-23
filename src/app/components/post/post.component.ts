@@ -6,6 +6,7 @@ import { Post } from 'src/app/objects/Post';
 import { AuthService } from 'src/app/services/auth.service';
 import { PostService } from 'src/app/services/post.service';
 import { User } from 'src/app/objects/User';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'app-post',
@@ -14,7 +15,12 @@ import { User } from 'src/app/objects/User';
     encapsulation: ViewEncapsulation.None,
 })
 export class PostComponent implements OnInit {
-    constructor(public postService: PostService, public authService: AuthService, public dialog: MatDialog) {}
+    constructor(
+        public postService: PostService,
+        public authService: AuthService,
+        public dialog: MatDialog,
+        private _snackBar: MatSnackBar
+    ) {}
 
     @Input() post!: any;
     @Input() postLoaded!: boolean;
@@ -25,9 +31,11 @@ export class PostComponent implements OnInit {
     user: any;
     postsSubscription!: Subscription;
     hasUserLiked!: boolean;
+    replyingToAuthorUsername!: string;
 
     async ngOnInit(): Promise<void> {
         this.user = await this.authService.getUserData();
+        this.getReplyingToAuthorDetails(this.post?.originalPost);
     }
 
     onDeletePost(id: string, currentProfile: string) {
@@ -50,6 +58,19 @@ export class PostComponent implements OnInit {
 
     checkUserLike(post: Post['likedByIdArray']): boolean {
         return post?.includes(this.currentProfile);
+    }
+
+    getReplyingToAuthorDetails(id: string) {
+        this.postService.getPostDetails(id).subscribe((res: any) => {
+            this.replyingToAuthorUsername = res.post.author.username;
+        });
+    }
+
+    openReportSnackBar() {
+        const config = new MatSnackBarConfig();
+        config.panelClass = ['snackbar-custom'];
+        config.duration = 4000;
+        this._snackBar.open('Tweet reported', 'Undo', config);
     }
 
     openDialog(post: Post): void {

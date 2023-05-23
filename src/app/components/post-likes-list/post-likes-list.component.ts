@@ -47,7 +47,6 @@ export class PostLikesListComponent implements OnInit {
     }
     getUsersDetails(usersList: Array<string>) {
         usersList.forEach((userId: string) => {
-            console.log(userId);
             this.userService.getUserData(userId).subscribe((res) => {
                 this.postUsersDetailsList?.push(res.userdata);
             });

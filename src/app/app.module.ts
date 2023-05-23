@@ -42,6 +42,7 @@ import { ReplyComponent } from './components/reply/reply.component';
 import { ExplorePageComponent } from './components/explore-page/explore-page.component';
 import { PostNotFoundComponent } from './components/post-not-found/post-not-found.component';
 import { SearchComponent } from './components/search/search.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
     declarations: [
@@ -89,6 +90,7 @@ import { SearchComponent } from './components/search/search.component';
         TextFieldModule,
         AutosizeModule,
         ReactiveFormsModule,
+        MatSnackBarModule,
     ],
     providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
     bootstrap: [AppComponent],

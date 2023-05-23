@@ -1,5 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import "@angular/material/prebuilt-themes/deeppurple-amber.css";
-@import "~material-icons/iconfont/material-icons.css";
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '~material-icons/iconfont/material-icons.css';
+
+.snackbar-custom {
+    background-color: rgb(2, 132, 199, 0.9);
+    color: #f8fafc;
+}
+.snackbar-custom button {
+    color: #f8fafc;
+}

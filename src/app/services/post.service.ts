@@ -21,7 +21,7 @@ export class PostService {
     private usersLikedPostsUpdated = new Subject<Post[]>();
     private userPostsUpdated = new Subject<Post[]>();
     postsApi = 'http://localhost:3000/api/posts';
-    searchPostsApi = 'http://localhost:3000/search/posts/';
+    searchPostsApi = 'http://localhost:3000/api/search/posts/';
 
     getUsersPostsUpdatedListener() {
         return this.userPostsUpdated.asObservable();
@@ -32,8 +32,6 @@ export class PostService {
     getUsersLikedPostsUpdatedListener() {
         return this.usersLikedPostsUpdated.asObservable();
     }
-    getSearchedPostsUpdatedListener() {} //TODO
-    
 
     getPosts() {
         return this.http.get<{ message: string; posts: any[] }>(this.postsApi).pipe(
@@ -48,6 +46,7 @@ export class PostService {
                         author: post.author,
                         likedByIdArray: post.likedByIdArray,
                         replies: post.replies,
+                        originalPost: post.originalPost,
                     };
                 });
             })
@@ -57,7 +56,7 @@ export class PostService {
     getUsersPosts(id: string) {
         return this.http
             .get<{ message: string; posts: any[] }>(
-                'http://localhost:3000/users'.concat('/').concat(id).concat('/posts')
+                'http://localhost:3000/api/users'.concat('/').concat(id).concat('/posts')
             )
             .pipe(
                 map((postData) => {
@@ -71,6 +70,7 @@ export class PostService {
                             author: post.author,
                             likedByIdArray: post.likedByIdArray,
                             replies: post.replies,
+                            originalPost: post.originalPost,
                         };
                     });
                 })
@@ -117,7 +117,7 @@ export class PostService {
 
     getUserLikedPosts(id: string) {
         return this.http
-            .get<{ message: string; posts: any[] }>('http://localhost:3000/users/'.concat(id).concat('/likes'))
+            .get<{ message: string; posts: any[] }>('http://localhost:3000/api/users/'.concat(id).concat('/likes'))
             .pipe(
                 map((postData) => {
                     return postData.posts.map((post) => {
@@ -130,6 +130,7 @@ export class PostService {
                             author: post.author,
                             likedByIdArray: post.likedByIdArray,
                             replies: post.replies,
+                            originalPost: post.originalPost,
                         };
                     });
                 })
@@ -162,7 +163,9 @@ export class PostService {
             likesCounter: post.likesCounter + 1,
             author: post.author,
             userId: userId,
+            originalPost: post.originalPost,
         };
+        console.log(updatedPost);
         return this.http
             .put(this.postsApi.concat('/').concat(id), updatedPost)
             .pipe(

@@ -16,13 +16,18 @@ const routes: Routes = [
         path: 'login',
         component: LoginPageComponent,
     },
-    {
-        path: '',
-        component: DashboardPageComponent,
-    },
+    // {
+    //     path: '',
+    //     component: DashboardPageComponent,
+    // },
     { path: 'signup', component: SignupPageComponent },
     {
         path: 'dashboard',
+        component: DashboardPageComponent,
+        canActivate: [AuthGuard],
+    },
+    {
+        path: '',
         component: DashboardPageComponent,
         canActivate: [AuthGuard],
     },

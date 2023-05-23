@@ -70,7 +70,7 @@
             </span>
             <mat-spinner [diameter]="50" *ngIf="isLoadingPosts"></mat-spinner>
         </div>
-        <div class="px-2 py-2 flex justify-center">
+        <div class="py-2 flex flex-col w-full justify-center">
             <div *ngFor="let postFound of postsFound">
                 <app-post [post]="postFound" [postLoaded]="true" [currentProfile]="user?.userdata?._id"></app-post>
             </div>

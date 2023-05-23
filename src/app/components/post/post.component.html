@@ -4,15 +4,20 @@
 <link
     rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-<div class="flex justify-center border-b-[1px] pt-3">
+
+<div class="flex justify-center w-full border-b-[1px] pt-3">
     <div class="flex flex-row w-full pb-4">
-        <div class="flex flex-col px-2"><img src="{{ post?.author?.profilePicture }}" class="w-14 rounded-full" /></div>
-        <div class="flex flex-col space-y-1 w-full">
-            <div class="flex items-center justify-between flex-nowrap">
+        <div class="flex flex-col px-2 shrink-0">
+            <img src="{{ post?.author?.profilePicture }}" class="w-12 rounded-full" />
+        </div>
+        <div class="flex flex-col w-full">
+            <div class="flex items-center justify-between">
                 <div class="flex space-x-1 items-center">
-                    <span class="font-medium text-md lg:text-lg text-slate-900">{{ post?.author?.displayName }}</span>
-                    <span class="font-thin text-md text-slate-600">@{{ post?.author?.username }}</span>
-                    <span class="font-thin text-md text-slate-600">{{
+                    <span class="font-medium text-md lg:text-lg text-slate-900 whitespace-nowrap">{{
+                        post?.author?.displayName
+                    }}</span>
+                    <span class="font-thin text-md text-slate-600 truncate">@{{ post?.author?.username }}</span>
+                    <span class="font-thin text-md text-slate-600 truncate">{{
                         post?.date | date : '• h:mm a  MMM dd, yyyy'
                     }}</span>
                 </div>
@@ -32,13 +37,16 @@
                     </button>
                     <button mat-menu-item class="flex items-center">
                         <mat-icon [ngStyle]="{ color: '#dc2626' }">report</mat-icon>
-                        <span class="text-slate-800 text-thin">Report this Imitt</span>
+                        <span class="text-slate-800 text-thin" (click)="openReportSnackBar()">Report this Imitt</span>
                     </button>
                 </mat-menu>
             </div>
-            <div *ngIf="post.isReply"><span>Replying to </span> <span>@</span></div>
+            <div *ngIf="post.isReply">
+                <span class="font-thin text-slate-800">Replying to </span>
+                <span class="text-sky-700 font-medium">@{{ replyingToAuthorUsername }}</span>
+            </div>
             <div
-                class="cursor-pointer w-10/12"
+                class="cursor-pointer w-10/12 pb-2"
                 [routerLink]="['/profile', this.post?.author?.username, 'status', post?._id]">
                 <span class="text-slate-900 text-md lg:text-lg">{{ post?.text }}</span>
                 <img

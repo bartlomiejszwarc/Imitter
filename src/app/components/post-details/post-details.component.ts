@@ -88,7 +88,7 @@ export class PostDetailsComponent implements OnInit {
 
     getReplyingToAuthorDetails(id: string) {
         this.postService.getPostDetails(id).subscribe((res: any) => {
-            this.replyingToAuthorUsername = res.post.author.username;
+            this.replyingToAuthorUsername = res.post?.author?.username;
         });
     }
     //geting post id from url parameter

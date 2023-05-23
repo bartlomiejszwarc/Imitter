@@ -10,9 +10,9 @@ export class UserService {
     constructor(private http: HttpClient) {}
 
     userApi = 'http://localhost:3000/api/users/';
-    userdataApi = 'http://localhost:3000/userdata/';
-    profileApi = 'http://localhost:3000/profile/';
-    searchApi = 'http://localhost:3000/search/';
+    userdataApi = 'http://localhost:3000/api/userdata/';
+    profileApi = 'http://localhost:3000/api/profile/';
+    searchApi = 'http://localhost:3000/api/search/';
     getUserData(id: string) {
         return this.http.get<{ userdata: User }>(this.userdataApi + id);
     }

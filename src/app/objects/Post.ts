@@ -15,4 +15,5 @@ export interface Post {
     author: Author; //{ username: string; displayName: string; profilePicture: string }
     likedByIdArray: Array<String>;
     replies: Array<String>;
+    originalPost: String;
 }

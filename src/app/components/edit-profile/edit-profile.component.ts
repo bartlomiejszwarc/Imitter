@@ -3,6 +3,7 @@ import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { SharedService } from 'src/app/services/shared.service';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'app-edit-profile',
@@ -14,7 +15,8 @@ export class EditProfileComponent implements OnInit {
         private dialogRef: MatDialogRef<EditProfileComponent>,
         private authService: AuthService,
         private userService: UserService,
-        private sharedService: SharedService
+        private sharedService: SharedService,
+        private _snackBar: MatSnackBar
     ) {}
 
     user!: any;
@@ -28,11 +30,20 @@ export class EditProfileComponent implements OnInit {
         this.location = this.user.userdata.location;
     }
     updateUserData() {
-        this.userService
-            .updateUserData(this.user.userdata._id, this.displayName, this.bio, this.location)
-            .subscribe(() => {
+        this.userService.updateUserData(this.user.userdata._id, this.displayName, this.bio, this.location).subscribe({
+            next: () => {
                 this.sharedService.sendClickEvent();
-            });
+            },
+            complete: () => {
+                this.openEditSuccessSnackBar();
+            },
+        });
+    }
+    openEditSuccessSnackBar() {
+        const config = new MatSnackBarConfig();
+        config.panelClass = ['snackbar-custom'];
+        config.duration = 4000;
+        this._snackBar.open('Profile updated successfully', '', config);
     }
 
     closeDialog() {

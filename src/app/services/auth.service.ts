@@ -22,10 +22,10 @@ import { User } from '../objects/User';
 })
 export class AuthService {
     constructor(private router: Router, private http: HttpClient) {}
-    signupApi = 'http://localhost:3000/signup';
-    loginApi = 'http://localhost:3000/login';
-    meApi = 'http://localhost:3000/me/';
-    userdataApi = 'http://localhost:3000/userdata/';
+    signupApi = 'http://localhost:3000/api/signup';
+    loginApi = 'http://localhost:3000/api/login';
+    meApi = 'http://localhost:3000/api/me/';
+    userdataApi = 'http://localhost:3000/api/userdata/';
     loginErrorMessage!: string;
     registerMessage!: string;
     user!: any;
