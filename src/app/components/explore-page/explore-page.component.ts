@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { PostService } from 'src/app/services/post.service';
 import { UserService } from 'src/app/services/user.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-explore-page',
@@ -10,7 +11,14 @@ import { UserService } from 'src/app/services/user.service';
     encapsulation: ViewEncapsulation.None,
 })
 export class ExplorePageComponent implements OnInit {
-    constructor(private userService: UserService, private postService: PostService, private authService: AuthService) {}
+    constructor(
+        private userService: UserService,
+        private postService: PostService,
+        private authService: AuthService,
+        private title: Title
+    ) {
+        this.title.setTitle('Explore / Imitter');
+    }
     peopleSearchInputString!: string;
     postSearchInputString!: string;
 

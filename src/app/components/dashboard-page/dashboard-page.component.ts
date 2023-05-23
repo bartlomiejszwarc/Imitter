@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { Post } from 'src/app/objects/Post';
 import { DashboardCreateComponent } from '../dashboard-create/dashboard-create.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Title } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-dashboard-page',
@@ -13,7 +14,14 @@ import { MatDialog } from '@angular/material/dialog';
     styleUrls: ['./dashboard-page.component.css'],
 })
 export class DashboardPageComponent implements OnInit {
-    constructor(private auth: AuthService, private postService: PostService, public dialog: MatDialog) {}
+    constructor(
+        private auth: AuthService,
+        private postService: PostService,
+        public dialog: MatDialog,
+        private title: Title
+    ) {
+        this.title.setTitle('Home / Imitter');
+    }
 
     posts: Post[] = [];
     postsSubscription!: Subscription;

@@ -10,6 +10,7 @@ import { AutosizeModule } from 'ngx-autosize';
 import { Post } from 'src/app/objects/Post';
 import { PostLikesListComponent } from '../post-likes-list/post-likes-list.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Title } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-post-details',
@@ -25,7 +26,8 @@ export class PostDetailsComponent implements OnInit {
         private _ngZone: NgZone,
         public dialog: MatDialog,
         private authService: AuthService,
-        private sharedService: SharedService
+        private sharedService: SharedService,
+        private title: Title
     ) {
         const id: Observable<string> = route.params.pipe(map((p) => (this.postId = p['id'])));
     }
@@ -42,6 +44,7 @@ export class PostDetailsComponent implements OnInit {
     isProcessing!: boolean;
     replyingToAuthorId!: string;
     replyingToAuthorUsername!: string;
+    textSampleForTabTitle!: string;
 
     triggerResize() {
         // Wait for changes to be applied, then trigger textarea resize.
@@ -83,6 +86,7 @@ export class PostDetailsComponent implements OnInit {
     getPostAuthorDetails(authorId: string) {
         this.userService.getUserData(authorId).subscribe((res: any) => {
             this.postAuthor = res.userdata;
+            this.title.setTitle(this.postAuthor.displayName + ' on Imitter: "' + this.post.post.text + '"');
         });
     }
 

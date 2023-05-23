@@ -8,6 +8,7 @@ import { UserService } from 'src/app/services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { Post } from 'src/app/objects/Post';
 import { SharedService } from 'src/app/services/shared.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-profile-page',
@@ -22,8 +23,11 @@ export class ProfilePageComponent implements OnInit {
         public dialog: MatDialog,
         private userService: UserService,
         private activatedRoute: ActivatedRoute,
-        private sharedService: SharedService
-    ) {}
+        private sharedService: SharedService,
+        private title: Title
+    ) {
+        //this.title.setTitle('Profile');
+    }
     user!: any;
     usersPosts!: any;
     usersPostsSubscription!: Subscription;
@@ -38,6 +42,7 @@ export class ProfilePageComponent implements OnInit {
         this.getUsersPosts();
 
         this.getUsersLikedPosts();
+        this.title.setTitle(this.user.userdata.displayName + '(@' + this.user.userdata.username + ') / Imitter');
     }
 
     async getParam() {

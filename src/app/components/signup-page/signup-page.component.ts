@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -12,7 +13,9 @@ export class SignupPageComponent implements OnInit {
     displayName: string = '';
     profilePicture!: string | ArrayBuffer | null;
     errorMessage!: string;
-    constructor(public authService: AuthService) {}
+    constructor(public authService: AuthService, private title: Title) {
+        this.title.setTitle('Sign up / Imitter');
+    }
 
     ngOnInit(): void {}
 
