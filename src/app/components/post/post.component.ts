@@ -16,11 +16,12 @@ import { User } from 'src/app/objects/User';
 export class PostComponent implements OnInit {
     constructor(public postService: PostService, public authService: AuthService, public dialog: MatDialog) {}
 
-    @Input() posts: Post[] = [];
+    @Input() post!: any;
     @Input() postLoaded!: boolean;
     @Input() liked!: boolean;
     @Input() userLiked!: string;
     @Input() currentProfile!: string;
+    @Input() postsEmpty: boolean = false;
     user: any;
     postsSubscription!: Subscription;
     hasUserLiked!: boolean;
@@ -34,13 +35,17 @@ export class PostComponent implements OnInit {
     }
 
     onUpdateLikesCounter(id: string, post: Post, currentProfile: string) {
-        this.postService.updateLikesCount(id, post, this.user.userdata._id, currentProfile).subscribe({
-            next: (res: any) => {
-                //this.postService.getPostDetails(post._id).subscribe();
-            },
-            error: (error) => {},
-            complete: () => {},
-        });
+        this.postService
+            .updateLikesCount(this.post?._id, this.post, this.user?.userdata?._id, currentProfile)
+            .subscribe({
+                next: (res: any) => {
+                    this.postService.getPostDetails(this.post?._id).subscribe((res: any) => {
+                        this.post = res.post;
+                    });
+                },
+                error: (error) => {},
+                complete: () => {},
+            });
     }
 
     checkUserLike(post: Post['likedByIdArray']): boolean {

@@ -71,7 +71,9 @@
             <mat-spinner [diameter]="50" *ngIf="isLoadingPosts"></mat-spinner>
         </div>
         <div class="px-2 py-2 flex justify-center">
-            <app-post [posts]="postsFound" [postLoaded]="true" [currentProfile]="user?.userdata?._id"></app-post>
+            <div *ngFor="let postFound of postsFound">
+                <app-post [post]="postFound" [postLoaded]="true" [currentProfile]="user?.userdata?._id"></app-post>
+            </div>
         </div>
     </mat-tab>
 </mat-tab-group>

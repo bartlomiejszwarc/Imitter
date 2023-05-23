@@ -1,21 +1,28 @@
 <div *ngIf="this.user?.userdata?.username">
-  <app-profile-user-details [username]="this.user?.userdata.username"></app-profile-user-details>
-  <div class="h-full">
-    <mat-tab-group mat-align-tabs="center" mat-stretch-tabs="true dynamicHeight" fitInkBarToContent="true">
-      <mat-tab label="Imitts">
-        <app-post [posts]="usersPosts" [postLoaded]="postLoaded" [currentProfile]="user?.userdata?._id"></app-post>
-      </mat-tab>
-      <mat-tab label="Likes">
-        <app-post
-          [posts]="usersLikedPosts"
-          [postLoaded]="postLoaded"
-          [liked]="true"
-          [userLiked]="user?.userdata?.displayName"
-          [currentProfile]="user?.userdata?._id"></app-post>
-      </mat-tab>
-    </mat-tab-group>
-  </div>
+    <app-profile-user-details [username]="this.user?.userdata.username"></app-profile-user-details>
+    <div class="h-full">
+        <mat-tab-group mat-align-tabs="center" mat-stretch-tabs="true dynamicHeight" fitInkBarToContent="true">
+            <mat-tab label="Imitts">
+                <div *ngFor="let usersPost of usersPosts">
+                    <app-post
+                        [post]="usersPost"
+                        [postLoaded]="postLoaded"
+                        [currentProfile]="user?.userdata?._id"></app-post>
+                </div>
+            </mat-tab>
+            <mat-tab label="Likes">
+                <div *ngFor="let usersLikedPost of usersLikedPosts">
+                    <app-post
+                        [post]="usersLikedPost"
+                        [postLoaded]="postLoaded"
+                        [liked]="true"
+                        [userLiked]="user?.userdata?.displayName"
+                        [currentProfile]="user?.userdata?._id"></app-post>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
 </div>
 <div *ngIf="!userFound" class="flex flex-col items-center justify-center px-16 pt-16">
-  <app-user-not-found [username]="this.usernameFromUrl"></app-user-not-found>
+    <app-user-not-found [username]="this.usernameFromUrl"></app-user-not-found>
 </div>

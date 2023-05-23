@@ -40,6 +40,8 @@ export class PostDetailsComponent implements OnInit {
     originalPostId!: string;
     replyPathToGo!: string;
     isProcessing!: boolean;
+    replyingToAuthorId!: string;
+    replyingToAuthorUsername!: string;
 
     triggerResize() {
         // Wait for changes to be applied, then trigger textarea resize.
@@ -69,6 +71,7 @@ export class PostDetailsComponent implements OnInit {
             },
             complete: () => {
                 this.getPostAuthorDetails(this.post.post.author?._id);
+                this.getReplyingToAuthorDetails(this.post.post.originalPost);
                 this.getReplies(this.post.post.replies);
                 this.goBack();
                 this.isProcessing = false;
@@ -83,6 +86,11 @@ export class PostDetailsComponent implements OnInit {
         });
     }
 
+    getReplyingToAuthorDetails(id: string) {
+        this.postService.getPostDetails(id).subscribe((res: any) => {
+            this.replyingToAuthorUsername = res.post.author.username;
+        });
+    }
     //geting post id from url parameter
     async getPostIdFromUrl() {
         if (this.route.snapshot.paramMap.get('id')) {

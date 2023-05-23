@@ -26,6 +26,12 @@
                 >{{ postAuthor?.displayName }}</span
             >
             <span class="font-light text-slate-600">@{{ postAuthor?.username }}</span>
+            <div *ngIf="post.post.isReply">
+                <span class="font-thin text-slate-800">Replying to </span>
+                <span class="text-sky-700 font-medium" [routerLink]="['/profile', replyingToAuthorUsername]"
+                    >@{{ replyingToAuthorUsername }}</span
+                >
+            </div>
         </div>
     </div>
     <div class="flex flex-col space-y-2 border-b-[1px]">

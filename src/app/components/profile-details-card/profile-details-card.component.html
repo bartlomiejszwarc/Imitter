@@ -1,8 +1,11 @@
 <div class="flex flex-row py-2">
-    <img src="{{ profilePicture }}" class="profile-picture-likes" [routerLink]="['/profile', username]" />
+    <img
+        src="{{ profilePicture }}"
+        class="profile-picture-likes cursor-pointer"
+        [routerLink]="['/profile', username]" />
     <div class="flex flex-col w-full">
         <div class="flex flex-row w-full justify-between">
-            <div class="flex flex-col" [routerLink]="['/profile', username]">
+            <div class="flex flex-col cursor-pointer" [routerLink]="['/profile', username]">
                 <span class="text-slate-900 text-base font-medium">{{ displayName }} </span>
                 <span class="text-slate-500 text-md font-normal">@{{ username }} </span>
             </div>
