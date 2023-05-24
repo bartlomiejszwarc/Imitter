@@ -77,6 +77,26 @@ export class PostService {
             );
     }
 
+    getUsersFollowingPosts(id: string) {
+        return this.http.get<{ message: string; posts: any[] }>('http://localhost:3000/api/posts/following/' + id).pipe(
+            map((postData) => {
+                return postData.posts.map((post) => {
+                    return {
+                        _id: post._id,
+                        text: post.text,
+                        date: post.date,
+                        imageUrl: post.imageUrl,
+                        likesCounter: post.likesCounter,
+                        author: post.author,
+                        likedByIdArray: post.likedByIdArray,
+                        replies: post.replies,
+                        originalPost: post.originalPost,
+                    };
+                });
+            })
+        );
+    }
+
     addPost(content: string, postAuthor: any, image?: HTMLInputElement) {
         const author = {
             username: postAuthor.username,
