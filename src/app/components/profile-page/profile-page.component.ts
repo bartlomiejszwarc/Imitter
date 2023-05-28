@@ -42,7 +42,7 @@ export class ProfilePageComponent implements OnInit {
         this.getUsersPosts();
 
         this.getUsersLikedPosts();
-        this.title.setTitle(this.user.userdata.displayName + '(@' + this.user.userdata.username + ') / Imitter');
+        this.title.setTitle(this.user?.userdata?.displayName + '(@' + this.user?.userdata?.username + ') / Imitter');
     }
 
     async getParam() {
