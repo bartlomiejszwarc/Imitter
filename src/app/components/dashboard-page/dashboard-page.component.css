@@ -21,3 +21,6 @@
     background-color: #cbd5e1;
     transition: 0.25s;
 }
+.mat-tab {
+    background-color: red;
+}

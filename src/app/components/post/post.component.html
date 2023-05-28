@@ -8,7 +8,7 @@
 <div class="flex justify-center w-full border-b-[1px] pt-3">
     <div class="flex flex-row w-full pb-4">
         <div class="flex flex-col px-2 shrink-0">
-            <img src="{{ post?.author?.profilePicture }}" class="w-12 rounded-full" />
+            <img src="{{ post?.author?.profilePicture }}" class="object-cover object-center h-12 w-12 rounded-full" />
         </div>
         <div class="flex flex-col w-full">
             <div class="flex items-center justify-between">
@@ -31,7 +31,7 @@
                 </div>
                 <div>
                     <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-                        <mat-icon>more_vert</mat-icon>
+                        <mat-icon class="text-slate-700 mr-4 rounded-full hover:bg-sky-100">more_horiz</mat-icon>
                     </button>
                 </div>
                 <mat-menu #menu="matMenu" xPosition="before">
@@ -60,7 +60,7 @@
                 <img
                     *ngIf="post?.imageUrl !== undefined && post?.imageUrl !== null"
                     src="{{ post?.imageUrl }}"
-                    class="w-11/12 border-[1px] rounded-md" />
+                    class="w-11/12 rounded-md" />
             </div>
             <div class="flex flex-row space-x-2">
                 <mat-icon

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatTabsModule } from '@angular/material/tabs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/objects/User';

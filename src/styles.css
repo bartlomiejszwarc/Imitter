@@ -3,6 +3,8 @@
 @tailwind utilities;
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import '~material-icons/iconfont/material-icons.css';
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cuprum:ital@0;1&display=swap');
 
 .snackbar-custom {
     background-color: rgb(2, 132, 199, 0.9);
@@ -10,4 +12,20 @@
 }
 .snackbar-custom button {
     color: #f8fafc;
+}
+
+* {
+    ::-webkit-scrollbar {
+        width: 7px;
+        background-color: #f4f4f5;
+    }
+    ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px rgb(220, 220, 220);
+        border-radius: 10px;
+    }
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #a3a3a3;
+        border-radius: 10px;
+    }
 }

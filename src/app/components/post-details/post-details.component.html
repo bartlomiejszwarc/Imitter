@@ -18,7 +18,7 @@
         <span class="text-xl text-slate-900 font-semibold"> Tweet </span>
     </div>
     <div class="flex flex-row items-center space-x-3">
-        <img src="{{ postAuthor?.profilePicture }}" class="w-14 rounded-full" />
+        <img src="{{ postAuthor?.profilePicture }}" class="object-cover object-center h-14 w-14 rounded-full" />
         <div class="flex flex-col">
             <span
                 class="font-medium text-lg cursor-pointer"
@@ -54,7 +54,9 @@
         </div>
     </div>
     <div class="flex flex-row py-2">
-        <img src="{{ currentUser?.userdata?.profilePicture }}" class="w-14 rounded-full" />
+        <img
+            src="{{ currentUser?.userdata?.profilePicture }}"
+            class="object-cover object-center h-14 w-14 rounded-full" />
         <textarea
             class="w-full text-xl outline-none pl-4"
             placeholder="Tweet your reply"

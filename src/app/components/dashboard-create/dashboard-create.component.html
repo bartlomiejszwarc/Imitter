@@ -1,6 +1,9 @@
-<div class="border-b-[1px] border-slate-200 pb-6 md:py-8 md:px-12 w-full pt-4 md:pb-4">
-    <div class="flex flex-row items-center ml-3 pb-6">
-        <img *ngIf="user" src="{{ user?.userdata?.profilePicture }}" class="profile-image" />
+<div class="border-b-[1px] border-slate-200 pb-6 md:px-12 w-full">
+    <div class="flex flex-row items-center ml-3 pb-6 mt-4 md:mt-0">
+        <img
+            *ngIf="user"
+            src="{{ user?.userdata?.profilePicture }}"
+            class="object-cover object-center h-14 w-14 rounded-full" />
 
         <span *ngIf="user?.userdata" class="font-normal text-xl pl-3">{{ user?.userdata?.displayName }}</span>
     </div>
@@ -18,7 +21,7 @@
 
         <div *ngIf="postImage">
             <span class="font-light text-sm text-slate-700">Chosen image </span
-            ><img src="{{ postImage }}" class="w-14 rounded-full" />
+            ><img src="{{ postImage }}" class="w-3/4" />
         </div>
         <div class="flex flex-row justify-between">
             <div class="flex flex-row space-x-2">

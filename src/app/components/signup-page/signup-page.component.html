@@ -1,49 +1,71 @@
-<div
-    class="flex flex-col items-center justify-center bg-[url('assets/images/bglogin.svg')] bg-cover w-full h-screen space-y-10">
-    <span class="text-slate-100 text-6xl text-center">Sign up to Imitter</span>
-    <div class="flex flex-col items-center bg-slate-100 py-16 px-6 rounded-lg lg:w-1/4 bg-opacity-70">
-        <div class="flex flex-col md:w-56 w-full">
-            <div class="flex flex-col space-y-2">
-                <input
-                    class="border-[1px] border-slate-400 w-full rounded-md p-2 pl-4 outline-none"
-                    placeholder="Unique username"
-                    [(ngModel)]="this.username" />
-                <input
-                    class="border-[1px] border-slate-400 w-full rounded-md p-2 pl-4 outline-none"
-                    placeholder="Display name"
-                    [(ngModel)]="this.displayName" />
-
-                <input
-                    class="border-[1px] border-slate-400 w-full rounded-md p-2 pl-4 outline-none"
-                    placeholder="Password"
-                    type="password"
-                    [(ngModel)]="this.password" />
-                <button (click)="uploadImage.click()">
+<div class="flex flex-col items-center justify-center bg-gradient w-full h-screen space-y-10">
+    <span class="text-slate-100 text-5xl text-center pb-4 font-lato">Sign up to Imitter</span>
+    <div class="flex flex-col items-center bg-white py-16 px-6 rounded-lg md:w-auto w-11/12 md:scale-110">
+        <!--  -->
+        <img src="/assets/images/sq_logo.png" class="w-1/4 pb-3" />
+        <div class="flex flex-col space-y-2 items-center">
+            <div class="flex flex-col items-center space-y-6 w-11/12">
+                <div class="">
+                    <span class="text-xs text-slate-700 font-bold tracking-wide">Username</span>
+                    <input
+                        class="border-b-[1px] py-1 w-full outline-none"
+                        placeholder="Type your unique username"
+                        [(ngModel)]="this.username" />
+                </div>
+                <div>
+                    <span class="text-xs text-slate-700 font-bold tracking-wide">Display name</span>
+                    <input
+                        class="border-b-[1px] py-1 w-full outline-none"
+                        placeholder="Type your display name"
+                        [(ngModel)]="this.displayName" />
+                </div>
+                <div>
+                    <span class="text-xs text-slate-700 font-bold tracking-wide">Password</span>
+                    <input
+                        class="border-b-[1px] py-1 w-full outline-none"
+                        placeholder="Type your password"
+                        type="password"
+                        [(ngModel)]="this.password" />
+                </div>
+                <button (click)="uploadImage.click()" class="">
                     <input type="file" class="hidden" #uploadImage (change)="onImageUpload($event)" />
-                    <div class="flex flex-col items-center justify-center space-x-2">
-                        <span>Add your profile picture</span
-                        ><mat-icon class="text-sky-500">add_photo_alternate</mat-icon>
+                    <div class="flex flex-col items-center">
+                        <span class="font-medium text-slate-700 text-sm">Add profile picture</span>
                     </div>
                 </button>
-                <div *ngIf="this.profilePicture" class="flex flex-col items-center justify-center">
-                    <span class="font-light text-sm text-slate-700">Chosen image </span
-                    ><img src="{{ this.profilePicture }}" class="profile-image" />
-                </div>
-                <div class="flex items-center justify-center w-full">
-                    <span
-                        class="w-48 md:w-64 text-center text-red-600 font-medium"
-                        *ngIf="this.authService.registerMessage">
-                        {{ this.authService.registerMessage }}
-                    </span>
+            </div>
+            <div class="flex flex-col items-center justify-center image-container">
+                <!-- <span class="font-light text-sm text-slate-700">Chosen image </span -->
+                <div class="relative">
+                    <img
+                        *ngIf="this.profilePicture"
+                        src="{{ this.profilePicture }}"
+                        class="object-cover object-center w-36 h-36 rounded-full" />
+
+                    <img
+                        *ngIf="!this.profilePicture"
+                        src="/assets/images/unknown-user.png"
+                        class="object-cover object-center w-36 h-36 rounded-full" />
+                    <mat-icon
+                        (click)="uploadImage.click()"
+                        class="text-slate-700 opacity-40 scale-150 absolute bottom-1/2 translate-y-[50%] left-1/2 translate-x-[-50%]"
+                        >photo_camera</mat-icon
+                    >
                 </div>
             </div>
-
-            <button
-                class="rounded-2xl bg-black text-white py-[6px] font-medium"
-                (click)="this.register(this.username, this.password, this.displayName, this.profilePicture)">
-                Sign up
-            </button>
+            <div class="flex items-center justify-center w-full">
+                <span
+                    class="w-48 md:w-64 text-center text-red-600 font-medium"
+                    *ngIf="this.authService.registerMessage">
+                    {{ this.authService.registerMessage }}
+                </span>
+            </div>
         </div>
+        <button
+            class="rounded-2xl w-1/2 bg-black text-white py-[6px] font-medium"
+            (click)="this.register(this.username, this.password, this.displayName, this.profilePicture)">
+            Sign up
+        </button>
         <div class="flex flex-row justify-center pt-4">
             <span class="font-light text-center"
                 >Already have an account?

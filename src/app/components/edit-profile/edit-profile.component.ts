@@ -35,7 +35,9 @@ export class EditProfileComponent implements OnInit {
                 this.sharedService.sendClickEvent();
             },
             complete: () => {
-                this.openEditSuccessSnackBar();
+                this.closeDialog().then(() => {
+                    this.openEditSuccessSnackBar();
+                });
             },
         });
     }
@@ -46,7 +48,7 @@ export class EditProfileComponent implements OnInit {
         this._snackBar.open('Profile updated successfully', '', config);
     }
 
-    closeDialog() {
+    async closeDialog() {
         this.dialogRef.close();
     }
 }
