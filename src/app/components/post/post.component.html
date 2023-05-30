@@ -23,10 +23,15 @@
                         [routerLink]="['/profile', this.post?.author?.username]"
                         >@{{ post?.author?.username }}</span
                     >
-                    <span
+                    <!-- <span
                         class="font-thin text-md text-neutral-600 truncate cursor-pointer"
                         [routerLink]="['/profile', this.post?.author?.username, 'status', post?._id]"
                         >{{ post?.date | date : '• h:mm a  MMM dd, yyyy' }}</span
+                    > -->
+                    <span
+                        class="font-thin text-md text-neutral-600 truncate cursor-pointer"
+                        [routerLink]="['/profile', this.post?.author?.username, 'status', post?._id]">
+                        • {{ post?.date | dateAgo }}</span
                     >
                 </div>
                 <div>

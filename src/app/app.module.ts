@@ -43,6 +43,7 @@ import { ExplorePageComponent } from './components/explore-page/explore-page.com
 import { PostNotFoundComponent } from './components/post-not-found/post-not-found.component';
 import { SearchComponent } from './components/search/search.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { DateAgoPipe } from './pipes/date-ago.pipe';
 
 @NgModule({
     declarations: [
@@ -71,6 +72,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
         ExplorePageComponent,
         PostNotFoundComponent,
         SearchComponent,
+        DateAgoPipe,
     ],
     imports: [
         AppRoutingModule,
