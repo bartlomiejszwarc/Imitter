@@ -31,6 +31,7 @@ export class ProfileUserDetailsComponent implements OnInit, OnDestroy {
         private cdr: ChangeDetectorRef
     ) {}
     @Input() username!: any;
+    @Input() postsCount!: number;
     user!: any;
     currentUser!: any;
     userDataSubscription!: Subscription;

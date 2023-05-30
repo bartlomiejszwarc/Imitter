@@ -18,7 +18,7 @@
             </button>
         </div>
         <div class="flex items-center justify-center pt-4">
-            <span *ngIf="!peopleSearchingProcessed && !isLoadingUsers" class="font-thin text-lg text-slate-900">
+            <span *ngIf="!peopleSearchingProcessed && !isLoadingUsers" class="font-thin text-lg text-neutral-900">
                 Type anything to search for people
             </span>
             <span
@@ -28,7 +28,7 @@
                     peopleSearchInputSubmitted !== '' &&
                     !isLoadingUsers
                 "
-                class="font-thin text-lg text-slate-900">
+                class="font-thin text-lg text-neutral-900">
                 No results for "{{ peopleSearchInputSubmitted }}"
             </span>
             <mat-spinner [diameter]="50" *ngIf="isLoadingUsers"></mat-spinner>
@@ -58,14 +58,14 @@
             </button>
         </div>
         <div class="flex items-center justify-center pt-4">
-            <span *ngIf="!postSearchingProcessed && !isLoadingPosts" class="font-thin text-lg text-slate-900">
+            <span *ngIf="!postSearchingProcessed && !isLoadingPosts" class="font-thin text-lg text-neutral-900">
                 Type anything to search for posts
             </span>
             <span
                 *ngIf="
                     !postsSearchFound && postSearchingProcessed && postsSearchInputSubmitted !== '' && !isLoadingPosts
                 "
-                class="font-thin text-lg text-slate-900">
+                class="font-thin text-lg text-neutral-900">
                 No results for "{{ postsSearchInputSubmitted }}"
             </span>
             <mat-spinner [diameter]="50" *ngIf="isLoadingPosts"></mat-spinner>

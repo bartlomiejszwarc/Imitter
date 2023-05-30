@@ -185,7 +185,6 @@ export class PostService {
             userId: userId,
             originalPost: post.originalPost,
         };
-        console.log(updatedPost);
         return this.http
             .put(this.postsApi.concat('/').concat(id), updatedPost)
             .pipe(

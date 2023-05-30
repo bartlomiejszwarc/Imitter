@@ -18,10 +18,10 @@
 
 .userlikes-dialog,
 .mat-dialog-container {
-    width: 33vw !important;
+    width: 33vw;
     margin: 0 auto;
     padding: 0px !important;
-    max-height: 50vh !important;
+    height: auto;
 }
 .mat-dialog-container {
     border-radius: 10px !important;

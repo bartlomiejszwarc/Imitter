@@ -6,16 +6,16 @@
         <span
             *ngIf="!goBack()"
             [routerLink]="['/profile', post?.post?.author?.username, 'status', post?.post?.originalPost]"
-            class="material-symbols-outlined hover:bg-slate-200 rounded-full p-1 cursor-pointer">
+            class="material-symbols-outlined hover:bg-neutral-200 rounded-full p-1 cursor-pointer">
             arrow_back
         </span>
         <span
             *ngIf="goBack()"
             [routerLink]="['/dashboard']"
-            class="material-symbols-outlined hover:bg-slate-200 rounded-full p-1 cursor-pointer">
+            class="material-symbols-outlined hover:bg-neutral-200 rounded-full p-1 cursor-pointer">
             arrow_back
         </span>
-        <span class="text-xl text-slate-900 font-semibold"> Tweet </span>
+        <span class="text-xl text-neutral-900 font-semibold"> Tweet </span>
     </div>
     <div class="flex flex-row items-center space-x-3">
         <img src="{{ postAuthor?.profilePicture }}" class="object-cover object-center h-14 w-14 rounded-full" />
@@ -25,9 +25,9 @@
                 [routerLink]="['/profile', post?.post?.author?.username]"
                 >{{ postAuthor?.displayName }}</span
             >
-            <span class="font-light text-slate-600">@{{ postAuthor?.username }}</span>
+            <span class="font-light text-neutral-600">@{{ postAuthor?.username }}</span>
             <div *ngIf="post?.post?.isReply">
-                <span class="font-thin text-slate-800">Replying to </span>
+                <span class="font-thin text-neutral-800">Replying to </span>
                 <span class="text-sky-700 font-medium" [routerLink]="['/profile', replyingToAuthorUsername]"
                     >@{{ replyingToAuthorUsername }}</span
                 >
@@ -41,15 +41,15 @@
             src="{{ post?.post?.imageUrl }}"
             class="w-11/12 border-[1px] rounded-md" />
         <div class="flex flex-col">
-            <span class="font-thin text-slate-600 pb-2 border-b-[1px]">{{
+            <span class="font-thin text-neutral-600 pb-2 border-b-[1px]">{{
                 post?.post?.date | date : 'h:mm a • MMM dd, yyyy'
             }}</span>
             <div
                 *ngIf="post?.post?.likesCounter > 0"
                 class="flex flex-row space-x-1 items-center py-3"
                 (click)="openDialog(post?.post)">
-                <span class="font-medium text-slate-900 cursor-pointer"> {{ post?.post?.likesCounter }}</span>
-                <span class="font-thin text-slate-600 cursor-pointer">Likes</span>
+                <span class="font-medium text-neutral-900 cursor-pointer"> {{ post?.post?.likesCounter }}</span>
+                <span class="font-thin text-neutral-600 cursor-pointer">Likes</span>
             </div>
         </div>
     </div>
@@ -76,7 +76,7 @@
         </button>
         <button
             *ngIf="!commentText"
-            class="px-5 py-2 text-base bg-slate-400 text-white rounded-full font-medium"
+            class="px-5 py-2 text-base bg-neutral-400 text-white rounded-full font-medium"
             disabled>
             Reply
         </button>

@@ -29,18 +29,36 @@ export class DashboardPageComponent implements OnInit {
     postsSubscription!: Subscription;
     user!: any;
     postLoaded: boolean = false;
+    isLatestPostsEmpty!: boolean;
+    isFollowingPostsEmpty!: boolean;
     async ngOnInit(): Promise<void> {
+        this.postLoaded = false;
         this.postService.getPosts().subscribe((res: any) => {
             this.posts = res;
             this.postLoaded = true;
+            if (this.posts.length > 0) {
+                this.isLatestPostsEmpty = false;
+            } else {
+                this.isLatestPostsEmpty = true;
+            }
         });
         this.postsSubscription = this.postService.getPostsUpdatedListener().subscribe((res: Post[]) => {
             this.posts = res;
             this.postLoaded = true;
+            if (this.posts.length > 0) {
+                this.isLatestPostsEmpty = false;
+            } else {
+                this.isLatestPostsEmpty = true;
+            }
         });
         this.user = await this.auth.getUserData();
         this.postService.getUsersFollowingPosts(this.user.userdata._id).subscribe((res: any) => {
             this.followingPosts = res;
+            if (this.followingPosts.length > 0) {
+                this.isFollowingPostsEmpty = false;
+            } else {
+                this.isFollowingPostsEmpty = true;
+            }
         });
     }
     openDialog(): void {

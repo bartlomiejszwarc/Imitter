@@ -14,24 +14,24 @@
             <div class="flex items-center justify-between">
                 <div class="flex space-x-1 items-center">
                     <span
-                        class="font-medium text-md lg:text-lg text-slate-900 whitespace-nowrap cursor-pointer"
+                        class="font-medium text-md lg:text-lg text-neutral-900 whitespace-nowrap cursor-pointer"
                         [routerLink]="['/profile', this.post?.author?.username]"
                         >{{ post?.author?.displayName }}</span
                     >
                     <span
-                        class="font-thin text-md text-slate-600 truncate cursor-pointer"
+                        class="font-thin text-md text-neutral-600 truncate cursor-pointer"
                         [routerLink]="['/profile', this.post?.author?.username]"
                         >@{{ post?.author?.username }}</span
                     >
                     <span
-                        class="font-thin text-md text-slate-600 truncate cursor-pointer"
+                        class="font-thin text-md text-neutral-600 truncate cursor-pointer"
                         [routerLink]="['/profile', this.post?.author?.username, 'status', post?._id]"
                         >{{ post?.date | date : '• h:mm a  MMM dd, yyyy' }}</span
                     >
                 </div>
                 <div>
                     <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-                        <mat-icon class="text-slate-700 mr-4 rounded-full hover:bg-sky-100">more_horiz</mat-icon>
+                        <mat-icon class="text-neutral-700 mr-4 rounded-full hover:bg-sky-100">more_horiz</mat-icon>
                     </button>
                 </div>
                 <mat-menu #menu="matMenu" xPosition="before">
@@ -41,26 +41,26 @@
                         (click)="onDeletePost(post._id, currentProfile)"
                         class="flex items-center">
                         <mat-icon>delete</mat-icon>
-                        <span class="text-slate-800 text-thin">Delete this Imitt</span>
+                        <span class="text-neutral-800 text-thin">Delete this Imitt</span>
                     </button>
                     <button mat-menu-item class="flex items-center">
                         <mat-icon [ngStyle]="{ color: '#dc2626' }">report</mat-icon>
-                        <span class="text-slate-800 text-thin" (click)="openReportSnackBar()">Report this Imitt</span>
+                        <span class="text-neutral-800 text-thin" (click)="openReportSnackBar()">Report this Imitt</span>
                     </button>
                 </mat-menu>
             </div>
             <div *ngIf="post.isReply">
-                <span class="font-thin text-slate-800">Replying to </span>
+                <span class="font-thin text-neutral-800">Replying to </span>
                 <span class="text-sky-700 font-medium">@{{ replyingToAuthorUsername }}</span>
             </div>
             <div
                 class="cursor-pointer w-10/12 pb-2"
                 [routerLink]="['/profile', this.post?.author?.username, 'status', post?._id]">
-                <span class="text-slate-900 text-md lg:text-lg">{{ post?.text }}</span>
+                <span class="text-neutral-900 text-md lg:text-lg">{{ post?.text }}</span>
                 <img
                     *ngIf="post?.imageUrl !== undefined && post?.imageUrl !== null"
                     src="{{ post?.imageUrl }}"
-                    class="w-11/12 rounded-md" />
+                    class="w-11/12 rounded-md mt-2" />
             </div>
             <div class="flex flex-row space-x-2">
                 <mat-icon
@@ -90,12 +90,5 @@
                 >
             </div>
         </div>
-    </div>
-
-    <div *ngIf="postsEmpty && postLoaded" class="flex flex-col items-center pt-4">
-        <p class="text-slate-800 font-light text-2xl">Nothing to see here</p>
-    </div>
-    <div *ngIf="!postLoaded" class="flex flex-row justify-center pt-8 w-full">
-        <mat-spinner [diameter]="50" class="custom-spinner"></mat-spinner>
     </div>
 </div>

@@ -16,12 +16,21 @@ export class UserService {
     getUserData(id: string) {
         return this.http.get<{ userdata: User }>(this.userdataApi + id);
     }
-    updateUserData(id: string, displayName: string, bio: string, location: string) {
+    updateUserData(
+        id: string,
+        displayName: string,
+        bio: string,
+        location: string,
+        profilePicture?: HTMLInputElement,
+        backgroundImage?: HTMLInputElement
+    ) {
         const updatedUserData = {
             id: id,
             displayName: displayName,
             bio: bio,
             location: location,
+            profilePicture: profilePicture,
+            backgroundImage: backgroundImage,
         };
         return this.http.put(this.userApi.concat(id), updatedUserData);
     }

@@ -1,26 +1,26 @@
 <div class="flex flex-col items-center justify-center bg-gradient w-full h-screen space-y-10">
-    <span class="text-slate-100 text-5xl text-center pb-4 font-lato">Sign up to Imitter</span>
+    <span class="text-neutral-100 text-5xl text-center pb-4 font-lato">Sign up to Imitter</span>
     <div class="flex flex-col items-center bg-white py-16 px-6 rounded-lg md:w-auto w-11/12 md:scale-110">
         <!--  -->
         <img src="/assets/images/sq_logo.png" class="w-1/4 pb-3" />
         <div class="flex flex-col space-y-2 items-center">
             <div class="flex flex-col items-center space-y-6 w-11/12">
                 <div class="">
-                    <span class="text-xs text-slate-700 font-bold tracking-wide">Username</span>
+                    <span class="text-xs text-neutral-700 font-bold tracking-wide">Username</span>
                     <input
                         class="border-b-[1px] py-1 w-full outline-none"
                         placeholder="Type your unique username"
                         [(ngModel)]="this.username" />
                 </div>
                 <div>
-                    <span class="text-xs text-slate-700 font-bold tracking-wide">Display name</span>
+                    <span class="text-xs text-neutral-700 font-bold tracking-wide">Display name</span>
                     <input
                         class="border-b-[1px] py-1 w-full outline-none"
                         placeholder="Type your display name"
                         [(ngModel)]="this.displayName" />
                 </div>
                 <div>
-                    <span class="text-xs text-slate-700 font-bold tracking-wide">Password</span>
+                    <span class="text-xs text-neutral-700 font-bold tracking-wide">Password</span>
                     <input
                         class="border-b-[1px] py-1 w-full outline-none"
                         placeholder="Type your password"
@@ -30,12 +30,11 @@
                 <button (click)="uploadImage.click()" class="">
                     <input type="file" class="hidden" #uploadImage (change)="onImageUpload($event)" />
                     <div class="flex flex-col items-center">
-                        <span class="font-medium text-slate-700 text-sm">Add profile picture</span>
+                        <span class="font-medium text-neutral-700 text-sm">Add profile picture</span>
                     </div>
                 </button>
             </div>
             <div class="flex flex-col items-center justify-center image-container">
-                <!-- <span class="font-light text-sm text-slate-700">Chosen image </span -->
                 <div class="relative">
                     <img
                         *ngIf="this.profilePicture"
@@ -48,7 +47,7 @@
                         class="object-cover object-center w-36 h-36 rounded-full" />
                     <mat-icon
                         (click)="uploadImage.click()"
-                        class="text-slate-700 opacity-40 scale-150 absolute bottom-1/2 translate-y-[50%] left-1/2 translate-x-[-50%]"
+                        class="text-neutral-700 opacity-40 scale-150 absolute bottom-1/2 translate-y-[50%] left-1/2 translate-x-[-50%]"
                         >photo_camera</mat-icon
                     >
                 </div>

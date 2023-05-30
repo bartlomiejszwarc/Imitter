@@ -1,4 +1,4 @@
-<div class="border-b-[1px] border-slate-200 pb-6 md:px-12 w-full">
+<div class="border-b-[1px] border-neutral-200 pb-6 md:px-12 w-full">
     <div class="flex flex-row items-center ml-3 pb-6 mt-4 md:mt-0">
         <img
             *ngIf="user"
@@ -20,7 +20,7 @@
         </textarea>
 
         <div *ngIf="postImage">
-            <span class="font-light text-sm text-slate-700">Chosen image </span
+            <span class="font-light text-sm text-neutral-700">Chosen image </span
             ><img src="{{ postImage }}" class="w-3/4" />
         </div>
         <div class="flex flex-row justify-between">
@@ -40,7 +40,7 @@
                 </button>
                 <button
                     *ngIf="!postText"
-                    class="px-5 py-2 text-base bg-slate-400 text-white rounded-full font-medium"
+                    class="px-5 py-2 text-base opacity-40 bg-sky-500 text-white rounded-full font-medium"
                     (click)="onAddPost(this.postText, this.postImage)"
                     disabled>
                     Tweet

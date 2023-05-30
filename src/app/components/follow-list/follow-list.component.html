@@ -5,12 +5,12 @@
     <div class="flex flex-row items-center space-x-4 pl-4">
         <span
             [routerLink]="['/profile', this.user?.userdata?.username]"
-            class="material-symbols-outlined hover:bg-slate-200 rounded-full p-1 cursor-pointer">
+            class="material-symbols-outlined hover:bg-neutral-200 rounded-full p-1 cursor-pointer">
             arrow_back
         </span>
         <div class="flex flex-col">
-            <span class="font-medium text-2xl text-slate-900">{{ this.user?.userdata?.displayName }}</span>
-            <span class="font-thin text-lg text-slate-600">@{{ this.user?.userdata?.username }}</span>
+            <span class="font-medium text-2xl text-neutral-900">{{ this.user?.userdata?.displayName }}</span>
+            <span class="font-thin text-lg text-neutral-600">@{{ this.user?.userdata?.username }}</span>
         </div>
     </div>
     <mat-tab-group
@@ -20,11 +20,11 @@
         (selectedTabChange)="updateFollowsData()">
         <mat-tab label="Followers">
             <div class="flex flex-row justify-center">
-                <span *ngIf="followersEmpty" class="pt-2 slate-700 font-thin text-lg">
+                <span *ngIf="followersEmpty" class="pt-2 neutral-700 font-thin text-lg">
                     {{ this.user?.userdata?.username }} is not followed by anyone.
                 </span>
             </div>
-            <div *ngFor="let followers of followersDetailsList" class="border-b-[1px] border-slate-100 py-2">
+            <div *ngFor="let followers of followersDetailsList" class="border-b-[1px] border-neutral-100 py-2">
                 <app-profile-details-card
                     [profilePicture]="followers.profilePicture"
                     [username]="followers.username"
@@ -34,11 +34,11 @@
         ></mat-tab>
         <mat-tab label="Following">
             <div class="flex flex-row justify-center">
-                <span *ngIf="followingEmpty" class="pt-2 slate-700 font-thin text-lg">
+                <span *ngIf="followingEmpty" class="pt-2 neutral-700 font-thin text-lg">
                     {{ this.user?.userdata?.username }} is not following anyone.
                 </span>
             </div>
-            <div *ngFor="let following of followingDetailsList" class="border-b-[1px] border-slate-100 py-2">
+            <div *ngFor="let following of followingDetailsList" class="border-b-[1px] border-neutral-100 py-2">
                 <app-profile-details-card
                     [profilePicture]="following.profilePicture"
                     [username]="following.username"

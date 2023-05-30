@@ -17,7 +17,7 @@
 @media screen and (max-width: 600px) {
     .userlikes-dialog,
     .mat-dialog-container {
-        width: 95vw !important;
+        width: 100vw !important;
     }
     mat-form-field {
         width: 100%;

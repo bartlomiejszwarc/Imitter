@@ -24,3 +24,7 @@
 .mat-tab {
     background-color: red;
 }
+
+.custom-spinner circle {
+    stroke: #0ea5e9 !important;
+}

@@ -1,5 +1,7 @@
 <div *ngIf="this.user?.userdata?.username">
-    <app-profile-user-details [username]="this.user?.userdata.username"></app-profile-user-details>
+    <app-profile-user-details
+        [username]="this.user?.userdata.username"
+        [postsCount]="postsCount"></app-profile-user-details>
     <div class="h-full">
         <mat-tab-group mat-align-tabs="center" mat-stretch-tabs="true dynamicHeight" fitInkBarToContent="true">
             <mat-tab label="Imitts">

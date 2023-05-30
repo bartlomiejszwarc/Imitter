@@ -6,11 +6,20 @@
 </div>
 <mat-tab-group mat-align-tabs="center" mat-stretch-tabs="true dynamicHeight" fitInkBarToContent="true" class="h-screen">
     <mat-tab label="Latest posts">
+        <div *ngIf="isLatestPostsEmpty" class="flex flex-col items-center pt-4">
+            <p class="text-neutral-800 font-light text-2xl">Nothing to see here</p>
+        </div>
+        <div *ngIf="!postLoaded" class="flex flex-row justify-center pt-8 w-full">
+            <mat-spinner [diameter]="50" class="custom-spinner"></mat-spinner>
+        </div>
         <div *ngFor="let post of posts">
             <app-post [post]="post" [postLoaded]="postLoaded" [currentProfile]="user?.userdata?._id"></app-post>
         </div>
     </mat-tab>
     <mat-tab label="Following">
+        <div *ngIf="isFollowingPostsEmpty" class="flex flex-col items-center pt-4">
+            <p class="text-neutral-800 font-light text-2xl">Nothing to see here</p>
+        </div>
         <div *ngFor="let followingPost of followingPosts">
             <app-post
                 [post]="followingPost"
@@ -22,7 +31,7 @@
 
 <div class="fixed bottom-6 right-6 z-10">
     <button
-        class="w-12 rounded-full h-12 text-3xl bg-sky-600 text-slate-50 md:hidden flex items-center justify-center shadow-slate-400 shadow-lg"
+        class="w-12 rounded-full h-12 text-3xl bg-sky-600 text-neutral-50 md:hidden flex items-center justify-center shadow-neutral-400 shadow-lg"
         (click)="openDialog()">
         <span class="material-symbols-outlined"> add </span>
     </button>

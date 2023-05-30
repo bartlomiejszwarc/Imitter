@@ -25,9 +25,7 @@ export class ProfilePageComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         private sharedService: SharedService,
         private title: Title
-    ) {
-        //this.title.setTitle('Profile');
-    }
+    ) {}
     user!: any;
     usersPosts!: any;
     usersPostsSubscription!: Subscription;
@@ -36,13 +34,13 @@ export class ProfilePageComponent implements OnInit {
     usernameFromUrl!: string;
     userFound: boolean = true;
     isProcessing: boolean = false;
+    postsCount!: number;
 
     async ngOnInit(): Promise<void> {
         await this.getParam();
-        this.getUsersPosts();
+        this.getUsersPosts().then(() => {});
 
         this.getUsersLikedPosts();
-        this.title.setTitle(this.user?.userdata?.displayName + '(@' + this.user?.userdata?.username + ') / Imitter');
     }
 
     async getParam() {
@@ -64,6 +62,9 @@ export class ProfilePageComponent implements OnInit {
                             }
                         },
                         complete: () => {
+                            this.title.setTitle(
+                                this.user?.userdata?.displayName + ' (@' + this.user?.userdata?.username + ') / Imitter'
+                            );
                             this.isProcessing = false;
                         },
                     });
@@ -73,11 +74,12 @@ export class ProfilePageComponent implements OnInit {
             this.user = await this.authService.getUserData();
         }
     }
-    getUsersPosts() {
+    async getUsersPosts() {
         if (this.user) {
             this.postService.getUsersPosts(this.user.userdata._id).subscribe((res) => {
                 this.usersPosts = res;
                 this.postLoaded = true;
+                this.postsCount = this.usersPosts.length;
             });
             this.postService.getUsersPostsUpdatedListener().subscribe((res: Post[]) => {
                 this.usersPosts = res;

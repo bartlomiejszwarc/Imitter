@@ -1,32 +1,64 @@
-<div class="bg-slate-50 w-full rounded-md border-[1px] border-slate-400 py-3">
+<div class="bg-neutral-50 w-full rounded-md border-[1px] border-neutral-400 py-3">
     <div class="flex flex-row justify-between px-2 py-2">
         <div class="flex flex-row items-center">
             <button (click)="closeDialog()">
-                <mat-icon class="text-slate-900">clear</mat-icon>
+                <mat-icon class="text-neutral-900">clear</mat-icon>
             </button>
             <span class="text-xl font-semibold pl-8">Edit your profile</span>
         </div>
         <div>
-            <button (click)="updateUserData()" class="rounded-2xl text-slate-50 font-semibold bg-slate-900 px-4 py-1">
+            <button
+                (click)="updateUserData()"
+                class="rounded-2xl text-neutral-50 font-semibold bg-neutral-900 px-4 py-1">
                 Save
             </button>
         </div>
     </div>
     <div class="flex flex-col items-center space-y-2 py-2">
-        <input
-            class="w-11/12 p-2 border-[1px] border-slate-400 outline-none rounded-md focus:placeholder-sky-600 focus:border-sky-600"
-            placeholder="Name"
-            value="{{ this.displayName }}"
-            [(ngModel)]="this.displayName" />
-        <input
-            class="w-11/12 p-2 border-[1px] border-slate-400 outline-none rounded-md focus:placeholder-sky-600 focus:border-sky-600"
-            placeholder="Bio"
-            value="{{ this.bio }}"
-            [(ngModel)]="this.bio" />
-        <input
-            class="w-11/12 p-2 border-[1px] border-slate-400 outline-none rounded-md focus:placeholder-sky-600 focus:border-sky-600"
-            placeholder="Location"
-            value="{{ this.location }}"
-            [(ngModel)]="this.location" />
+        <div class="relative h-52 w-full">
+            <div class="">
+                <img
+                    src="{{ profilePicture }}"
+                    class="absolute bottom-0 left-0 translate-y-[50%] object-cover h-32 w-32 rounded-full border-4 border-neutral-50 ml-8" />
+                <div
+                    class="cursor-pointer transition ease-in-out delay-50 w-4 h-4 bg-neutral-600 opacity-50 hover:opacity-30 p-6 rounded-full absolute bottom-0 translate-y-[50%] left-0 translate-x-[150%]">
+                    <input type="file" class="hidden" #uploadImage (change)="onImageUpload($event)" />
+                    <mat-icon
+                        (click)="uploadImage.click()"
+                        class="text-white z-30 scale-130 absolute bottom-1/2 translate-y-[50%] left-1/2 translate-x-[-50%]"
+                        >photo_camera</mat-icon
+                    >
+                </div>
+            </div>
+
+            <div *ngIf="!backgroundImage" class="object-cover w-full h-full bg-neutral-300"></div>
+            <img *ngIf="backgroundImage" src="{{ backgroundImage }}" class="object-cover w-full h-full" />
+            <div
+                class="cursor-pointer transition ease-in-out delay-50 w-8 h-8 bg-neutral-600 opacity-50 hover:opacity-30 p-6 rounded-full absolute bottom-1/2 translate-y-[50%] left-1/2 translate-x-[-50%]">
+                <input type="file" class="hidden" #uploadBackgroundImage (change)="onBackgroundImageUpload($event)" />
+                <mat-icon
+                    (click)="uploadBackgroundImage.click()"
+                    class="text-white z-30 scale-130 absolute bottom-1/2 translate-y-[50%] left-1/2 translate-x-[-50%]"
+                    >photo_camera</mat-icon
+                >
+            </div>
+        </div>
+        <div class="flex flex-col items-center space-y-2 py-2 w-10/12 pt-16">
+            <input
+                class="w-11/12 p-2 border-[1px] border-neutral-400 outline-none rounded-md focus:placeholder-sky-600 focus:border-sky-600"
+                placeholder="Name"
+                value="{{ this.displayName }}"
+                [(ngModel)]="this.displayName" />
+            <input
+                class="w-11/12 p-2 border-[1px] border-neutral-400 outline-none rounded-md focus:placeholder-sky-600 focus:border-sky-600"
+                placeholder="Bio"
+                value="{{ this.bio }}"
+                [(ngModel)]="this.bio" />
+            <input
+                class="w-11/12 p-2 border-[1px] border-neutral-400 outline-none rounded-md focus:placeholder-sky-600 focus:border-sky-600"
+                placeholder="Location"
+                value="{{ this.location }}"
+                [(ngModel)]="this.location" />
+        </div>
     </div>
 </div>
