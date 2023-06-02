@@ -33,10 +33,10 @@ export class AuthService {
     isAuth: boolean = false;
 
     async getUserData() {
-        if (this.isAuth) {
-            return firstValueFrom(this.getUserById());
-        }
-        return undefined;
+        //if (this.isAuth) {
+        return lastValueFrom(this.getUserById());
+        //}
+        // return undefined;
     }
 
     getUserById() {

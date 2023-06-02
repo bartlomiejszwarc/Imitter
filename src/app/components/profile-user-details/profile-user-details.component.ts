@@ -47,25 +47,31 @@ export class ProfileUserDetailsComponent implements OnInit, OnDestroy {
     user$ = new BehaviorSubject<any>(null);
 
     async ngOnInit(): Promise<void> {
-        this.getUserData().then(() => {
-            this.subscribeUserData();
-            this.getCurrentUserData()
-                .then(() => this.checkIfCanEdit())
-                .then(async () => await this.checkIfUserIsOwner())
-                .then(() => this.checkIsFollowed(this?.user?.userdata))
-                .then(() => (this.canShowButton = true))
-                .then(() => this.getFollowersId())
-                .then(() => this.getFollowersDetails(this.userFollowersIdList));
-        });
+        await this.getUserData();
+
+        this.subscribeUserData();
     }
 
     async getUserData() {
-        this.userService.getDataByUsername(this.username).subscribe((user) => {
-            this.user = user;
+        this.userService.getDataByUsername(this.username).subscribe({
+            next: (user) => {
+                this.user = user;
+            },
+            complete: async () => {
+                await this.getCurrentUserData();
+            },
         });
     }
     async getCurrentUserData() {
-        this.currentUser = await this.authService.getUserData();
+        this.authService.getUserById().subscribe((user): any => {
+            this.currentUser = user;
+            this.canShowButton = true;
+            this.getFollowersId();
+            this.getFollowersDetails(this.userFollowersIdList);
+            this.checkIfCanEdit();
+            this.checkIfUserIsOwner();
+            this.checkIsFollowed(this?.user?.userdata);
+        });
     }
 
     subscribeUserData() {
@@ -101,8 +107,8 @@ export class ProfileUserDetailsComponent implements OnInit, OnDestroy {
     }
 
     getFollowersId() {
-        const followersList = this.user.userdata.followers;
-        followersList.forEach((followerId: string) => {
+        const followersList = this.user?.userdata?.followers;
+        followersList?.forEach((followerId: string) => {
             this.userFollowersIdList.push(followerId);
         });
         if (this.userFollowersIdList.length === 0) {
