@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
-@import '~material-icons/iconfont/material-icons.css';
+/* @import '~material-icons/iconfont/material-icons.css'; */
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cuprum:ital@0;1&display=swap');
 

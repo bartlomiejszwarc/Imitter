@@ -1,8 +1,9 @@
 .mat-tab-group.mat-primary .mat-ink-bar,
 .mat-tab-nav-bar.mat-primary .mat-ink-bar {
     height: 3px;
-    background-color: #0284c7;
+    background-color: #0284c7 !important;
 }
+
 .mat-tab-label.mat-tab-label-active {
     background-color: transparent;
     color: #0f172a;
