@@ -62,21 +62,21 @@
                     src="{{ post?.imageUrl }}"
                     class="w-11/12 rounded-md mt-2" />
             </div>
-            <div class="flex flex-row space-x-2">
+            <div class="flex flex-row space-x-2 items-center">
                 <mat-icon
-                    (click)="onUpdateLikesCounter(post._id, post, user?.userdata?._id)"
+                    (click)="onUpdateLikesCounter(post._id, post)"
                     *ngIf="checkUserLike(this.post.likedByIdArray)"
                     class="text-sky-600 hover:bg-sky-100 rounded-full cursor-pointer"
                     >favorite</mat-icon
                 >
                 <mat-icon
-                    (click)="onUpdateLikesCounter(post._id, post, user?.userdata?._id)"
+                    (click)="onUpdateLikesCounter(post._id, post)"
                     *ngIf="!checkUserLike(this.post.likedByIdArray)"
                     class="text-sky-600 hover:bg-sky-100 rounded-full cursor-pointer"
                     >favorite_outline</mat-icon
                 >
-                <span class="font-semibold pt-[3px] text-sky-600" (click)="openDialog(post)">
-                    {{ post?.likesCounter }}</span
+                <span class="font-semibold text-sky-600" (click)="openDialog(post)">
+                    {{ post?.likedByIdArray.length }}</span
                 >
                 <mat-icon
                     class="material-symbols-outlined text-sky-600 cursor-pointer"
@@ -84,7 +84,7 @@
                     >chat_bubble</mat-icon
                 >
                 <span
-                    class="font-semibold pt-[3px] text-sky-600 cursor-pointer"
+                    class="font-semibold text-sky-600 cursor-pointer"
                     [routerLink]="['/profile', this.post?.author?.username, 'status', post?._id]">
                     {{ post?.replies?.length }}</span
                 >

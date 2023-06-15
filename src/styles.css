@@ -1,17 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+/* @import '@angular/material/prebuilt-themes/deeppurple-amber.css'; */
 /* @import '~material-icons/iconfont/material-icons.css'; */
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cuprum:ital@0;1&display=swap');
 
-.snackbar-custom {
-    background-color: rgb(2, 132, 199, 0.9);
+.mat-mdc-snack-bar-label .mdc-snackbar__label {
+    color: #f8fafc;
+    border-radius: 15px !important;
+}
+.mat-mdc-snack-bar-label .mdc-snackbar__label button {
     color: #f8fafc;
 }
-.snackbar-custom button {
-    color: #f8fafc;
+.mat-mdc-snack-bar-container .mdc-snackbar__surface {
+    background-color: rgb(2, 132, 199, 0.9) !important;
+}
+.mat-mdc-button .mdc-button__label {
+    color: #a3a3a3;
+    font-weight: 500;
 }
 
 * {

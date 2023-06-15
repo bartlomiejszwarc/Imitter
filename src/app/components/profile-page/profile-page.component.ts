@@ -108,4 +108,5 @@ export class ProfilePageComponent implements OnInit {
     closeDialog(): void {
         this.dialog.closeAll();
     }
+    ngOnDestroy(): void {}
 }

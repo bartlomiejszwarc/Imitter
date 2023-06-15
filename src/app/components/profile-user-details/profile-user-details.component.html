@@ -27,24 +27,46 @@
         <div class="flex flex-col pt-20 px-8">
             <div class="flex flex-row justify-between">
                 <span class="font-medium text-2xl">{{ this.user?.userdata?.displayName }} </span>
-                <button
-                    *ngIf="this.canEdit"
-                    class="rounded-3xl bg-transparent text-neutral-900 border-neutral-300 border-[1px] font-medium text-lg px-6 h-8 truncate"
-                    (click)="openDialog()">
-                    Edit profile
-                </button>
-                <button
-                    *ngIf="!this.isOwner && !isFollowed && canShowButton"
-                    class="rounded-3xl bg-neutral-900 text-neutral-50 border-[1px] font-medium text-lg px-6 h-8 truncate"
-                    (click)="onFollowUser(this.user.userdata._id)">
-                    Follow
-                </button>
-                <button
-                    *ngIf="!this.isOwner && isFollowed && canShowButton"
-                    class="rounded-3xl bg-neutral-transparent text-neutral-900 border-[1px] font-medium text-lg px-6 h-8 truncate"
-                    (click)="onFollowUser(this.user.userdata._id)">
-                    Unfollow
-                </button>
+                <div class="flex flex-row space-x-1">
+                    <button
+                        *ngIf="!this.isOwner && canShowButton"
+                        class="flex items-center justify-center border-[1px] rounded-full h-8 w-8 hover:bg-neutral-300 transition ease-in-out delay-50"
+                        [matMenuTriggerFor]="profileOptionsMenu">
+                        <span class="material-symbols-outlined"> more_horiz </span>
+                    </button>
+                    <mat-menu #profileOptionsMenu="matMenu" class="font-semibold">
+                        <button mat-menu-item (click)="blockUser()">
+                            <div class="flex flex-row items-center justify-center space-x-1">
+                                <span class="material-symbols-outlined"> block </span>
+                                <span>Block @{{ this.user?.userdata?.username }}</span>
+                            </div>
+                        </button>
+                        <button mat-menu-item (click)="reportUser()">
+                            <div class="flex flex-row items-center justify-center space-x-1">
+                                <span class="material-symbols-outlined"> flag </span>
+                                <span> Report @{{ this.user?.userdata?.username }}</span>
+                            </div>
+                        </button>
+                    </mat-menu>
+                    <button
+                        *ngIf="this.canEdit"
+                        class="rounded-3xl bg-transparent text-neutral-900 border-neutral-300 border-[1px] font-medium text-lg px-6 h-8 truncate"
+                        (click)="openDialog()">
+                        Edit profile
+                    </button>
+                    <button
+                        *ngIf="!this.isOwner && !isFollowed && canShowButton"
+                        class="rounded-3xl bg-neutral-900 text-neutral-50 border-[1px] font-medium text-lg px-6 h-8 w-32 truncate"
+                        (click)="onFollowUser(this.user.userdata._id)">
+                        Follow
+                    </button>
+                    <button
+                        *ngIf="!this.isOwner && isFollowed && canShowButton"
+                        class="rounded-3xl bg-neutral-transparent text-neutral-900 border-[1px] font-medium text-lg px-6 h-8 w-32 truncate hover:bg-red-100 hover:text-red-600 transition ease-in-out"
+                        (click)="onFollowUser(this.user.userdata._id)">
+                        Unfollow
+                    </button>
+                </div>
             </div>
             <div class="flex flex-col">
                 <span class="font-light text-neutral-700 text-[0.9rem]">@{{ this.user?.userdata?.username }} </span>

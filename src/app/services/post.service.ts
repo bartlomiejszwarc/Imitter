@@ -180,21 +180,13 @@ export class PostService {
             text: post.text,
             date: post.date,
             imageUrl: post.imageUrl || undefined,
-            likesCounter: post.likesCounter + 1,
+            likesCounter: post.likesCounter,
             author: post.author,
             userId: userId,
             originalPost: post.originalPost,
         };
         return this.http
             .put(this.postsApi.concat('/').concat(id), updatedPost)
-            .pipe(
-                tap(() =>
-                    this.getPosts().subscribe((res: any) => {
-                        this.posts = res;
-                        this.postsUpdated.next([...this.posts]);
-                    })
-                )
-            )
             .pipe(
                 tap(() => {
                     if (profileId) {

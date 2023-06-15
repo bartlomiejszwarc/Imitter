@@ -125,6 +125,12 @@ export class ProfileUserDetailsComponent implements OnInit, OnDestroy {
             });
         });
     }
+    blockUser() {
+        console.log('User to be blocked: ', this.user.userdata.username);
+    }
+    reportUser() {
+        console.log('User to be reported: ', this.user.userdata.username);
+    }
 
     openDialog(): void {
         const dialogRef = this.dialog.open(EditProfileComponent, {

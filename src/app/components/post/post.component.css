@@ -15,20 +15,26 @@
 .custom-spinner circle {
     stroke: #0ea5e9 !important;
 }
+.mat-mdc-dialog-container,
+.mat-mdc-dialog-container .mdc-dialog__container,
+.mat-mdc-dialog-container .mdc-dialog__surface {
+    background-color: transparent !important;
+}
 
 .userlikes-dialog,
-.mat-dialog-container {
+.mat-mdc-dialog-container {
     width: 33vw;
     margin: 0 auto;
     padding: 0px !important;
     height: auto;
+    background-color: transparent !important;
 }
-.mat-dialog-container {
+.mat-mdc-dialog-container {
     border-radius: 10px !important;
 }
 @media screen and (max-width: 900px) {
     .userlikes-dialog,
-    .mat-dialog-container {
+    .mat-mdc-dialog-container {
         width: 100vw !important;
     }
     mat-form-field {

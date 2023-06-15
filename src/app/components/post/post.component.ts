@@ -39,12 +39,12 @@ export class PostComponent implements OnInit {
     }
 
     onDeletePost(id: string, currentProfile: string) {
-        this.postService.deletePost(id, this.user.userdata._id, currentProfile);
+        this.postService.deletePost(id, this.post?.author?._id, currentProfile);
     }
 
-    onUpdateLikesCounter(id: string, post: Post, currentProfile: string) {
+    onUpdateLikesCounter(id: string, post: Post) {
         this.postService
-            .updateLikesCount(this.post?._id, this.post, this.user?.userdata?._id, currentProfile)
+            .updateLikesCount(this.post?._id, this.post, this.user?.userdata?._id, this.currentProfile)
             .subscribe({
                 next: (res: any) => {
                     this.postService.getPostDetails(this.post?._id).subscribe((res: any) => {
@@ -57,7 +57,7 @@ export class PostComponent implements OnInit {
     }
 
     checkUserLike(post: Post['likedByIdArray']): boolean {
-        return post?.includes(this.currentProfile);
+        return post?.includes(this.user?.userdata?._id);
     }
 
     getReplyingToAuthorDetails(id: string) {
