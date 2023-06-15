@@ -1,5 +1,5 @@
 import { SharedService } from './../../services/shared.service';
-import { Component, Input, OnInit, OnChanges, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, OnDestroy, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import {
     BehaviorSubject,
@@ -38,7 +38,11 @@ export class ProfileUserDetailsComponent implements OnInit, OnDestroy {
     canEdit: boolean = false;
     isOwner: boolean = false;
     isFollowed!: boolean;
-    canShowButton: boolean = false;
+    isBlocked!: boolean;
+    @Output() isBlockedEvent = new EventEmitter<boolean>();
+    canShow: boolean = false;
+    @Output() canShowEvent = new EventEmitter<boolean>();
+
     userFollowersIdList: string[] = [];
     isLoaded: boolean = false;
     isFollowersEmpty: boolean = false;
@@ -47,6 +51,7 @@ export class ProfileUserDetailsComponent implements OnInit, OnDestroy {
     user$ = new BehaviorSubject<any>(null);
 
     async ngOnInit(): Promise<void> {
+        this.canShowEvent.emit(this.canShow);
         await this.getUserData();
 
         this.subscribeUserData();
@@ -65,12 +70,14 @@ export class ProfileUserDetailsComponent implements OnInit, OnDestroy {
     async getCurrentUserData() {
         this.authService.getUserById().subscribe((user): any => {
             this.currentUser = user;
-            this.canShowButton = true;
+            this.canShow = true;
+            this.canShowEvent.emit(this.canShow);
             this.getFollowersId();
             this.getFollowersDetails(this.userFollowersIdList);
             this.checkIfCanEdit();
             this.checkIfUserIsOwner();
             this.checkIsFollowed(this?.user?.userdata);
+            this.checkIsBlocked(this?.user?.userdata);
         });
     }
 
@@ -105,6 +112,10 @@ export class ProfileUserDetailsComponent implements OnInit, OnDestroy {
     checkIsFollowed(user: User) {
         this.isFollowed = user?.followers?.includes(this.currentUser?.userdata?._id);
     }
+    checkIsBlocked(user: User) {
+        this.isBlocked = user?.blockedIds?.includes(this.currentUser?.userdata?._id);
+        this.isBlockedEvent.emit(this.isBlocked);
+    }
 
     getFollowersId() {
         const followersList = this.user?.userdata?.followers;
@@ -126,7 +137,7 @@ export class ProfileUserDetailsComponent implements OnInit, OnDestroy {
         });
     }
     blockUser() {
-        console.log('User to be blocked: ', this.user.userdata.username);
+        this.userService.blockUser(this.user.userdata._id, this.currentUser?.userdata?._id);
     }
     reportUser() {
         console.log('User to be reported: ', this.user.userdata.username);

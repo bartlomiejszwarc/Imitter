@@ -1,7 +1,7 @@
 <link
     rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-<div class="border-neutral-200 w-full">
+<div class="border-neutral-200 w-full" *ngIf="canShow">
     <div class="flex flex-col pb-4">
         <div class="flex flex-row items-center space-x-2">
             <span
@@ -24,79 +24,91 @@
                 class="object-cover w-full h-full" />
             <div *ngIf="!user?.userdata?.backgroundImage" class="object-cover w-full h-full bg-neutral-300"></div>
         </div>
-        <div class="flex flex-col pt-20 px-8">
-            <div class="flex flex-row justify-between">
-                <span class="font-medium text-2xl">{{ this.user?.userdata?.displayName }} </span>
-                <div class="flex flex-row space-x-1">
-                    <button
-                        *ngIf="!this.isOwner && canShowButton"
-                        class="flex items-center justify-center border-[1px] rounded-full h-8 w-8 hover:bg-neutral-300 transition ease-in-out delay-50"
-                        [matMenuTriggerFor]="profileOptionsMenu">
-                        <span class="material-symbols-outlined"> more_horiz </span>
-                    </button>
-                    <mat-menu #profileOptionsMenu="matMenu" class="font-semibold">
-                        <button mat-menu-item (click)="blockUser()">
-                            <div class="flex flex-row items-center justify-center space-x-1">
-                                <span class="material-symbols-outlined"> block </span>
-                                <span>Block @{{ this.user?.userdata?.username }}</span>
-                            </div>
+        <div *ngIf="isBlocked" class="flex flex-col pt-20 px-8">
+            <span class="text-2xl md:text-4xl font-semibold"> You're blocked</span>
+            <span class="text-md text-neutral-800 font-light"
+                >You can't follow or see @{{ this.user?.userdata?.username }}'s Tweets.</span
+            >
+        </div>
+        <div *ngIf="!isBlocked">
+            <div class="flex flex-col pt-20 px-8">
+                <div class="flex flex-row justify-between">
+                    <span class="font-medium text-2xl">{{ this.user?.userdata?.displayName }} </span>
+                    <div class="flex flex-row space-x-1">
+                        <button
+                            *ngIf="!this.isOwner && canShow"
+                            class="flex items-center justify-center border-[1px] rounded-full h-8 w-8 hover:bg-neutral-300 transition ease-in-out delay-50"
+                            [matMenuTriggerFor]="profileOptionsMenu">
+                            <span class="material-symbols-outlined"> more_horiz </span>
                         </button>
-                        <button mat-menu-item (click)="reportUser()">
-                            <div class="flex flex-row items-center justify-center space-x-1">
-                                <span class="material-symbols-outlined"> flag </span>
-                                <span> Report @{{ this.user?.userdata?.username }}</span>
-                            </div>
+                        <mat-menu #profileOptionsMenu="matMenu" class="font-semibold">
+                            <button mat-menu-item (click)="blockUser()">
+                                <div class="flex flex-row items-center justify-center space-x-1">
+                                    <span class="material-symbols-outlined"> block </span>
+                                    <span>Block @{{ this.user?.userdata?.username }}</span>
+                                </div>
+                            </button>
+                            <button mat-menu-item (click)="reportUser()">
+                                <div class="flex flex-row items-center justify-center space-x-1">
+                                    <span class="material-symbols-outlined"> flag </span>
+                                    <span> Report @{{ this.user?.userdata?.username }}</span>
+                                </div>
+                            </button>
+                        </mat-menu>
+                        <button
+                            *ngIf="this.canEdit"
+                            class="rounded-3xl bg-transparent text-neutral-900 border-neutral-300 border-[1px] font-medium text-lg px-6 h-8 truncate"
+                            (click)="openDialog()">
+                            Edit profile
                         </button>
-                    </mat-menu>
-                    <button
-                        *ngIf="this.canEdit"
-                        class="rounded-3xl bg-transparent text-neutral-900 border-neutral-300 border-[1px] font-medium text-lg px-6 h-8 truncate"
-                        (click)="openDialog()">
-                        Edit profile
-                    </button>
-                    <button
-                        *ngIf="!this.isOwner && !isFollowed && canShowButton"
-                        class="rounded-3xl bg-neutral-900 text-neutral-50 border-[1px] font-medium text-lg px-6 h-8 w-32 truncate"
-                        (click)="onFollowUser(this.user.userdata._id)">
-                        Follow
-                    </button>
-                    <button
-                        *ngIf="!this.isOwner && isFollowed && canShowButton"
-                        class="rounded-3xl bg-neutral-transparent text-neutral-900 border-[1px] font-medium text-lg px-6 h-8 w-32 truncate hover:bg-red-100 hover:text-red-600 transition ease-in-out"
-                        (click)="onFollowUser(this.user.userdata._id)">
-                        Unfollow
-                    </button>
+                        <button
+                            *ngIf="!this.isOwner && !isFollowed && canShow"
+                            class="rounded-3xl bg-neutral-900 text-neutral-50 border-[1px] font-medium text-lg px-6 h-8 w-32 truncate"
+                            (click)="onFollowUser(this.user.userdata._id)">
+                            Follow
+                        </button>
+                        <button
+                            *ngIf="!this.isOwner && isFollowed && canShow"
+                            class="rounded-3xl bg-neutral-transparent text-neutral-900 border-[1px] font-medium text-lg px-6 h-8 w-32 truncate hover:bg-red-100 hover:text-red-600 transition ease-in-out"
+                            (click)="onFollowUser(this.user.userdata._id)">
+                            Unfollow
+                        </button>
+                    </div>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-light text-neutral-700 text-[0.9rem]">@{{ this.user?.userdata?.username }} </span>
+                    <span *ngIf="user?.userdata?.bio" class="font-light text-neutral-900 text-md py-4">
+                        {{ user?.userdata?.bio }}
+                    </span>
+                </div>
+                <div class="flex flex-row space-x-3 pt-2">
+                    <span
+                        *ngIf="user?.userdata?.location"
+                        class="font-light text-neutral-700 text-md flex flex-row items-center"
+                        ><span class="material-symbols-outlined"> location_on </span>
+                        <span class="pt-[3px]">{{ user?.userdata?.location }} </span>
+                    </span>
+                    <span class="font-light text-neutral-700 text-md flex flex-row items-center"
+                        ><span class="material-symbols-outlined"> date_range </span>
+
+                        <span class="pt-[3px]">Joined {{ user?.userdata?.joinDate | date : 'MMMM y' }}</span>
+                    </span>
                 </div>
             </div>
-            <div class="flex flex-col">
-                <span class="font-light text-neutral-700 text-[0.9rem]">@{{ this.user?.userdata?.username }} </span>
-                <span *ngIf="user?.userdata?.bio" class="font-light text-neutral-900 text-md py-4">
-                    {{ user?.userdata?.bio }}
-                </span>
-            </div>
-            <div class="flex flex-row space-x-3 pt-2">
+            <div class="flex flex-row space-x-3 pt-3 px-8">
                 <span
-                    *ngIf="user?.userdata?.location"
-                    class="font-light text-neutral-700 text-md flex flex-row items-center"
-                    ><span class="material-symbols-outlined"> location_on </span>
-                    <span class="pt-[3px]">{{ user?.userdata?.location }} </span>
-                </span>
-                <span class="font-light text-neutral-700 text-md flex flex-row items-center"
-                    ><span class="material-symbols-outlined"> date_range </span>
-
-                    <span class="pt-[3px]">Joined {{ user?.userdata?.joinDate | date : 'MMMM y' }}</span>
-                </span>
+                    class="text-neutral-700 font-light cursor-pointer"
+                    [routerLink]="['/profile', username, 'followers']">
+                    <span class="font-semibold text-neutral-900">{{ this.user?.userdata?.followers.length }}</span>
+                    followers</span
+                >
+                <span
+                    class="text-neutral-700 font-light cursor-pointer"
+                    [routerLink]="['/profile', username, 'following']">
+                    <span class="font-semibold text-neutral-900">{{ this.user?.userdata?.following.length }}</span>
+                    following</span
+                >
             </div>
-        </div>
-        <div class="flex flex-row space-x-3 pt-3 px-8">
-            <span class="text-neutral-700 font-light cursor-pointer" [routerLink]="['/profile', username, 'followers']">
-                <span class="font-semibold text-neutral-900">{{ this.user?.userdata?.followers.length }}</span>
-                followers</span
-            >
-            <span class="text-neutral-700 font-light cursor-pointer" [routerLink]="['/profile', username, 'following']">
-                <span class="font-semibold text-neutral-900">{{ this.user?.userdata?.following.length }}</span>
-                following</span
-            >
         </div>
     </div>
 </div>

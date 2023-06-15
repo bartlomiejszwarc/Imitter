@@ -34,6 +34,8 @@ export class ProfilePageComponent implements OnInit {
     usernameFromUrl!: string;
     userFound: boolean = true;
     isProcessing: boolean = false;
+    isBlocked!: boolean;
+    canShow!: boolean;
     postsCount!: number;
 
     async ngOnInit(): Promise<void> {
@@ -99,6 +101,13 @@ export class ProfilePageComponent implements OnInit {
                 this.postLoaded = true;
             });
         }
+    }
+
+    checkIfUserIsBlocked(isBlocked: boolean) {
+        this.isBlocked = isBlocked;
+    }
+    checkIfCanShow(canShow: boolean) {
+        this.canShow = canShow;
     }
     openDialog(): void {
         const dialogRef = this.dialog.open(EditProfileComponent, {
