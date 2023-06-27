@@ -38,7 +38,9 @@ export class ProfileUserDetailsComponent implements OnInit, OnDestroy {
     canEdit: boolean = false;
     isOwner: boolean = false;
     isFollowed!: boolean;
+    amIBlocked!: boolean;
     isBlocked!: boolean;
+    @Output() amIBlockedEvent = new EventEmitter<boolean>();
     @Output() isBlockedEvent = new EventEmitter<boolean>();
     canShow: boolean = false;
     @Output() canShowEvent = new EventEmitter<boolean>();
@@ -77,7 +79,8 @@ export class ProfileUserDetailsComponent implements OnInit, OnDestroy {
             this.checkIfCanEdit();
             this.checkIfUserIsOwner();
             this.checkIsFollowed(this?.user?.userdata);
-            this.checkIsBlocked(this?.user?.userdata);
+            this.checkIfIamBlocked(this?.user?.userdata);
+            this.checkIfIsBlocked(this?.user?.userdata);
         });
     }
 
@@ -112,8 +115,14 @@ export class ProfileUserDetailsComponent implements OnInit, OnDestroy {
     checkIsFollowed(user: User) {
         this.isFollowed = user?.followers?.includes(this.currentUser?.userdata?._id);
     }
-    checkIsBlocked(user: User) {
-        this.isBlocked = user?.blockedIds?.includes(this.currentUser?.userdata?._id);
+    checkIfIamBlocked(user: User) {
+        this.amIBlocked = user?.blockedIds?.includes(this.currentUser?.userdata?._id);
+        console.log('Am I blocked: ', this.amIBlocked);
+        this.amIBlockedEvent.emit(this.amIBlocked);
+    }
+    checkIfIsBlocked(user: any) {
+        this.isBlocked = this.currentUser?.userdata?.blockedIds?.includes(user?._id);
+        console.log('Is user blocked: ', this.isBlocked);
         this.isBlockedEvent.emit(this.isBlocked);
     }
 
@@ -136,8 +145,10 @@ export class ProfileUserDetailsComponent implements OnInit, OnDestroy {
             });
         });
     }
-    blockUser() {
-        this.userService.blockUser(this.user.userdata._id, this.currentUser?.userdata?._id);
+    async blockUser() {
+        this.userService.blockUser(this.user.userdata._id, this.currentUser?.userdata?._id).subscribe(async () => {
+            await this.getCurrentUserData();
+        });
     }
     reportUser() {
         console.log('User to be reported: ', this.user.userdata.username);

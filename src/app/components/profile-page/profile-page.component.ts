@@ -34,6 +34,7 @@ export class ProfilePageComponent implements OnInit {
     usernameFromUrl!: string;
     userFound: boolean = true;
     isProcessing: boolean = false;
+    amIBlocked!: boolean;
     isBlocked!: boolean;
     canShow!: boolean;
     postsCount!: number;
@@ -103,6 +104,9 @@ export class ProfilePageComponent implements OnInit {
         }
     }
 
+    checkIfIAmBlocked(amIBlocked: boolean) {
+        this.amIBlocked = amIBlocked;
+    }
     checkIfUserIsBlocked(isBlocked: boolean) {
         this.isBlocked = isBlocked;
     }

@@ -51,9 +51,7 @@ export class UserService {
         const body = {
             blockedByUserId: blockedByUserId,
         };
-        this.http.put(this.userApi + id + '/block', body).subscribe((res) => {
-            console.log(res);
-        });
+        return this.http.put(this.userApi + id + '/block', body);
     }
 
     getFollowers(id: string) {

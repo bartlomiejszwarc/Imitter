@@ -1,10 +1,11 @@
 <div *ngIf="this.user?.userdata?.username">
     <app-profile-user-details
+        (amIBlockedEvent)="checkIfIAmBlocked($event)"
         (isBlockedEvent)="checkIfUserIsBlocked($event)"
         (canShowEvent)="checkIfCanShow($event)"
         [username]="this.user?.userdata.username"
         [postsCount]="postsCount"></app-profile-user-details>
-    <div class="h-full" *ngIf="canShow && !isBlocked">
+    <div class="h-full" *ngIf="canShow && !amIBlocked && !isBlocked">
         <mat-tab-group mat-align-tabs="center" mat-stretch-tabs="true dynamicHeight" fitInkBarToContent="true">
             <mat-tab label="Imitts">
                 <div *ngFor="let usersPost of usersPosts">
