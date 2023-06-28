@@ -117,12 +117,10 @@ export class ProfileUserDetailsComponent implements OnInit, OnDestroy {
     }
     checkIfIamBlocked(user: User) {
         this.amIBlocked = user?.blockedIds?.includes(this.currentUser?.userdata?._id);
-        console.log('Am I blocked: ', this.amIBlocked);
         this.amIBlockedEvent.emit(this.amIBlocked);
     }
     checkIfIsBlocked(user: any) {
         this.isBlocked = this.currentUser?.userdata?.blockedIds?.includes(user?._id);
-        console.log('Is user blocked: ', this.isBlocked);
         this.isBlockedEvent.emit(this.isBlocked);
     }
 

@@ -33,15 +33,7 @@ export class DashboardPageComponent implements OnInit {
     isFollowingPostsEmpty!: boolean;
     async ngOnInit(): Promise<void> {
         this.postLoaded = false;
-        this.postService.getPosts().subscribe((res: any) => {
-            this.posts = res;
-            this.postLoaded = true;
-            if (this.posts.length > 0) {
-                this.isLatestPostsEmpty = false;
-            } else {
-                this.isLatestPostsEmpty = true;
-            }
-        });
+
         this.postsSubscription = this.postService.getPostsUpdatedListener().subscribe((res: Post[]) => {
             this.posts = res;
             this.postLoaded = true;
@@ -58,6 +50,15 @@ export class DashboardPageComponent implements OnInit {
                 this.isFollowingPostsEmpty = false;
             } else {
                 this.isFollowingPostsEmpty = true;
+            }
+        });
+        (await this.postService.getPosts(this.user.userdata._id)).subscribe((res: any) => {
+            this.posts = res;
+            this.postLoaded = true;
+            if (this.posts.length > 0) {
+                this.isLatestPostsEmpty = false;
+            } else {
+                this.isLatestPostsEmpty = true;
             }
         });
     }

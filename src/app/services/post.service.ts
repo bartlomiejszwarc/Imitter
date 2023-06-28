@@ -2,7 +2,7 @@ import { SearchComponent } from './../components/search/search.component';
 import { PostComponent } from './../components/post/post.component';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { concatMap, delay, map, Observable, Subject, tap } from 'rxjs';
+import { concatMap, delay, map, Observable, Subject, tap, lastValueFrom } from 'rxjs';
 import { Post } from '../objects/Post';
 import { CreatePost } from '../objects/CreatePost';
 import { DatePipe } from '@angular/common';
@@ -12,8 +12,8 @@ import { AuthService } from './auth.service';
     providedIn: 'root',
 })
 export class PostService {
-    constructor(private http: HttpClient) {}
-
+    constructor(private http: HttpClient, private authService: AuthService) {}
+    id!: Object;
     private posts: Post[] = [];
     private usersPosts: Post[] = [];
     private usersLikedPosts: Post[] = [];
@@ -33,8 +33,26 @@ export class PostService {
         return this.usersLikedPostsUpdated.asObservable();
     }
 
-    getPosts() {
-        return this.http.get<{ message: string; posts: any[] }>(this.postsApi).pipe(
+    async getCurrentUserId() {
+        return new Promise<void>((resolve, reject) => {
+            this.authService.getUserById().subscribe(
+                (user: any) => {
+                    this.id = user?.userdata?._id;
+                    console.log('this id from single:' + this.id);
+                    resolve();
+                },
+                (error: any) => {
+                    console.error(error);
+                    reject();
+                }
+            );
+        });
+    }
+
+    async getPosts(id: string) {
+        // await this.getCurrentUserId();
+        console.log('this id from getposts:' + id);
+        return this.http.get<{ message: string; posts: any[] }>(this.postsApi + '/' + id).pipe(
             map((postData) => {
                 return postData.posts.map((post) => {
                     return {
@@ -52,6 +70,27 @@ export class PostService {
             })
         );
     }
+    // async getPosts() {
+    //     //await this.getCurrentUserId();
+    //     console.log('this id from getposts:' + this.id);
+    //     return this.http.get<{ message: string; posts: any[] }>(this.postsApi).pipe(
+    //         map((postData) => {
+    //             return postData.posts.map((post) => {
+    //                 return {
+    //                     _id: post._id,
+    //                     text: post.text,
+    //                     date: post.date,
+    //                     imageUrl: post.imageUrl,
+    //                     likesCounter: post.likesCounter,
+    //                     author: post.author,
+    //                     likedByIdArray: post.likedByIdArray,
+    //                     replies: post.replies,
+    //                     originalPost: post.originalPost,
+    //                 };
+    //             });
+    //         })
+    //     );
+    // }
 
     getUsersPosts(id: string) {
         return this.http
@@ -113,8 +152,8 @@ export class PostService {
         };
 
         const postsUpdated = this.http.post<{ posts: Post[]; message: string }>(this.postsApi, post);
-        postsUpdated.subscribe((res) => {
-            this.getPosts().subscribe((res: any) => {
+        postsUpdated.subscribe(async (res) => {
+            (await this.getPosts(author._id)).subscribe((res: any) => {
                 this.posts = res;
                 this.postsUpdated.next([...this.posts]);
             });
@@ -132,7 +171,7 @@ export class PostService {
     }
 
     getPostDetails(id: string) {
-        return this.http.get(this.postsApi.concat('/') + id);
+        return this.http.get(this.postsApi.concat('/details/') + id);
     }
 
     getUserLikedPosts(id: string) {
@@ -159,8 +198,8 @@ export class PostService {
 
     deletePost(id: string, userId: string, profileId: string) {
         const postsUpdated = this.http.delete(this.postsApi.concat('/').concat(id), { body: { userId } });
-        postsUpdated.subscribe((res) => {
-            this.getPosts().subscribe((res: any) => {
+        postsUpdated.subscribe(async (res) => {
+            (await this.getPosts(userId)).subscribe((res: any) => {
                 this.posts = res;
                 this.postsUpdated.next([...this.posts]);
             });

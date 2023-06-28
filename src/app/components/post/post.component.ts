@@ -62,7 +62,7 @@ export class PostComponent implements OnInit {
 
     getReplyingToAuthorDetails(id: string) {
         this.postService.getPostDetails(id).subscribe((res: any) => {
-            this.replyingToAuthorUsername = res.post.author.username;
+            this.replyingToAuthorUsername = res?.post?.author?.username;
         });
     }
 
