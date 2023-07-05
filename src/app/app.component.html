@@ -25,8 +25,13 @@
             *ngIf="router.url !== '/login' && router.url !== '/signup'">
             <router-outlet></router-outlet>
         </div>
-        <div class="w-64 pt-3 hidden lg:visible lg:flex" *ngIf="router.url !== '/login' && router.url !== '/signup'">
+        <div
+            class="w-80 pt-3 hidden lg:visible lg:flex lg:flex-col lg:space-y-5"
+            *ngIf="router.url !== '/login' && router.url !== '/signup'">
             <app-dashboard-right-panel></app-dashboard-right-panel>
+            <app-you-might-like-tile
+                [username]="this.profileUsername"
+                *ngIf="router.url.startsWith('/profile/')"></app-you-might-like-tile>
         </div>
     </div>
 </mat-sidenav-container>

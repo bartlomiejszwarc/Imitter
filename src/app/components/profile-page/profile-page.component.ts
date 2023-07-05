@@ -1,7 +1,7 @@
 import { catchError, delay, lastValueFrom, of, Subscription } from 'rxjs';
 import { EditProfileComponent } from './../edit-profile/edit-profile.component';
 import { AuthService } from './../../services/auth.service';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { PostService } from 'src/app/services/post.service';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { UserService } from 'src/app/services/user.service';
@@ -38,6 +38,7 @@ export class ProfilePageComponent implements OnInit {
     isBlocked!: boolean;
     canShow!: boolean;
     postsCount!: number;
+    @Output() profileUsernameEvent = new EventEmitter<string>();
 
     async ngOnInit(): Promise<void> {
         await this.getParam();
@@ -50,6 +51,7 @@ export class ProfilePageComponent implements OnInit {
         if (this.activatedRoute.snapshot.paramMap.get('username')) {
             this.activatedRoute.params.subscribe((params) => {
                 this.usernameFromUrl = params['username'];
+                this.sharedService.sendUsername(this.usernameFromUrl);
                 if (!this.isProcessing && this.userFound) {
                     this.isProcessing = true;
                     this.userService.getDataByUsername(this.usernameFromUrl).subscribe({

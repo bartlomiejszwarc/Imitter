@@ -54,6 +54,10 @@ export class UserService {
         return this.http.put(this.userApi + id + '/block', body);
     }
 
+    getProfileTopFollowing(profileUsername: string) {
+        return this.http.get(this.userApi + profileUsername + '/following/top');
+    }
+
     getFollowers(id: string) {
         return this.http.get('/userdata/' + id);
     }

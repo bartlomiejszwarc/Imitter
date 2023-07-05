@@ -1,0 +1,11 @@
+<span class="text-2xl font-medium">You might like</span>
+<div class="rounded-lg bg-neutral-100 mt-2">
+    <div class="px-2 border-b-[1px] py-2" *ngFor="let user of youMightLikeDetailsList">
+        <app-profile-details-card
+            [username]="user.username"
+            [profilePicture]="user.profilePicture"
+            [displayName]="user.displayName"
+            [bio]="user.bio"
+            [user]="user"></app-profile-details-card>
+    </div>
+</div>

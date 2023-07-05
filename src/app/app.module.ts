@@ -44,6 +44,7 @@ import { PostNotFoundComponent } from './components/post-not-found/post-not-foun
 import { SearchComponent } from './components/search/search.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DateAgoPipe } from './pipes/date-ago.pipe';
+import { YouMightLikeTileComponent } from './components/you-might-like-tile/you-might-like-tile.component';
 
 @NgModule({
     declarations: [
@@ -73,6 +74,7 @@ import { DateAgoPipe } from './pipes/date-ago.pipe';
         PostNotFoundComponent,
         SearchComponent,
         DateAgoPipe,
+        YouMightLikeTileComponent,
     ],
     imports: [
         AppRoutingModule,

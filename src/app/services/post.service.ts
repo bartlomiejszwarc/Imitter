@@ -38,7 +38,7 @@ export class PostService {
             this.authService.getUserById().subscribe(
                 (user: any) => {
                     this.id = user?.userdata?._id;
-                    console.log('this id from single:' + this.id);
+
                     resolve();
                 },
                 (error: any) => {
@@ -51,7 +51,6 @@ export class PostService {
 
     async getPosts(id: string) {
         // await this.getCurrentUserId();
-        console.log('this id from getposts:' + id);
         return this.http.get<{ message: string; posts: any[] }>(this.postsApi + '/' + id).pipe(
             map((postData) => {
                 return postData.posts.map((post) => {
@@ -70,27 +69,6 @@ export class PostService {
             })
         );
     }
-    // async getPosts() {
-    //     //await this.getCurrentUserId();
-    //     console.log('this id from getposts:' + this.id);
-    //     return this.http.get<{ message: string; posts: any[] }>(this.postsApi).pipe(
-    //         map((postData) => {
-    //             return postData.posts.map((post) => {
-    //                 return {
-    //                     _id: post._id,
-    //                     text: post.text,
-    //                     date: post.date,
-    //                     imageUrl: post.imageUrl,
-    //                     likesCounter: post.likesCounter,
-    //                     author: post.author,
-    //                     likedByIdArray: post.likedByIdArray,
-    //                     replies: post.replies,
-    //                     originalPost: post.originalPost,
-    //                 };
-    //             });
-    //         })
-    //     );
-    // }
 
     getUsersPosts(id: string) {
         return this.http

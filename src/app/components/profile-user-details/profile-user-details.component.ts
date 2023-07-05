@@ -90,6 +90,7 @@ export class ProfileUserDetailsComponent implements OnInit, OnDestroy {
         });
         this.sharedService.getUserData().subscribe((user) => {
             this.user = user;
+            this.getCurrentUserData();
         });
     }
     checkIfCanEdit(): void {
