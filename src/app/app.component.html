@@ -31,7 +31,7 @@
             <app-dashboard-right-panel></app-dashboard-right-panel>
             <app-you-might-like-tile
                 [username]="this.profileUsername"
-                *ngIf="router.url.startsWith('/profile/')"></app-you-might-like-tile>
+                *ngIf="router.url.match('\/profile\/[^\/]+$')"></app-you-might-like-tile>
         </div>
     </div>
 </mat-sidenav-container>

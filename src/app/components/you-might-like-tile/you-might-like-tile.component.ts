@@ -24,8 +24,15 @@ export class YouMightLikeTileComponent implements OnInit, OnChanges {
     youMightLikeDetailsList: User[] = [];
 
     getTopFollowing(username: string): void {
-        this.userService.getProfileTopFollowing(username).subscribe((res: any) => {
-            this.youMightLikeDetailsList = res.user;
+        this.youMightLikeDetailsList = [];
+        this.userService.getProfileTopFollowing(username).subscribe({
+            next: (res: any) => {
+                this.youMightLikeDetailsList = res.user;
+            },
+            error: () => {
+                this.youMightLikeDetailsList = [];
+            },
+            complete: () => {},
         });
     }
 }
